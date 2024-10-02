@@ -1,2 +1,2 @@
-# GrubGoals
-Smart meal planning for a smarter you
+# Grub Goals
+### Smarter meal planning for a smarter you!

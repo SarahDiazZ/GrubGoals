@@ -1,0 +1,23 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Ensure padding and border are included in the element’s total width and height */
+}
+
+.rubik-doodle-shadow-regular {
+  font-family: "Rubik Doodle Shadow", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+body{
+  font-family: 'Rubik Doodle Shadow', sans-serif;
+}
+
+.background {
+  background-image: url('/produce.png'); 
+  background-size: cover; 
+  background-position: 25% 20%;
+  min-height: 100vh; 
+  width: 100%; 
+}
