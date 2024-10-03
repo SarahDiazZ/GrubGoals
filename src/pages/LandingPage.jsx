@@ -2,7 +2,7 @@ import react from 'react';
 import SignUpButton from '../components/SignUpButton';
 import LogInButton from '../components/LogInButton';
 
-function LandingPage(){
+function LandingPage() {
     return (
         <div className="background">
             <h1>Grub Goals</h1>
