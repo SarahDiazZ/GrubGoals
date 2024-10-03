@@ -1,0 +1,25 @@
+.login-container {
+    display: flex; 
+    float: right; /* moves button to the right */
+    top: 0;
+    /* padding: 20px;  */
+    /* adds spacing around the container */
+    padding-right: 8px;
+    display: inline;
+
+} 
+
+/* changes button features */
+.loginbutton {
+    padding: 10px 20px;
+    background-color: white;
+    border: 1px solid #ffffff;
+    cursor: pointer;
+    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.6);
+    border-radius: 2.5px;
+}
+
+.loginbutton:hover {
+    background-color: rgb(96, 130, 117);
+    color: white; /* changes the text to white*/
+}
