@@ -1,10 +1,14 @@
 import react from 'react'
+import "../css/landingPage.css"
 
-function LandingPage(){
+function LandingPage() {
     return (
         <div className="background">
-            <h1>Grub Goals</h1>
-        </div>
+            <div className="container" style={{color:"rgb(197, 87, 53)"}}>
+                <br/>
+                Grub Goals
+            </div>
+        </div>    
     );
 }
 
