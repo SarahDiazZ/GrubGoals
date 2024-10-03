@@ -2,11 +2,10 @@ body{
     justify-content: center;
     align-items: center;
     font-size: 96px;
-    
 }
 
 .container {
     display: flex;
     justify-content: flex-end; /*moves button to the right*/
-    margin-right:10%;
+    margin-right:12%;
 }
