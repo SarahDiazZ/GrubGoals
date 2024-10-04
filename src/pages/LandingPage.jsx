@@ -11,8 +11,8 @@ function LandingPage() {
                 Grub Goals
             </div>
             
-            <SignUpButton /> {SignUpButton}
-            <LogInButton /> {LogInButton}
+            <SignUpButton /> {}
+            <LogInButton /> {}
         </div>
     );
 }
