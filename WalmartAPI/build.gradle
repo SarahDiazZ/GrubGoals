@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+repositories {
+    mavenCentral()
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    implementation 'org.yaml:snakeyaml:2.0'
+    implementation 'org.apache.commons:commons-codec:1.17.1'
+    implementation 'org.mongodb:mongodb-driver-sync:4.4.0'
+    implementation 'org.json:json:20240303'
+}
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+application {
+    mainClass = 'com.GrubGoals.APICall'
+}
+
+jar {
+    manifest {
+        attributes(
+            'Main-Class': 'com.GrubGoals.APICall'
+        )
+    }
+}
+
+tasks.named('run') {
+    doFirst {
+        standardInput = System.in
+    }
+}
