@@ -22,13 +22,11 @@ public class SignatureGenerator {
         ArrayList<String> keysList = keys.getKeys();
         SignatureGenerator generator = new SignatureGenerator();
         String priviateKeyVersion = "1";
-        String key = keysList.get(0);
-        String consumerId = keysList.get(1);
+        String consumerId = keysList.get(0);
+        String key = keysList.get(1);
+
 
         long intimestamp = System.currentTimeMillis();
-
-        System.out.println("consumerId: " + consumerId);
-        System.out.println("intimestamp: " + intimestamp);
 
         Map<String, String> map = new HashMap<>();
         map.put("WM_CONSUMER.ID", consumerId);
