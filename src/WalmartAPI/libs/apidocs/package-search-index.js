@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"org.apache.commons.codec"},{"l":"org.apache.commons.codec.binary"},{"l":"org.apache.commons.codec.cli"},{"l":"org.apache.commons.codec.digest"},{"l":"org.apache.commons.codec.language"},{"l":"org.apache.commons.codec.language.bm"},{"l":"org.apache.commons.codec.net"}];updateSearchResults();
