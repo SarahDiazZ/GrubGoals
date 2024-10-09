@@ -29,7 +29,6 @@ export default function SignUpPage() {
         <div className="title">
             <h2><center>Sign Up</center></h2>
         </div>
-        
 
             <form onSubmit={handleSubmit}>
                 <div className="test">
@@ -130,17 +129,13 @@ export default function SignUpPage() {
                 <div className='signup-btn'>
                     <SignUpButton/>{}
                 </div>
-                
-                {/* <button type="submit" className="btn btn-success w-100 rounded-0">
-                    Sign Up
-                </button> */}
+
                 </form>
                 {/* <p>Already have an account?</p>
                 <Link to="/login" className="btn btn-default border w-100 bg-light rounded-0 text-decoration-none">
                     Login
                 </Link> */}
-            
         </div>
-    </div>
+        </div>
     );
 } //end function

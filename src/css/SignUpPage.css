@@ -1,18 +1,43 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Ensure padding and border are included in the element’s total width and height */
+  }
+
 .signup-container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    overflow: hidden;
+}
+
+.signup-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("../images/signup_bgimage.jpg");
+    background-size: cover;
+    background-position: center;
+    filter: blur(8px); /* Apply blur only to the background image */
+    z-index: -1; /* Ensure it stays behind the form */
 }
 
 /* Sign up Box*/
 .signup-form-wrapper {
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.9);
     padding: 20px;
     border-radius: 10px;
-    width: 300px; /* Adjust width as needed */
+    width: 500px; /* Adjust width as needed */
+    max-width: 100%;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    flex-direction: column; /* Keeps content stacked vertically */
 }
+
 
 .signup-form-wrapper h2 {
     text-align: center;
@@ -52,3 +77,7 @@
     padding: 10px;
 }
 
+/* .bg-image {
+    
+
+} */
