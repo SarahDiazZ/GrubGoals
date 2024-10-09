@@ -20,6 +20,8 @@ const userSchema = new mongoose.Schema ({
         type: String,
         required: true
     },
+    restrictions: [{ type: String }],
+    
     hash: String,
     salt: String, //adds random data to pw
 
