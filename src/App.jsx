@@ -1,8 +1,10 @@
 import React from 'react'
 import LandingPage from './pages/LandingPage'
 import SignUpPage from './pages/SignupPage'
+
 import TestSpoonacularPage from './pages/TestSpoonacularPage'
 import './App.css'
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App(){
