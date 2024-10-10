@@ -37,6 +37,9 @@ export default function LoginPage() {
         //We're using the same className's as the signup page
         <div className="signup-container">
         <div className="signup-form-wrapper">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+        </style>
         <div className="title">
             <h2><center>Log In</center></h2>
         </div>
@@ -44,9 +47,9 @@ export default function LoginPage() {
             <form onSubmit={handleSubmit}>
                 <div className="test">
                     <div className='input-box'>
-                        <label htmlFor="email">
+                        <span>
                             <strong>Username</strong>
-                        </label>
+                        </span>
                     
                         <input type="text" 
                         placeholder='Enter Username' 
@@ -60,9 +63,9 @@ export default function LoginPage() {
 
                 <div className="test">
                     <div className='input-box'>
-                        <label htmlFor="email">
+                        <span>
                             <strong>Password</strong>
-                        </label>
+                        </span>
                     
                         <input type="password" 
                         placeholder='Enter Password' 

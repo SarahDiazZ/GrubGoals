@@ -17,6 +17,10 @@
     cursor: pointer;
     box-shadow: 0 6px 6px rgba(0, 0, 0, 0.6);
     border-radius: 2.5px;
+    font-family: "Quicksand", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .loginbutton:hover {
