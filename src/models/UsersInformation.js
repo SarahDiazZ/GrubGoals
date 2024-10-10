@@ -3,17 +3,6 @@ import crypto from "crypto";
 import { type } from "os";
 const Schema = mongoose.Schema;
 
-// curl -X POST http://localhost:3000/users -H "Content-Type: application/json" -d '{
-//         "name": "John Doe",
-//         "email": "john.doe@example.com",
-//         "dietaryPreferences": {
-//             "restrictions": ["gluten-free"],
-//             "allergies": ["peanuts"],
-//             "preferences": ["vegetarian"]
-//         },
-//         "fitnessGoals": ["lose weight", "build muscle"]
-//     }'
-
 const userSchema = new mongoose.Schema({
         firstName: {
                 type: String,
@@ -73,5 +62,22 @@ userSchema.statics.listAllUsers = function () {
         return this.find({});
 };
 
-const user = mongoose.model("user", userSchema);
-export default user;
+const UsersInformation = mongoose.model("UsersInformation", userSchema);
+export default UsersInformation;
+
+//CREATE DUMMY ENTRY
+// curl -X POST http://localhost:3000/users -H "Content-Type: application/json" -d '{
+//         "firstName": "John",
+//         "lastName": "Doe",
+//         "userName": "johndoe",
+//         "email": "john.doe@example.com",
+//         "dietaryPreferences": {
+//             "restrictions": ["gluten-free"],
+//             "allergies": ["peanuts"],
+//             "preferences": ["vegetarian"]
+//         },
+//         "fitnessGoals": ["lose weight", "build muscle"]
+//     }'
+
+//GET ALL USERS
+// curl -X GET http://localhost:3000/users

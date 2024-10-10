@@ -1,38 +1,35 @@
-const express = require("express");
-const mongoose = require("mongoose");
+import express from "express";
+import mongoose from "mongoose";
+import bodyParser from "body-parser";
+import usersInformation from "./src/models/UsersInformation.js";
+import scheduledMeals from "./src/models/ScheduledMeals.js";
+import mealPlans from "./src/models/MealPlans.js";
+import favoriteMeals from "./src/models/FavoriteMeals.js";
+import dietaryRestrictions from "./src/models/DietaryRestrictions.js";
+
+//node index.js
+//new terminal: Run curl commands
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Imports models (Collections we will be using)
-const userInformation = require("./models/UsersInformation");
-const scheduledMeals = require("./models/ScheduledMeals");
-const mealPlans = require("./models/MealPlans");
-const favoriteMeals = require("./models/FavoriteMeals");
-
-app.use(express.json());
+app.use(bodyParser.json());
 
 // Needed to connect to MongoDB
 mongoose.connect("mongodb://localhost:27017/GrubGoals")
         .then(() => console.log("MongoDB connected"))
         .catch((err) => console.error("Error connecting to MongoDB:", err));
 
-// Testing to define a route
-app.get("/", (req, res) => {
-        res.send("Hello, world!");
-});
-
 app.listen(port, () => {
         console.log(`Server listening on port ${port}`);
 });
 
-//POST termina entry
-// curl -X POST http://localhost:3000/favoriteMeals -H "Content-Type: application/json" -d '{
-
 // Route to create new user
 app.post("/users", (req, res) => {
-        const user = new userInformation({
-                name: req.body.name,
+        const user = new UsersInformation({
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                userName: req.body.userName,
                 email: req.body.email,
                 dietaryPreferences: req.body.dietaryPreferences,
                 fitnessGoals: req.body.fitnessGoals,
@@ -49,7 +46,7 @@ app.post("/users", (req, res) => {
 
 // Route to get all users
 app.get("/users", (req, res) => {
-        userInformation
+        usersInformation
                 .find()
                 .then((users) => {
                         res.json(users);
@@ -60,7 +57,7 @@ app.get("/users", (req, res) => {
 });
 
 //Route to favorite a meal
-app.post("/favoriteMeals", (req, res) => {
+app.post("/FavoriteMeals", (req, res) => {
         const faveMeal = new favoriteMeals({
                 meal: req.body.meal,
                 ingredients: req.body.ingredients,
@@ -79,7 +76,7 @@ app.post("/favoriteMeals", (req, res) => {
 });
 
 //Route to get all favorite meals
-app.get("/favoriteMeals", (req, res) => {
+app.get("/FavoriteMeals", (req, res) => {
         favoriteMeals
                 .find()
                 .then((meals) => {
@@ -91,7 +88,7 @@ app.get("/favoriteMeals", (req, res) => {
 });
 
 //Route to schedule meals
-app.post("/scheduledMeals", (req, res) => {
+app.post("/ScheduledMeals", (req, res) => {
         const schedmeals = new scheduledMeals({
                 mealID: req.body.mealID,
                 date: req.body.date,
@@ -108,7 +105,7 @@ app.post("/scheduledMeals", (req, res) => {
 });
 
 //Route to get all scheduled meals
-app.get("/scheduledMeals", (req, res) => {
+app.get("/ScheduledMeals", (req, res) => {
         scheduledMeals
                 .find()
                 .then((meals) => {
@@ -120,7 +117,7 @@ app.get("/scheduledMeals", (req, res) => {
 });
 
 //Route to create a meal plan
-app.post("/mealPlans", (req, res) => {
+app.post("/MealPlans", (req, res) => {
         const plan = new mealPlans({
                 mealID: req.body.mealID,
                 date: req.body.date,
@@ -138,11 +135,38 @@ app.post("/mealPlans", (req, res) => {
 });
 
 //Route to get all meal plans
-app.get("/mealPlans", (req, res) => {
+app.get("/MealPlans", (req, res) => {
         mealPlans
                 .find()
                 .then((plans) => {
                         res.json(plans);
+                })
+                .catch((err) => {
+                        res.status(400).json({ error: err });
+                });
+});
+
+app.post("/DietaryRestrictions", (req, res) => {
+        const restrictions = new dietaryRestrictions({
+                allergies: req.body.allergies,
+                intolerances: req.body.intolerances,
+        });
+
+        restrictions
+                .save()
+                .then((newRestriction) => {
+                        res.json(newRestriction);
+                })
+                .catch((err) => {
+                        res.status(400).json({ error: err });
+                });
+});
+
+app.get("/DietaryRestrictions", (req, res) => {
+        dietaryRestrictions
+                .find()
+                .then((restrictions) => {
+                        res.json(restrictions);
                 })
                 .catch((err) => {
                         res.status(400).json({ error: err });
