@@ -4,6 +4,9 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import SignUpButton from '../components/SignUpButton';
 import '../css/SignUpPage.css'
+import DashboardPage from './DashboardPage';
+import DietaryPrefPage from './DietaryPrefPage';
+
 
 export default function SignUpPage() {
     //fields for registration
@@ -13,19 +16,25 @@ export default function SignUpPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        axios.post("http://localhost:5173/register", { firstName, lastName, userName, email, confirmPassword })
+        axios.post("http://localhost:4000/signup", { firstName, lastName, userName, email, password, confirmPassword })
         .then(result => {console.log(result)
-        navigate("/login")
+        navigate("/dietpreferences")
         })
         .catch(err => console.log(err))
+        console.log({ firstName, lastName, userName, email, password });
+
     } //end handleSubmit
 
     return (
         <div className="signup-container">
         <div className="signup-form-wrapper">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+        </style>
         <div className="title">
             <h2><center>Sign Up</center></h2>
         </div>
@@ -33,9 +42,9 @@ export default function SignUpPage() {
             <form onSubmit={handleSubmit}>
                 <div className="test">
                     <div className="input-box">
-                        <label htmlFor="email">
+                        <span>
                             <strong>First Name</strong>
-                        </label>
+                        </span>
                     
                         <input type="text" 
                         placeholder='Enter First Name' 
@@ -48,9 +57,9 @@ export default function SignUpPage() {
                 </div>
                 <div className="test">
                     <div className="input-box">
-                        <label htmlFor="email">
+                        <span>
                             <strong>Last Name</strong>
-                        </label>
+                        </span>
                     
                         <input type="text" 
                         placeholder='Enter Last Name' 
@@ -64,9 +73,9 @@ export default function SignUpPage() {
 
                 <div className="test">
                     <div className='input-box'>
-                        <label htmlFor="email">
+                        <span>
                             <strong>Email</strong>
-                        </label>
+                        </span>
                     
                         <input type="text" 
                         placeholder='Enter Email' 
@@ -81,9 +90,9 @@ export default function SignUpPage() {
 
                 <div className="test">
                     <div className='input-box'>
-                        <label htmlFor="email">
+                        <span>
                             <strong>Username</strong>
-                        </label>
+                        </span>
                     
                         <input type="text" 
                         placeholder='Enter Name' 
@@ -97,9 +106,9 @@ export default function SignUpPage() {
 
                 <div className="test">
                     <div className='input-box'>
-                        <label htmlFor="email">
+                        <span>
                             <strong>Password</strong>
-                        </label>
+                        </span>
                     
                         <input type="password" 
                         placeholder='Enter Password' 
@@ -113,9 +122,9 @@ export default function SignUpPage() {
                 </div>
                 <div className="test">
                     <div className='input-box'>
-                        <label htmlFor="email">
+                        <span>
                             <strong>Confirm Password</strong>
-                        </label>
+                        </span>
                     
                         <input type="password" 
                         placeholder='Confirm Password' 

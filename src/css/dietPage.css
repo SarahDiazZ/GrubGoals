@@ -1,4 +1,3 @@
-/* importing font */
 @import url('https://fonts.googleapis.com/css2?family=Rubik+Doodle+Shadow&display=swap');
 
 * {
@@ -11,7 +10,7 @@
     font-weight: 400;
     font-style: normal;
 }
-  
+
 .container {
     display: flex;
     overflow: hidden;
@@ -31,29 +30,13 @@
     background-image: url("../images/signup_bgimage.jpg");
 }
 
-.title-text{
-    color: #2E6F40;
+.diet-title {
+    font-size: 124px;
+    color: #083d17;
     font-size: 124px;
     filter: brightness(2.5);
     margin-left:10%;
     margin-top: 10%;
     justify-content: center;
     align-items: center;
-
-    .buttons{
-        filter: brightness(.5);
-        display: flex;
-        justify-content: center;
-        margin-right: 8%;
-    }
 }
-
-.signupbutton::click{
-
-}
-
-/* small animation for  */
-@keyframes example {
-  
-}
-

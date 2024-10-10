@@ -13,6 +13,9 @@ function SignUpButton() {
     return (
         <div className='button-container'>
             <button onClick={handleClick} className='signupbutton'>
+            <style>
+                @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
+            </style>
                 Sign Up
             </button>
         </div>

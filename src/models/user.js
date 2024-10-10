@@ -52,5 +52,5 @@ userSchema.statics.listAllUsers = function() {
     return this.find({});
 };
 
-const user = mongoose.model('user', userSchema);
-export default user;
+const userModel = mongoose.model('user', userSchema);
+export default userModel;
