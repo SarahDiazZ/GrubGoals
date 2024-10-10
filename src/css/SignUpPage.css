@@ -63,14 +63,23 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    
 }
 
 .test {
     font-size: 14px;
+    font-family: "Quicksand", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .title {
     font-size: 20px;
+    font-family: "Quicksand", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .input-box {
