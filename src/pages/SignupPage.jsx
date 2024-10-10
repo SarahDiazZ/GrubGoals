@@ -4,6 +4,9 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import SignUpButton from '../components/SignUpButton';
 import '../css/SignUpPage.css'
+import DashboardPage from './DashboardPage';
+import DietaryPrefPage from './DietaryPrefPage';
+
 
 export default function SignUpPage() {
     //fields for registration
@@ -19,7 +22,7 @@ export default function SignUpPage() {
         e.preventDefault()
         axios.post("http://localhost:4000/signup", { firstName, lastName, userName, email, password, confirmPassword })
         .then(result => {console.log(result)
-        navigate("/login")
+        navigate("/dietpreferences")
         })
         .catch(err => console.log(err))
         console.log({ firstName, lastName, userName, email, password });

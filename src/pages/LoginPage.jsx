@@ -3,7 +3,10 @@ import { Link } from "react-router-dom";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import LogInButton from '../components/LogInButton';
+import DashboardPage from './DashboardPage'
 import '../css/LoginPage.css'
+
+
 
 export default function LoginPage() {
     const [userName, setUserName] = useState("");
@@ -16,7 +19,7 @@ export default function LoginPage() {
         .then(result => {
             console.log(result)
             if (result.data === "Success") {
-                navigate("/")
+                navigate("/dashboard")
             }
             else {
                 navigate("/signup")
