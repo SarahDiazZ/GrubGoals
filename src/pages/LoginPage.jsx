@@ -12,7 +12,7 @@ export default function LoginPage() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        axios.post("http://localhost:5173/login", { userName, password })
+        axios.post("http://localhost:4000/login", { userName, password })
         .then(result => {
             console.log(result)
             if (result.data === "Success") {
@@ -26,6 +26,8 @@ export default function LoginPage() {
        
         })
         .catch(err => console.log(err))
+        console.log({ userName, password });
+
     } //end handleSubmit
 
     return (

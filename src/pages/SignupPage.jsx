@@ -13,14 +13,17 @@ export default function SignUpPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        axios.post("http://localhost:5173/register", { firstName, lastName, userName, email, confirmPassword })
+        axios.post("http://localhost:4000/signup", { firstName, lastName, userName, email, password, confirmPassword })
         .then(result => {console.log(result)
         navigate("/login")
         })
         .catch(err => console.log(err))
+        console.log({ firstName, lastName, userName, email, password });
+
     } //end handleSubmit
 
     return (
