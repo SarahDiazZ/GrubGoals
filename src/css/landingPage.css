@@ -1,29 +1,59 @@
-body{
-    justify-content: center;
-    align-items: center;
-    font-size: 96px;
-}
+/* importing font */
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Doodle+Shadow&display=swap');
 
-.container {
-    display: flex;
-    justify-content: flex-end; /*moves button to the right*/
-    margin-right:12%;
+* {
+    margin: 0;
+    padding: 0;
 }
 
 .rubik-doodle-shadow-regular {
     font-family: "Rubik Doodle Shadow", system-ui;
     font-weight: 400;
     font-style: normal;
-  }
+}
   
-body{
-    font-family: 'Rubik Doodle Shadow', sans-serif;
+.container {
+    display: flex;
+    overflow: hidden;
 }
 
-.background {
-    background-image: url('/produce.png'); 
-    background-size: cover; 
-    background-repeat: no-repeat;
-    min-height: 100vh; 
-    width: 100%; 
+.container::before{
+    content: '';
+    position: absolute;
+    background-size: cover;
+    background-position: center;
+    filter: blur(4px); /* Apply blur only to the background image */
+    z-index: -1; /* Ensure it stays behind the form */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("../images/signup_bgimage.jpg");
 }
+
+.title-text{
+    color: #2E6F40;
+    font-size: 124px;
+    filter: brightness(2.5);
+    margin-left:10%;
+    margin-top: 10%;
+    justify-content: center;
+    align-items: center;
+
+    .buttons{
+        filter: brightness(.5);
+        display: flex;
+        justify-content: center;
+        margin-right: 8%;
+    }
+}
+
+.signupbutton::click{
+
+}
+
+/* small animation for  */
+@keyframes example {
+  
+}
+
