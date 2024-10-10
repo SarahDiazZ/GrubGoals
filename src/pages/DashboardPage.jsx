@@ -1,9 +1,12 @@
 import react from 'react';
+import '../css/dashboardPage.css'
 
 export default function Dashboard() {
     return (
-        <div className='dash-bg'>
-            <h1>FOOD DATA STUFF</h1>
+        <div className='container'>
+            <div className='dashboard-title'>
+                FOOD DATA STUFF
+            </div>
         </div>
     );
 }

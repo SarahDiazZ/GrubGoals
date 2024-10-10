@@ -1,9 +1,13 @@
 import React from "react";
+import '../css/dietPage.css';
 
 export default function dietaryPreferences() {
     return (
-        <div className="dietPreg-bg">
-            <h1>ENTER YOUR DIETARY PREFERENCES</h1>
+        <div className="container">
+            <div className="diet-title">
+                ENTER YOUR DIETARY RESTRICTIONS
+            </div>
+            
         </div>
     );
 }
