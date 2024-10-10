@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Doodle+Shadow&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.rubik-doodle-shadow-regular {
+    font-family: "Rubik Doodle Shadow", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.container {
+    display: flex;
+    overflow: hidden;
+}
+
+.container::before{
+    content: '';
+    position: absolute;
+    background-size: cover;
+    background-position: center;
+    filter: blur(4px); /* Apply blur only to the background image */
+    z-index: -1; /* Ensure it stays behind the form */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("../images/signup_bgimage.jpg");
+}
+
+.dashboard-title {
+    font-size: 124px;
+    color: #083d17;
+    font-size: 124px;
+    filter: brightness(2.5);
+    margin-left:10%;
+    margin-top: 10%;
+    justify-content: center;
+    align-items: center;
+}
