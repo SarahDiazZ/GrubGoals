@@ -5,15 +5,24 @@ import '../css/landingPage.css'
 
 function LandingPage() {
     return (
-        <div className="background">
-            <div className="container" style={{color:"rgb(197, 87, 53)"}}>
-                <br/>
+        
+        <div className="container">
+            
+           <div className="title-text">
                 Grub Goals
+
+                <div className='buttons'>
+                    <SignUpButton /> {}
+                    <LogInButton /> {}    
+                </div>
+                
             </div>
             
-            <SignUpButton /> {}
-            <LogInButton /> {}
+            
+            
+            
         </div>
+        
     );
 }
 
