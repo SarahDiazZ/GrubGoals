@@ -26,4 +26,6 @@ dist-ssr
 
 # Ignore API Keys
 .env
+APIKeys.java
+userInformation.java
 
