@@ -20,8 +20,9 @@
     border-radius: 2.5px;
     font-family: "Quicksand", sans-serif;
     font-optical-sizing: auto;
-    font-weight: 300;
+    font-weight: 800;
     font-style: normal;
+    font-size: 18px;
 }
 
 .signupbutton:hover {
