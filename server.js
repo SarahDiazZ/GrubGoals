@@ -7,7 +7,7 @@ import { join } from 'node:path';
 
 // const spoonacularApiKey = import.meta.env.VITE_SPOONACULAR_API_KEY;
 // import { searchRecipeTest } from '../SpoonacularAPI/recipes';
-import userModel from './src/models/user.js';
+import userModel from './src/models/UsersInformation.js';
 
 const PORT = 4000;
 const app = express();
@@ -49,9 +49,10 @@ app.post("/login", (req, res) => {
 app.post("/signup", (req, res) => {
     console.log("Register request body:", req.body); //log the request body
 
+
     const { firstName, lastName, userName, email, password } = req.body;
 
-    const newUser = new userModel({ firstName, lastName, userName, email });
+    const newUser = new userModel({ firstName, lastName, userName, email, });
     newUser.setPass(password); //hash password using setPass method
 
     newUser.save()

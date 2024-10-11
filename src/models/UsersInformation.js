@@ -20,10 +20,11 @@ const userSchema = new mongoose.Schema({
                 type: String,
                 required: true,
         },
-        restrictions: [{ type: String }],
 
         hash: String,
         salt: String, //adds random data to pw
+
+        restrictions: [{ type: String }],
 
         dietaryPreferences: {
                 restrictions: [String],
@@ -32,7 +33,7 @@ const userSchema = new mongoose.Schema({
         },
         fitnessGoals: [String],
 
-        //this might be needed after when implementing the settings DB. I forgot tho
+        // this might be needed after when implementing the settings DB. I forgot tho
         // settings: {
         //     type: Schema.Types.ObjectId,
         //     ref:
@@ -62,22 +63,5 @@ userSchema.statics.listAllUsers = function () {
         return this.find({});
 };
 
-const UsersInformation = mongoose.model("UsersInformation", userSchema);
-export default UsersInformation;
-
-//CREATE DUMMY ENTRY
-// curl -X POST http://localhost:3000/users -H "Content-Type: application/json" -d '{
-//         "firstName": "John",
-//         "lastName": "Doe",
-//         "userName": "johndoe",
-//         "email": "john.doe@example.com",
-//         "dietaryPreferences": {
-//             "restrictions": ["gluten-free"],
-//             "allergies": ["peanuts"],
-//             "preferences": ["vegetarian"]
-//         },
-//         "fitnessGoals": ["lose weight", "build muscle"]
-//     }'
-
-//GET ALL USERS
-// curl -X GET http://localhost:3000/users
+const userModel = mongoose.model('user', userSchema);
+export default userModel;
