@@ -26,7 +26,7 @@
 }
   
 .container {
-    display: grid;
+    display: grid !important; /* DO NOT REMOVE */
     overflow: hidden;
     min-height: 100vh;
 }
@@ -34,7 +34,7 @@
 .title-container{
     display: flex;
     overflow: hidden;
-    margin-bottom: 20vh;
+    margin-bottom: 15vh;
 }
 
 .container::before{
@@ -69,7 +69,6 @@
     justify-content: center;
     align-items: center;
     padding-left: 7vh;
-    padding-bottom: 2vh;
     color: var(--sub-header-color);
 }
 
@@ -79,7 +78,8 @@
     justify-content: center;
     align-items: center;
     padding-right: 7vh;
-    font-size: xx-large; /* this fixes (?) the spacing from the top... don't ask tbh*/
+    
+    /* font-size: xx-large; this fixes (?) the spacing from the top... don't ask tbh */
 }
 
 

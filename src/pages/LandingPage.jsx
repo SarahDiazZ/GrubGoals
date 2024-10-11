@@ -26,7 +26,7 @@ function LandingPage() {
                 <div className='sub-header'>
                     Our Mission
 
-                    <div className='main-text'>
+                    <div className='main-text content-container'>
                         At Grub Gurus, we understand the importance of healthy eating and the challenges that come with planning balanced meals. 
                         Our team has collectively navigated through various diets, and we know firsthand how overwhelming it can feel when you're just getting started. 
                         We believe that meal planning shouldn't be stressful—it should be empowering.
@@ -36,7 +36,6 @@ function LandingPage() {
                         <br/><br/>
                         Whether you're starting a new fitness journey, managing dietary restrictions, or simply aiming for a healthier lifestyle, Grub Gurus is here to help you reach your goals with confidence. 
                         Let's take the guesswork out of eating well and make healthy choices easier, <b>together.</b>
-
 
                     </div>
                 </div>
