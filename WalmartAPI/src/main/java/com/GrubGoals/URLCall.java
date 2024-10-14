@@ -54,15 +54,15 @@ public class URLCall {
                         for (int i = 0; i < Math.min(3, itemsArray.length()); i++) {
                             JSONObject originalItem = itemsArray.getJSONObject(i);
                             JSONObject limitedItem = new JSONObject();
-                            // limitedItem.put("itemId", originalItem.get("itemId"));
-                            // limitedItem.put("name", originalItem.get("name"));
-                            // limitedItem.put("stock", originalItem.get("stock"));    
-                            // limitedItem.put("salePrice", originalItem.get("salePrice"));
-                            // limitedItem.put("offerType", originalItem.get("offerType"));
-                            // limitedItemsArray.put(limitedItem);
+                            limitedItem.put("itemId", originalItem.get("itemId"));
+                            limitedItem.put("name", originalItem.get("name"));
+                            limitedItem.put("stock", originalItem.get("stock"));    
+                            limitedItem.put("salePrice", originalItem.get("salePrice"));
+                            limitedItem.put("offerType", originalItem.get("offerType"));
+                            limitedItemsArray.put(limitedItem);
 
                             //Full Description
-                            limitedItemsArray.put(itemsArray.getJSONObject(i));
+                            // limitedItemsArray.put(itemsArray.getJSONObject(i));
                         }
 
                         jsonObject.put("items", limitedItemsArray);
