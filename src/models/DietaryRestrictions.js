@@ -1,3 +1,4 @@
+import { type } from "express/lib/response";
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
@@ -30,6 +31,20 @@ const restrictionsSchema = new mongoose.Schema({
                                 "Caffeine",
                         ],
                         required: false,
+                },
+        ],
+        DietaryRestrictions: [
+                {
+                        type: String,
+                        enum: [
+                                "Vegetarian",
+                                "Vegan",
+                                "Keto",
+                                "Paleo",
+                                "Pescatarian",
+                                "Kosher",
+                                "Halal",
+                        ],
                 },
         ],
 });

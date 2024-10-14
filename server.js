@@ -7,7 +7,7 @@ import { join } from "node:path";
 
 // const spoonacularApiKey = import.meta.env.VITE_SPOONACULAR_API_KEY;
 // import { searchRecipeTest } from '../SpoonacularAPI/recipes';
-import userModel from "./src/models/user.js";
+import userModel from "./src/models/UsersInformation.js";
 
 const PORT = 4000;
 const app = express();

@@ -1,5 +1,11 @@
 /* importing font */
 @import url('https://fonts.googleapis.com/css2?family=Rubik+Doodle+Shadow&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+
+:root{
+    --logo-color: #2E6F40;
+    --sub-header-color: #3bf871;
+}
 
 * {
     margin: 0;
@@ -11,10 +17,24 @@
     font-weight: 400;
     font-style: normal;
 }
+
+.quicksand-main{
+  font-family: "Quicksand", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
   
 .container {
+    display: grid !important; /* DO NOT REMOVE */
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+.title-container{
     display: flex;
     overflow: hidden;
+    margin-bottom: 15vh;
 }
 
 .container::before{
@@ -32,28 +52,59 @@
 }
 
 .title-text{
-    color: #2E6F40;
+    color: var(--logo-color);
     font-size: 124px;
     filter: brightness(2.5);
     margin-left:10%;
-    margin-top: 10%;
+    margin-top: 15%;
+    display: grid;
+    grid-template-columns: 1;
+    grid-template-rows: 1;
+    grid-auto-columns: 710px;
+}
+
+.sub-text{
+    font-family: "Quicksand", sans-serif;
+    font-size: 28px;
     justify-content: center;
     align-items: center;
-
-    .buttons{
-        filter: brightness(.5);
-        display: flex;
-        justify-content: center;
-        margin-right: 8%;
-    }
+    padding-left: 7vh;
+    color: var(--sub-header-color);
 }
 
-.signupbutton::click{
-
+.buttons{
+    filter: brightness(.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: 7vh;
+    
+    /* font-size: xx-large; this fixes (?) the spacing from the top... don't ask tbh */
 }
 
-/* small animation for  */
-@keyframes example {
-  
+
+#mission{
+    background-color: bisque;
+    margin-top: 20vh;
+    margin-bottom: 0vh;
+    min-height: 110vh;
+    display: flex;
+    justify-content: center;
 }
+
+.sub-header{
+    font-family: "Quicksand", sans-serif;
+    color:black;
+    padding: 12vh;
+    font-size:48px
+}
+
+.main-text{
+    font-family: "Quicksand", sans-serif;
+    color:black;
+    font-size: 20px;
+    padding: 5vh;
+}
+
+
 
