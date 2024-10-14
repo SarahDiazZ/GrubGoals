@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-const mealPlans = new mongoose.Schema({
+const mealPlansSchema = new mongoose.Schema({
         mealID: String,
         date: Date,
         nutrition: {
@@ -12,8 +12,10 @@ const mealPlans = new mongoose.Schema({
         ingredients: [String],
 });
 
-module.exports = mongoose.model("MealPlans", mealPlans);
+const mealPlans = mongoose.model("MealPlans", mealPlansSchema);
+export default mealPlans;
 
+//CREATE DUMMY ENTRY
 // curl -X POST http://localhost:3000/mealPlans -H "Content-Type: application/json" -d '{
 //         "mealID": "12345",
 //         "date": "2023-10-01T12:00:00Z",
@@ -25,3 +27,6 @@ module.exports = mongoose.model("MealPlans", mealPlans);
 //         },
 //         "ingredients": ["chicken", "rice", "broccoli"]
 //     }'
+
+//GET ALL ENTRIES
+// curl -X GET http://localhost:3000/mealPlans
