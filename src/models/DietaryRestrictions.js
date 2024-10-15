@@ -1,3 +1,4 @@
+import { type } from "express/lib/response";
 import mongoose from "mongoose";
 import dietaryPreferences from "../pages/DietaryPrefPage";
 const Schema = mongoose.Schema;
