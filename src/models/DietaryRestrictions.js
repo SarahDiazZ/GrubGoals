@@ -1,5 +1,6 @@
 import { type } from "express/lib/response";
 import mongoose from "mongoose";
+import dietaryPreferences from "../pages/DietaryPrefPage";
 const Schema = mongoose.Schema;
 
 const restrictionsSchema = new mongoose.Schema({
@@ -7,15 +8,18 @@ const restrictionsSchema = new mongoose.Schema({
                 {
                         type: String,
                         enum: [
-                                "Peanuts",
-                                "Tree Nuts",
-                                "Shellfish",
-                                "Fish",
                                 "Eggs",
-                                "Milk",
+                                "Peanut",
+                                "Grains",
+                                "Peanuts",
+                                "Seafood",
+                                "Sesame",
+                                "Shellfish",
                                 "Soy",
+                                "Tree Nuts",
                                 "Wheat",
-                                "Gluten",
+                                "Corn",
+
                         ],
                         required: false,
                 },
@@ -24,27 +28,34 @@ const restrictionsSchema = new mongoose.Schema({
                 {
                         type: String,
                         enum: [
-                                "Lactose",
+                                "Dairy",
+                                "Eggs",
                                 "Gluten",
-                                "Fructose",
-                                "Histamine",
-                                "Caffeine",
+                                "Grains",
+                                "Soy",
+                                "Wheat",
+                                "Corn",
+
                         ],
                         required: false,
                 },
         ],
-        DietaryRestrictions: [
+        dietPreferences: [
                 {
                         type: String,
                         enum: [
-                                "Vegetarian",
-                                "Vegan",
-                                "Keto",
+                                "No Diet",
+                                "Lacto Vegetarian", //includes dairy but excludes meat, fish, poultry, and eggs
+                                "Ovo Vegetarian", //includes eggs but excludes all other animal products
                                 "Paleo",
-                                "Pescatarian",
-                                "Kosher",
-                                "Halal",
+                                "Primal", //high protein, low-carb eating pattern based on the idea that humans should eat like hunter-gatherers
+                                "Pescetarian",
+                                "Vegan",
+                                "Vegetarian",
+                                "Ketogenic",
+                                "Whole 30", //avoids foods that cause inflamation or irritation in your body
                         ],
+                        required: false
                 },
         ],
 });
