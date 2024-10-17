@@ -1,16 +1,22 @@
-export default function SubmitButton() {
+import React from 'react';
+import { useNavigate } from "react-router-dom";
+import '../css/SubmitButton.css'
 
-    const navigate = useNavigate();  // Initialize useNavigate
-    const handleClick = () => {
-        e.preventDefault(); // Prevent default form submission
-        onSubmit();         // Call the handleSubmit function passed as a prop
-        console.log('Submit Button Clicked.');
-        // navigate('/signup');  // Navigate to the /signup route
-    };
+export default function SubmitButton({handleSubmit}) {
+    // const navigate = useNavigate();  //initialize useNavigate
+
+    // const handleSubmit = (e) => {
+    //     e.preventDefault(); //prevent default form submission
+    //     console.log('Submit Button Clicked.');
+    //     // navigate('/dashboard');
+    // };
 
     return (
-        <div className='button-container'>
-            <button onClick={handleClick} className='SubmitButton'>
+        <div className='submit-btn-container'>
+            <button onClick={handleSubmit} className='submit-btn'>
+            <style>
+                @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
+            </style>
                 Submit
             </button>
         </div>
