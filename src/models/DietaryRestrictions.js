@@ -9,7 +9,6 @@ const restrictionsSchema = new mongoose.Schema({
                         type: String,
                         enum: [
                                 "Eggs",
-                                "Peanut",
                                 "Grains",
                                 "Peanuts",
                                 "Seafood",
@@ -55,7 +54,7 @@ const restrictionsSchema = new mongoose.Schema({
                                 "Ketogenic",
                                 "Whole 30", //avoids foods that cause inflamation or irritation in your body
                         ],
-                        required: false
+                        required: true //If no dietPref, then user must select "No Diet"
                 },
         ],
 });
