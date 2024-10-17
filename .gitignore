@@ -29,3 +29,17 @@ dist-ssr
 APIKeys.java
 userInformation.java
 
+# Ignore Gradle build directory
+/build/
+/.gradle/
+# Ignore Gradle Wrapper files
+/gradle/wrapper/gradle-wrapper.jar
+/gradle/wrapper/gradle-wrapper.properties
+# Ignore MacOS system files
+.DS_Store
+# Ignore log files
+*.log
+# Ignore temporary files
+*.tmp
+*.swp
+*.swo
