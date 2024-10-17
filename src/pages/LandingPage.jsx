@@ -1,6 +1,7 @@
 import react from 'react';
 import SignUpButton from '../components/SignUpButton';
 import LogInButton from '../components/LogInButton';
+import GualmartButton from '../components/GualmartButton';
 import '../css/landingPage.css';
 import 'animate.css';
 function LandingPage() {
@@ -16,7 +17,8 @@ function LandingPage() {
 
                 <div className='buttons animate__animated animate__fadeInDown animate__delay-2s'>
                     <SignUpButton /> {}
-                    <LogInButton /> {}    
+                    <LogInButton /> {}
+                    <GualmartButton /> {}
                 </div>
                 
             </div>
