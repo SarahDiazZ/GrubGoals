@@ -19,9 +19,11 @@
     "flowbite-react": "^0.10.1",
     "mongodb": "^6.9.0",
     "mongoose": "^8.7.0",
+    "multiselect-react-dropdown": "^2.0.25",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.26.2",
+    "react-select": "^5.8.1",
     "spoonacular": "^2.0.1"
   },
   "devDependencies": {
