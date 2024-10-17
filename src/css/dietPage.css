@@ -3,40 +3,83 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box; /* Ensure padding and border are included in the element’s total width and height */
 }
 
-.rubik-doodle-shadow-regular {
-    font-family: "Rubik Doodle Shadow", system-ui;
-    font-weight: 400;
-    font-style: normal;
-}
-
-.container {
+.diet-container {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
     overflow: hidden;
 }
 
-.container::before{
+.diet-container::before {
     content: '';
     position: absolute;
-    background-size: cover;
-    background-position: center;
-    filter: blur(4px); /* Apply blur only to the background image */
-    z-index: -1; /* Ensure it stays behind the form */
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url("../images/signup_bgimage.jpg");
+    background-image: url("../images/dietPref_PageBG.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.diet-form-wrapper {
+    background-color: rgba(119,136,153,0.5);
+    padding: 20px;
+    border-radius: 10px;
+    width: 500px; /* Adjust width as needed */
+    max-width: 100%;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    flex-direction: column; /* Keeps content stacked vertically */
+    display: flex; /* makes the dropdowns vertically stacked */
+    gap: 15px; /* changes gap between dropdowns */
+
+}
+
+.diet-form-wrapper h2 {
+    text-align: center;
+}
+
+.diet-test {
+    font-size: 18px;
+    font-family: "Quicksand", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    padding: 15px;
+}
+
+.dd-title {
+    padding-left: 10px;
 }
 
 .diet-title {
-    font-size: 124px;
-    color: #083d17;
-    font-size: 124px;
-    filter: brightness(2.5);
-    margin-left:10%;
-    margin-top: 10%;
+    font-size: 25px;
+    font-family: "Quicksand", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.dropdown {
+    /* width: 200px;           Adjust the width of each dropdown */
+    /* padding: 10px;           Add padding for better appearance */
+    font-family: 'Quicksand', sans-serif;  /* Font styling */
+    font-size: 16px; 
+    width: 100%;
+    padding: 1px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+}
+
+.diet-btn {
+    display: absolute;
+    display: flex;
     justify-content: center;
     align-items: center;
-}
+} 
