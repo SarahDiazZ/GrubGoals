@@ -78,17 +78,15 @@ export default function dietaryPreferences() {
         e.preventDefault();
 
         console.log("Diets selected:", diets)
+        console.log("allergies selected:", allergies)
+        console.log("intolerances selected:", intolerances)
         if (diets.length == 0) {
             alert('Please select a diet before proceeding.');
             return;
         }
 
-        axios.post("http://localhost:4000/dashboard", { allergies, intolerances, diets })
-        .then(result => {console.log(result)
-        navigate("/dashboard")
-        })
-        .catch(err => console.log(err))
-        console.log({ allergies, intolerances, diets });
+        navigate("/dashboard", { state: {allergies, intolerances, diets } });
+
     }
 
     //return dropdown menu

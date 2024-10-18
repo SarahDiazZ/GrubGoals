@@ -1,8 +1,11 @@
 import react from 'react';
+import { useLocation } from 'react-router-dom';
 import '../css/dashboardPage.css';
 import 'animate.css'
 import {Chart, ArcElement, Tooltip, Legend, Title, plugins} from 'chart.js';
 import {Doughnut} from 'react-chartjs-2';
+import { all } from 'axios';
+import {searchRecipe} from '../SpoonacularAPI/recipes';
 
 // chart.js code here
 Chart.register(ArcElement, Tooltip, Legend, Title);
@@ -178,6 +181,81 @@ const cholesterolConfig = {
 };
 
 export default function Dashboard() {
+
+    // Spoonacular API Call using response data from DietaryPrefPage.jsx
+
+    // Used to anchor the DietaryPrefPage
+    // This way, we don't have the handle the
+    // case where the allergies, intolerances, diets
+    // variables are empty if you navigate to this page 
+    // from another button or directly using the a URL.
+    const location = useLocation();
+    const { allergies = [], intolerances = [], diets = [] } = location.state || {};
+
+    // Initial set of recipes generated, for new user
+    // and/or new set of preferences
+    // Update to take into account a user who is logged
+    // in and their current preferences from mongoDB document
+
+    // Call the async function to fetch recipes
+    let results;
+    const fetchRecipes = async () => {
+
+        // Traverse variables from DietaryPrefPage form
+        // Guranteed that all of the fields contain
+        // at least one item
+        let allergiesFormatted = ''
+        for (let i = 0; i < allergies.length; i++) {
+            allergiesFormatted += allergies[i]['label'];
+            if (i < allergies.length - 1) {
+                allergiesFormatted += ', ';
+            }
+        }
+        let intolerancesFormatted = '';
+        for (let i = 0; i < intolerances.length; i++) {
+            intolerancesFormatted += intolerances[i]['label'];
+            if (i < intolerances.length - 1) {
+                intolerancesFormatted += ', ';
+            }
+        }
+        let dietsFormatted = '';
+        for (let i = 0; i < diets.length; i++) {
+            dietsFormatted += diets[i]['label'];
+            if (i < diets.length - 1) {
+                dietsFormatted += ', ';
+            }
+        }
+
+        // Create a Map
+        let argumentsMap = new Map();
+
+        // Create comma separated list 
+        // TODO: Update to incorporate logged in
+        // user preferences
+        let excludeIngredients = allergiesFormatted.concat(intolerancesFormatted);
+
+        console.log(allergiesFormatted);
+        console.log(intolerancesFormatted);
+        console.log(dietsFormatted);
+
+        // Adding key-value pairs to the Map
+        argumentsMap.set('query', 'side salad');
+        argumentsMap.set('includeIngredients', '');
+        argumentsMap.set('excludeIngredients', excludeIngredients);
+        argumentsMap.set('intolerances', intolerancesFormatted);
+        argumentsMap.set('diet', dietsFormatted);
+        
+        try {
+            results = await searchRecipe(argumentsMap);
+            console.log(results);
+            console.log(results[0]);
+        }catch (error){
+            console.log(error);
+        }
+    };
+
+    fetchRecipes(); // Type Promise
+
     // return the actual page
     return (
         <div className='main-container'>
