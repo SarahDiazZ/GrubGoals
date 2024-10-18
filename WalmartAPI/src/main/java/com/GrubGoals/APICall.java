@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class APICall {
     public static void main(String[] args) {
-        StoreLocator locator = new StoreLocator();
+        // StoreLocatorController locator = new StoreLocatorController();
         ProductLookup lookup = new ProductLookup();
         ItemSearch itemSearch = new ItemSearch();
 
@@ -30,22 +30,21 @@ public class APICall {
 
             switch (choice) {
                 case 1:
-                    System.out.println("Enter a zip code:");
-                    String zip = scanner.next();
-                    locator.findStores(zip);
+                    // System.out.println("Enter a zip code:");
+                    // String zip = scanner.next();
+                    // locator.findStores(zip);
 
-                    System.out.println("Would you like to continue? (1 or 2)");
-                    System.out.println("1. Yes");
-                    System.out.println("2. No");
+                    // System.out.println("Would you like to continue? (1 or 2)");
+                    // System.out.println("1. Yes");
+                    // System.out.println("2. No");
 
-                    choice = scanner.nextInt();
-                    scanner.nextLine();
+                    // choice = scanner.nextInt();
+                    // scanner.nextLine();
 
-                    if (choice == 2) {
-                        running = false;
-                    }
+                    // if (choice == 2) {
+                    //     running = false;
+                    // }
                     break;
-
                 case 2:
                     System.out.println("Enter an item to search for:");
                     item = scanner.nextLine();
