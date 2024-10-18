@@ -46,10 +46,10 @@
 
 .diet-test {
     font-size: 18px;
-    font-family: "Quicksand", sans-serif;
+    font-family: "Quicksand", sans-serif !important;
     font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
+    font-weight: 400 !important;
+    font-style: normal !important;
     padding: 15px;
 }
 
@@ -66,12 +66,29 @@
 }
 
 .dropdown {
-    /* width: 200px;           Adjust the width of each dropdown */
-    /* padding: 10px;           Add padding for better appearance */
-    font-family: 'Quicksand', sans-serif;  /* Font styling */
-    font-size: 16px; 
+    width: 200px;          /* Adjust the width of each dropdown */
+    padding: 10px;          /* Add padding for better appearance */
+    font-family: 'Quicksand', sans-serif !important;  /* Font styling */
+    font-size: 16px !important; 
     width: 100%;
     padding: 1px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+}
+
+.searchbox {
+    font-family: 'Quicksand', sans-serif !important;  /* Font styling */
+    font-size: 16px !important; 
+}
+
+.intake-dropdown {
+    width: 200px;          /* Adjust the width of each dropdown */
+    padding: 10px;          /* Add padding for better appearance */
+    font-family: 'Quicksand', sans-serif !important;  /* Font styling */
+    font-size: 16px !important; 
+    width: 100%;
+    padding: 6px;
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: white;

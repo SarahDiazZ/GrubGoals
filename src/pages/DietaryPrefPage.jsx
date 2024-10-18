@@ -53,6 +53,13 @@ export default function dietaryPreferences() {
         {value: "Whole 30", label: "Whole 30"},
     ];
 
+    const [intake, setIntake] = useState("");
+    const calorieIntakeOptions = [
+        {value: "Maintain Weight", label: "Maintain Weight"},
+        {value: "Calorie Deficit", label: "Calorie Deficit"},
+        {value: "Calorie Surplus", label: "Calorie Surplus"},
+    ];
+
     const handleAllergySelect = (selectedList) => {
         setAllergies(selectedList)
     }
@@ -74,6 +81,8 @@ export default function dietaryPreferences() {
         setDiets(selectedList);
     };
 
+
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -85,8 +94,17 @@ export default function dietaryPreferences() {
             return;
         }
 
-        navigate("/dashboard", { state: {allergies, intolerances, diets } });
+        if (intake == "") {
+            alert('Please select your Calorie Intake before procedding.');
+            return;
+        }
 
+        axios.post("http://localhost:4000/dashboard", { allergies, intolerances, diets, intake })
+        .then(result => {console.log(result)
+        navigate("/dashboard")
+        })
+        .catch(err => console.log(err))
+        console.log({ allergies, intolerances, diets });
     }
 
     //return dropdown menu
@@ -138,8 +156,8 @@ export default function dietaryPreferences() {
                 <span className="dd-title">
                     <strong>Intolerances</strong>
                 </span>
-                <div className="dropdown">
-                    <Multiselect
+                <div className="dropdown" style={{ fontFamily: 'Quicksand, sans-serif' }}>
+                    <Multiselect style={{ fontFamily: 'Quicksand, sans-serif' }}
                         options={intoleranceOptions}
                         selectedValues={intolerances}
                         onSelect={handleIntoleranceSelect}
@@ -193,8 +211,29 @@ export default function dietaryPreferences() {
                         </option>
                     ))}
                 </select> */}
+                </div>
+
+
+
+            <div className="diet-test">
+                <span className="dd-title">
+                    <strong>Calorie Intake*</strong>
+                </span>
+                    <select
+                        className="intake-dropdown"
+                        value={intake}
+                        onChange={(e) => setIntake(e.target.value)}
+                        required
+                        >
+                            <option value="" disabled>Select</option>
+                            {calorieIntakeOptions.map((option) => (
+                                <option key={option.value} value={option.value}>
+                                    {option.label}
+                                </option>
+                            ))}
+                    </select>
             </div>
-               
+
                     <div className="diet-btn">
                         <SubmitButton/>{}
                     </div>
