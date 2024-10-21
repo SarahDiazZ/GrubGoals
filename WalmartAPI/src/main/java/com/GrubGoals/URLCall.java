@@ -46,8 +46,6 @@ public class URLCall {
                     JSONObject jsonObject = new JSONObject(responseString);
 
                     if (jsonObject.has("items")) { 
-                        //offerType - ONLINE_ONLY??
-                        //stock is only stock online??
                         JSONArray itemsArray = jsonObject.getJSONArray("items");
                         JSONArray limitedItemsArray = new JSONArray();
 

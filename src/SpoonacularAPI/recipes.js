@@ -12,6 +12,7 @@ export const searchRecipe = async(argumentMap) => {
   var includeIngredients = argumentMap.get('includeIngredients'); // Comma separated List
   var excludeIngredients = argumentMap.get('excludeIngredients'); // Comma separated List
   var intolerances = argumentMap.get('intolerances'); // Comma separated List
+  var diet = argumentMap.get('diet'); // Comma separated List
   var addRecipeInformation = argumentMap.get('addRecipeInformation'); // True or False
 
   if(intolerances == undefined){
@@ -36,13 +37,14 @@ export const searchRecipe = async(argumentMap) => {
       params: {
           query: query,
           intolerances: intolerances,
+          diet: diet,
           includeIngredients: includeIngredients,
           excludeIngredients: excludeIngredients,
           addRecipeInformation: 'true',
         },
     }
     );
-    console.log(response.data.results);
+    return response.data.results;
   } catch (error) {
     console.error('Error:', error);
   }

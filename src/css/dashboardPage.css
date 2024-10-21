@@ -60,6 +60,14 @@
     .user-text{
         font-size: xx-large;
         font-weight: 800;
+        white-space: nowrap;
+    }
+
+    .inner-text{
+        font-size: 24px;
+        color: black;
+        font-weight: 400;
+        padding-top: .5rem
     }
 }
 
@@ -72,12 +80,57 @@
     color: black;
 }
 
-/* .top-layer-container{
+.data-container-carousel{
     display: flex;
-    justify-content: center;
-    padding: 20rem;
-    border-radius: 32px;
-    width: 100%; 
-    max-height: 90vh; 
-    background-color: #f2f2f2;
-} */
+    overflow-x: auto; /* allow charts to be offscreen and scrollable */
+    scroll-snap-type: mandatory;
+    margin-top: 3rem;
+    padding: 30px;
+    gap: 20px;
+    height: 40%;
+}
+
+.data-item{
+    flex: 0 0 175px;
+    scroll-snap-align: start;
+    padding: 10px;
+}
+
+.data-item canvas{
+    width: 100% !important;
+    height: auto !important;
+}
+
+/* 
+    Taken from https://www.cssportal.com/css-scrollbar-generator/ 
+*/
+/* Chrome, Edge and Safari */
+*::-webkit-scrollbar {
+  height: 5px;
+  width: 5px;
+}
+*::-webkit-scrollbar-track {
+  border-radius: 2px;
+  background-color: #DFE9EB;
+}
+
+*::-webkit-scrollbar-track:hover {
+  background-color: #B8C0C2;
+}
+
+*::-webkit-scrollbar-track:active {
+  background-color: #B8C0C2;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: #A0A39B;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #4E504B;
+}
+
+*::-webkit-scrollbar-thumb:active {
+  background-color: #754C4C;
+}

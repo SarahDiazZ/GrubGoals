@@ -9,6 +9,7 @@ import { join } from "node:path";
 // import { searchRecipeTest } from '../SpoonacularAPI/recipes';
 import userModel from "./src/models/UsersInformation.js";
 import dietaryPreferences from "./src/pages/DietaryPrefPage.js";
+import { all } from "axios";
 
 const PORT = 4000;
 const app = express();
@@ -63,12 +64,6 @@ app.post("/signup", (req, res) => {
                         res.status(400).json(err);
                 });
 });
-
-app.post("/dashboard", (req, res) => {
-        const { allergies, intolerances, diets } = req.body;
-
-        const dietRestrictions = new DietaryRestrictions({ allergies, intolerances, dietPreferences });
-})
 
 app.listen(PORT, () => {
         console.log(`Server is running on port ${PORT}!`);
