@@ -57,6 +57,17 @@ const restrictionsSchema = new mongoose.Schema({
                         required: true //If no dietPref, then user must select "No Diet"
                 },
         ],
+        calorieIntake: [
+                {
+                        type: String,
+                        enum: [
+                                "Calorie Deficit",
+                                "Calorie Surplus",
+                                "Maintain Weight",
+                        ],
+                        required: true
+                },
+        ],
 });
 
 const DietaryRestrictions = mongoose.model("restrictions", restrictionsSchema);

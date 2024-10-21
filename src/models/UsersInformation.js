@@ -30,6 +30,7 @@ const userSchema = new mongoose.Schema({
                 restrictions: [String],
                 allergies: [String],
                 preferences: [String],
+                calorieIntake: [String],
         },
         fitnessGoals: [String],
 
