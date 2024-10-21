@@ -39,7 +39,7 @@ export default function dietaryPreferences() {
         {value: "Corn", label: "Corn"},
     ];
 
-    const [diets, setDiets] = useState([]);
+    const [dietPreferences, setDiets] = useState([]);
     const dietOptions = [
         {value: "No Diet", label: "No Diet"},
         {value: "Lacto Vegetarian", label: "Lacto Vegetarian"},
@@ -53,7 +53,7 @@ export default function dietaryPreferences() {
         {value: "Whole 30", label: "Whole 30"},
     ];
 
-    const [intake, setIntake] = useState("");
+    const [calorieIntake, setIntake] = useState("");
     const calorieIntakeOptions = [
         {value: "Maintain Weight", label: "Maintain Weight"},
         {value: "Calorie Deficit", label: "Calorie Deficit"},
@@ -63,25 +63,25 @@ export default function dietaryPreferences() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        console.log("Diets selected:", diets)
+        console.log("Diets selected:", dietPreferences)
         console.log("allergies selected:", allergies)
         console.log("intolerances selected:", intolerances)
-        if (diets.length == 0) {
+        if (dietPreferences.length == 0) {
             alert('Please select a diet before proceeding.');
             return;
         }
 
-        if (intake == "") {
+        if (calorieIntake == "") {
             alert('Please select your Calorie Intake before proceding.');
             return;
         }
 
-        axios.post("http://localhost:4000/dashboard", { allergies, intolerances, diets, intake })
+        axios.post("http://localhost:4000/dietpreferences", { allergies, intolerances, dietPreferences, calorieIntake })
         .then(result => {console.log(result)
         navigate("/dashboard")
         })
         .catch(err => console.log(err))
-        console.log({ allergies, intolerances, diets, intake });
+        console.log({ allergies, intolerances, dietPreferences, calorieIntake });
     }
 
     //return dropdown menu

@@ -8,8 +8,8 @@ import { join } from "node:path";
 // const spoonacularApiKey = import.meta.env.VITE_SPOONACULAR_API_KEY;
 // import { searchRecipeTest } from '../SpoonacularAPI/recipes';
 import userModel from "./src/models/UsersInformation.js";
-import dietaryPreferences from "./src/pages/DietaryPrefPage.js";
 import { all } from "axios";
+import DietaryRestrictions from "./src/models/DietaryRestrictions.js";
 
 const PORT = 4000;
 const app = express();
@@ -63,6 +63,19 @@ app.post("/signup", (req, res) => {
                         console.log("Error creating user:", err);
                         res.status(400).json(err);
                 });
+});
+
+app.post("/dietpreferences", (req, res) => {
+        const { allergies, intolerances, dietPreferences, calorieIntake } = req.body;
+
+        const newDietRestrictions = new DietaryRestrictions({ allergies, intolerances, dietPreferences, calorieIntake });
+
+        newDietRestrictions.save()
+                        .then((restrictions) => res.json(restrictions))
+                        .catch((err) => {
+                                console.log("Error adding restrictions");
+                                res.status(400).json(err)
+                        })
 });
 
 app.listen(PORT, () => {
