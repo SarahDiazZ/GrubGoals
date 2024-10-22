@@ -85,3 +85,12 @@
 .input-box {
     padding: 10px;
 }
+
+.pw-regex {
+    padding-left: 1.3rem;
+    font-size: 11px;
+    font-family: "Quicksand", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+}
