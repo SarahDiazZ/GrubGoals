@@ -118,6 +118,7 @@ export default function SignUpPage() {
                     <div className='input-box'>
                         <span>
                             <strong>Password</strong>
+                            <h6 className='pw-regex'>Password must contain a number, symbol, and uppercase letter</h6>
                         </span>
                     
                         <input type="password" 
