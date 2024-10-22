@@ -50,49 +50,51 @@ app.post("/login", (req, res) => {
 });
 
 //TODO: add regex and password minimum
-app.post("/signup", (req, res) => {
-        console.log("Register request body:", req.body); //log the request body
+app.post("/signup", async (req, res) => {
+        // console.log("Register request body:", req.body); //log the request body
 
         const { firstName, lastName, userName, email, password, confirmedPassword } = req.body;
-        const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[A-Z]).{8,}$/;
 
-        userModel.findOne({email}).then(userEmailFound => {
+        //Minimum 8 characters {8,}, at least one uppercase, symbol, and number
+        const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[A-Z])/; 
+        const passwordLength = /^.{8,}$/
 
-                //check if email already exists
-                if (userEmailFound != null) {
-                        return res.status(400).json({ error: "Email already in use" });
-                }
+        const userEmailFound = await userModel.findOne({email});
 
-                //check if passwords match
-                if (password !== confirmedPassword) {
-                        return res.status(400).json({ error: "Passwords do not match" });
-                }
+        //check if email already exists
+        if (userEmailFound != null) {
+                return res.status(400).json({ error: "Email already in use" });
+        }
 
-                 //check if password meets regex requirements
-                if (!passwordRegex.test(password)) {
-                        return res.status(400).json({ error: "Password does not meet requirements." });
-                }
+        //check if passwords match
+        if (password !== confirmedPassword) {
+                return res.status(400).json({ error: "Passwords do not match" });
+        }
 
-                //if all checks pass, create the new user
-                const newUser = new userModel({ firstName, lastName, userName, email });
-                newUser.setPass(password); //hash password using setPass method
+                //check if password meets regex requirements
+        if (!passwordRegex.test(password)) {
+                return res.status(400).json({ error: "Password does not meet requirements." });
+        }
 
-                return newUser.save();
-        })
-        .then(user => {
-                res.status(200).json({ success: true, user }); //send success response
-        })
-        .catch(err => {
-                console.log("Error creating user:", err);
-                res.status(500).json({ error: "Internal server error" });
-            });
+        if (!passwordLength.test(password)) {
+                return res.status(400).json({ error: "Password must be at least 8 characters long." });
+        }
 
-        // newUser.save()
-        //         .then((user) => res.json(user))
-        //         .catch((err) => {
-        //                 console.log("Error creating user:", err);
-        //                 res.status(400).json(err);
-        //         });
+                
+
+        //if all checks pass, create the new user
+        const newUser = new userModel({ firstName, lastName, userName, email });
+        newUser.setPass(password); //hash password using setPass method
+
+        newUser.save()
+                .then(user => {
+                        res.status(200).json({ success: true, user }); //send success response
+                })
+                .catch(err => {
+                        console.log("Error creating user:", err);
+                        res.status(500).json({ error: "Internal server error" });
+                });
+
 });
 
 app.post("/dietpreferences", (req, res) => {
