@@ -1,0 +1,3 @@
+class spoonacularResponseHandler {
+    // TODO(Austin)
+  }

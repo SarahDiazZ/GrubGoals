@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { Label } from "flowbite-react";
-import Multiselect from 'multiselect-react-dropdown';
+import Select from 'react-select'
 import SubmitButton from "../components/SubmitButton";
 import '../css/dietPage.css';
 import '../css/SubmitButton.css'
@@ -39,7 +39,7 @@ export default function dietaryPreferences() {
         {value: "Corn", label: "Corn"},
     ];
 
-    const [diets, setDiets] = useState([]);
+    const [dietPreferences, setDiets] = useState([]);
     const dietOptions = [
         {value: "No Diet", label: "No Diet"},
         {value: "Lacto Vegetarian", label: "Lacto Vegetarian"},
@@ -53,42 +53,36 @@ export default function dietaryPreferences() {
         {value: "Whole 30", label: "Whole 30"},
     ];
 
-    const handleAllergySelect = (selectedList) => {
-        setAllergies(selectedList)
-    }
-    const handleAllergyRemove = (selectedList) => {
-        setAllergies(selectedList);
-    };
-
-    const handleIntoleranceSelect = (selectedList) => {
-        setIntolerances(selectedList)
-    }
-    const handleIntoleranceRemove = (selectedList) => {
-        setIntolerances(selectedList);
-    };
-
-    const handleDietSelect = (selectedList) => {
-        setDiets(selectedList)
-    }
-    const handleDietRemove = (selectedList) => {
-        setDiets(selectedList);
-    };
+    const [calorieIntake, setIntake] = useState("");
+    const calorieIntakeOptions = [
+        {value: "Maintain Weight", label: "Maintain Weight"},
+        {value: "Calorie Deficit", label: "Calorie Deficit"},
+        {value: "Calorie Surplus", label: "Calorie Surplus"},
+    ];
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        console.log("Diets selected:", diets)
-        if (diets.length == 0) {
+        console.log("Diets selected:", dietPreferences)
+        console.log("allergies selected:", allergies)
+        console.log("intolerances selected:", intolerances)
+
+        if (dietPreferences.length == 0) {
             alert('Please select a diet before proceeding.');
             return;
         }
 
-        axios.post("http://localhost:4000/dashboard", { allergies, intolerances, diets })
+        if (calorieIntake == "") {
+            alert('Please select your Calorie Intake before proceding.');
+            return;
+        }
+
+        axios.post("http://localhost:4000/dietpreferences", { allergies, intolerances, dietPreferences, calorieIntake })
         .then(result => {console.log(result)
         navigate("/dashboard")
         })
         .catch(err => console.log(err))
-        console.log({ allergies, intolerances, diets });
+        console.log({ allergies, intolerances, dietPreferences, calorieIntake });
     }
 
     //return dropdown menu
@@ -110,93 +104,53 @@ export default function dietaryPreferences() {
                 <span className="dd-title">
                     <strong>Allergies</strong>
                 </span>
-                <div className="dropdown">
-                    <Multiselect
-                        // className="dropdown"
+                    <Select
+                        isMulti
+                        className="dropdown"
                         options={allergyOptions}
-                        selectedValues={allergies}
-                        onSelect={handleAllergySelect}
-                        onRemove={handleAllergyRemove}
-                        displayValue="label"
-                        showCheckbox={true}
+                        onChange={(selectedOptions) => setAllergies(selectedOptions.map(option => option.value))}
                     />
-                </div>
-                {/* DONT DELETE THESE COMMENTS */}
-                {/* <select 
-                    className="dropdown"
-                    isMulti
-                    value={allergies}
-                    onChange={handleAllergyChange}
-                >
-                    {allergyOptions.map((option) => (
-                        <option key={option.value} value={option.value}>
-                            {option.label}
-                        </option>
-                    ))}
-                </select> */}
             </div>
                 
             <div className="diet-test">
                 <span className="dd-title">
                     <strong>Intolerances</strong>
-                </span>
-                <div className="dropdown">
-                    <Multiselect
-                        options={intoleranceOptions}
-                        selectedValues={intolerances}
-                        onSelect={handleIntoleranceSelect}
-                        onRemove={handleIntoleranceRemove}
-                        displayValue="label"
-                        showCheckbox={true}
-                    />
-                </div>
-                
-                {/* DONT DELETE THESE COMMENTS */}
-                {/* <select
-                className="dropdown"
-                value={intolerances}
-                onChange={(e) => setIntolerances(e.target.value)}
+                </span>                
+                <Select
+                    isMulti //enables multi-select
+                    className="dropdown"
+                    options={intoleranceOptions} //react-select will automatically create the options from this
+                    onChange={(selectedOptions) => setIntolerances(selectedOptions.map(option => option.value))}
                 >
-                    {intoleranceOptions.map((option) => (
-                        <option key={option.value} value={option.value}>
-                            {option.label}
-                        </option>
-                    ))}
-                </select> */}
+                </Select>
             </div>
                 
             <div className="diet-test">
                 <span className="dd-title">
                     <strong>Diets*</strong>
                 </span>
-                <div className="dropdown">
-                    <Multiselect 
-                        options={dietOptions}
-                        selectedValues={diets}
-                        onSelect={handleDietSelect}
-                        onRemove={handleDietRemove}
-                        displayValue="label"
-                        showCheckbox={true}
-                        required
-                    />
-                </div>
-                
-
-            {/* DONT DELETE THESE COMMENTS */}
-            {/* <select
-                className="dropdown"
-                value={diets}
-                onChange={(e) => setDiets(e.target.value)}
-                required
+                <Select
+                    className="dropdown"
+                    options={dietOptions} //react-select will automatically create the options from this
+                    onChange={(selectedOption) => setDiets(selectedOption.value)}
                 >
-                    {dietOptions.map((option) => (
-                        <option key={option.value} value={option.value}>
-                            {option.label}
-                        </option>
-                    ))}
-                </select> */}
+                </Select>
             </div>
-               
+
+
+
+            <div className="diet-test">
+                <span className="dd-title">
+                    <strong>Calorie Intake*</strong>
+                </span>
+                    <Select
+                         className="dropdown"
+                         options={calorieIntakeOptions} //react-select will automatically create the options from this
+                         onChange={(selectedOption) => setIntake(selectedOption.value)}
+                    >
+                    </Select>
+            </div>
+
                     <div className="diet-btn">
                         <SubmitButton/>{}
                     </div>
@@ -207,3 +161,39 @@ export default function dietaryPreferences() {
         
     ); //end return 
 } //end dietaryPreferences
+
+{/* <div className="dropdown">
+    <Multiselect 
+        options={dietOptions}
+        selectedValues={diets}
+        onSelect={handleDietSelect}
+        onRemove={handleDietRemove}
+        displayValue="label"
+        showCheckbox={true}
+        required
+    />
+</div> */}
+
+{/* <div className="dropdown" style={{ fontFamily: 'Quicksand, sans-serif' }}>
+    <Multiselect style={{ fontFamily: 'Quicksand, sans-serif' }}
+        options={intoleranceOptions}
+        selectedValues={intolerances}
+        onSelect={handleIntoleranceSelect}
+        onRemove={handleIntoleranceRemove}
+        displayValue="label"
+        showCheckbox={true}
+    />
+</div> */}
+
+{/* <select
+    className="dropdown"
+    value={diets}
+    onChange={(e) => setDiets(e.target.value)}
+    required
+    >
+        {dietOptions.map((option) => (
+            <option key={option.value} value={option.value}>
+                {option.label}
+            </option>
+        ))}
+    </select> */}

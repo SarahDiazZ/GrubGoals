@@ -8,7 +8,8 @@ import { join } from "node:path";
 // const spoonacularApiKey = import.meta.env.VITE_SPOONACULAR_API_KEY;
 // import { searchRecipeTest } from '../SpoonacularAPI/recipes';
 import userModel from "./src/models/UsersInformation.js";
-import dietaryPreferences from "./src/pages/DietaryPrefPage.jsx";
+import { all } from "axios";
+import DietaryRestrictions from "./src/models/DietaryRestrictions.js";
 
 const PORT = 4000;
 const app = express();
@@ -48,27 +49,79 @@ app.post("/login", (req, res) => {
                 });
 });
 
-app.post("/signup", (req, res) => {
-        console.log("Register request body:", req.body); //log the request body
+//TODO: add regex and password minimum
+app.post("/signup", async (req, res) => {
+        // console.log("Register request body:", req.body); //log the request body
 
-        const { firstName, lastName, userName, email, password } = req.body;
+        const { firstName, lastName, userName, email, password, confirmedPassword } = req.body;
 
+        //Minimum 8 characters {8,}, at least one uppercase, symbol, and number
+        const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[A-Z])/; 
+        const passwordLength = /^.{8,}$/
+
+        const userEmailFound = await userModel.findOne({email});
+
+        //check if email already exists
+        if (userEmailFound != null) {
+                return res.status(400).json({ error: "Email already in use" });
+        }
+
+        //check if passwords match
+        if (password !== confirmedPassword) {
+                return res.status(400).json({ error: "Passwords do not match" });
+        }
+
+                //check if password meets regex requirements
+        if (!passwordRegex.test(password)) {
+                return res.status(400).json({ error: "Password does not meet requirements." });
+        }
+
+        if (!passwordLength.test(password)) {
+                return res.status(400).json({ error: "Password must be at least 8 characters long." });
+        }
+
+                
+
+        //if all checks pass, create the new user
         const newUser = new userModel({ firstName, lastName, userName, email });
         newUser.setPass(password); //hash password using setPass method
 
         newUser.save()
-                .then((user) => res.json(user))
-                .catch((err) => {
+                .then(user => {
+                        res.status(200).json({ success: true, user }); //send success response
+                })
+                .catch(err => {
                         console.log("Error creating user:", err);
-                        res.status(400).json(err);
+                        res.status(500).json({ error: "Internal server error" });
                 });
+
 });
 
-app.post("/dashboard", (req, res) => {
-        const { allergies, intolerances, diets } = req.body;
+app.post("/dietpreferences", (req, res) => {
+        const { allergies, intolerances, dietPreferences, calorieIntake } = req.body;
 
-        const dietRestrictions = new DietaryRestrictions({ allergies, intolerances, dietPreferences });
-})
+        const newDietRestrictions = new DietaryRestrictions({ allergies, intolerances, dietPreferences, calorieIntake });
+
+        newDietRestrictions.save()
+                        .then((restrictions) => res.json(restrictions))
+                        .catch((err) => {
+                                console.log("Error adding restrictions");
+                                res.status(400).json(err)
+                        })
+});
+
+app.post("/dietpreferences", (req, res) => {
+        const { allergies, intolerances, dietPreferences, calorieIntake } = req.body;
+
+        const newDietRestrictions = new DietaryRestrictions({ allergies, intolerances, dietPreferences, calorieIntake });
+
+        newDietRestrictions.save()
+                        .then((restrictions) => res.json(restrictions))
+                        .catch((err) => {
+                                console.log("Error adding restrictions");
+                                res.status(400).json(err)
+                        })
+});
 
 app.listen(PORT, () => {
         console.log(`Server is running on port ${PORT}!`);
