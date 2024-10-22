@@ -66,6 +66,7 @@ export default function dietaryPreferences() {
         console.log("Diets selected:", dietPreferences)
         console.log("allergies selected:", allergies)
         console.log("intolerances selected:", intolerances)
+
         if (dietPreferences.length == 0) {
             alert('Please select a diet before proceeding.');
             return;
