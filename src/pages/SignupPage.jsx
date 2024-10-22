@@ -15,17 +15,27 @@ export default function SignUpPage() {
     const [userName, setUserName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
+    const [confirmedPassword, setConfirmPassword] = useState("");
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        axios.post("http://localhost:4000/signup", { firstName, lastName, userName, email, password, confirmPassword })
+        axios.post("http://localhost:4000/signup", { firstName, lastName, userName, email, password, confirmedPassword })
         .then(result => {console.log(result)
         navigate("/dietpreferences")
         })
-        .catch(err => console.log(err))
-        console.log({ firstName, lastName, userName, email, password });
+        .catch(err => {
+             //check for specific error messages sent by the server
+            if (err.response && err.response.data && err.response.data.error) {
+                //show an alert for the specific error message
+                alert(err.response.data.error);
+            } 
+            else {
+                //general error alert
+                alert("An error occurred. Please try again.");
+            }
+        });
+        console.log({ firstName, lastName, userName, email, password, confirmedPassword });
 
     } //end handleSubmit
 
