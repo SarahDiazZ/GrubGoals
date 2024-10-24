@@ -49,7 +49,6 @@ app.post("/login", (req, res) => {
                 });
 });
 
-//TODO: add regex and password minimum
 app.post("/signup", async (req, res) => {
         // console.log("Register request body:", req.body); //log the request body
 
@@ -95,19 +94,6 @@ app.post("/signup", async (req, res) => {
                         res.status(500).json({ error: "Internal server error" });
                 });
 
-});
-
-app.post("/dietpreferences", (req, res) => {
-        const { allergies, intolerances, dietPreferences, calorieIntake } = req.body;
-
-        const newDietRestrictions = new DietaryRestrictions({ allergies, intolerances, dietPreferences, calorieIntake });
-
-        newDietRestrictions.save()
-                        .then((restrictions) => res.json(restrictions))
-                        .catch((err) => {
-                                console.log("Error adding restrictions");
-                                res.status(400).json(err)
-                        })
 });
 
 app.post("/dietpreferences", (req, res) => {
