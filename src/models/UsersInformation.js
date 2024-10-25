@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import crypto from "crypto";
+import { type } from "os";
 // import { type } from "os";
 const Schema = mongoose.Schema;
 
@@ -27,12 +28,26 @@ const userSchema = new mongoose.Schema({
         restrictions: [{ type: String }],
 
         dietaryPreferences: {
-                restrictions: [String],
                 allergies: [String],
-                preferences: [String],
+                intolerances: [String],
+                dietPreferences: [String],
                 calorieIntake: [String],
         },
-        // fitnessGoals: [String], this referes to calorieIntake
+        age: {
+                type: Number
+        },
+        weight: {
+                type: Number
+        },
+        height: {
+                type: Number
+        },
+        gender: {
+                type: String
+        },
+        activityLevel: {
+                type: String
+        },
 
         // this might be needed after when implementing the settings DB. I forgot tho
         // settings: {
