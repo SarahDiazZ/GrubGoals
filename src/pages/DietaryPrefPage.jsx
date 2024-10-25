@@ -11,7 +11,11 @@ import '../css/SubmitButton.css'
 
 export default function dietaryPreferences() {
     const navigate = useNavigate();
-
+    const [age, setAge] = useState("");   //ensure age is initialized
+    const [weight, setWeight] = useState("");  //ensure weight is initialized
+    const [height, setHeight] = useState("");  //ensure height is initialized
+    const [gender, setGender] = useState("");
+    
     const [allergies, setAllergies] = useState([]); //might need to change to React.useState([])
     const allergyOptions = [
         {value: "no allergies", label: "None"},
@@ -60,6 +64,14 @@ export default function dietaryPreferences() {
         {value: "Calorie Surplus", label: "Calorie Surplus"},
     ];
 
+    const [activityLevel, setActivityLevel] = useState("");
+    const activityLevelOptions = [
+        { value: "None", label: "None" },
+        { value: "Low", label: "Low" },
+        { value: "Moderate", label: "Moderate" },
+        { value: "High", label: "High" }
+    ];
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -67,7 +79,7 @@ export default function dietaryPreferences() {
         console.log("allergies selected:", allergies)
         console.log("intolerances selected:", intolerances)
 
-        if (dietPreferences.length == 0) {
+        if (dietPreferences.length == 0 || calorieIntake === "") {
             alert('Please select a diet before proceeding.');
             return;
         }
@@ -77,13 +89,15 @@ export default function dietaryPreferences() {
             return;
         }
 
-        axios.post("http://localhost:4000/dietpreferences", { allergies, intolerances, dietPreferences, calorieIntake })
+        axios.post("http://localhost:4000/dietpreferences", { allergies, intolerances, dietPreferences, calorieIntake, age, weight, height, gender, activityLevel })
         .then(result => {console.log(result)
         navigate("/dashboard")
         })
         .catch(err => console.log(err))
         console.log({ allergies, intolerances, dietPreferences, calorieIntake });
-    }
+    };
+
+    console.log("Current Calorie Intake:", calorieIntake);
 
     //return dropdown menu
     return (
@@ -150,6 +164,112 @@ export default function dietaryPreferences() {
                     >
                     </Select>
             </div>
+
+            {(calorieIntake === "Calorie Deficit" || calorieIntake === "Calorie Surplus") && (
+                <>
+                    {/* Age */}
+                    <div className="diet-test">
+                        <span className="dd-title">
+                            <strong>Age*</strong>
+                        </span>
+                        <input
+                            className="input-box"
+                            type="number"
+                            id="age"
+                            value={age}
+                            onChange={(e) => setAge(e.target.value)}
+                            placeholder="Enter your age"
+                            required
+                        />
+                    </div>
+
+                    {/* Weight */}
+                    <div className="diet-test">
+                        <span className="dd-title">
+                            <strong>Weight* (lb)</strong>
+                        </span>
+                        <input
+                            className="input-box"
+                            type="number"
+                            id="weight"
+                            value={weight}
+                            onChange={(e) => setWeight(e.target.value)}
+                            placeholder="Enter your weight"
+                            required
+                        />
+                    </div>
+
+                    {/* Height */}
+                    <div className="diet-test">
+                        <span className="dd-title">
+                            <strong>Height* (inches)</strong>
+                        </span>
+                        <input
+                            className="input-box"
+                            type="number"
+                            id="height"
+                            value={height}
+                            onChange={(e) => setHeight(e.target.value)}
+                            placeholder="Enter your height"
+                            required
+                        />
+                    </div>
+
+                    {/* Gender */}
+                    <div className="diet-test">
+                        <span className="dd-title">
+                            <strong>Gender*</strong>
+                        </span>
+                        <div className="gender-options">
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="gender"
+                                    value="Male"
+                                    onChange={() => setGender("Male")}
+                                    checked={gender === "Male"}
+                                    required
+                                />
+                                Male
+                            </label>
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="gender"
+                                    value="Female"
+                                    onChange={() => setGender("Female")}
+                                    checked={gender === "Female"}
+                                    required
+                                />
+                                Female
+                            </label>
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="gender"
+                                    value="Other"
+                                    onChange={() => setGender("Other")}
+                                    checked={gender === "Other"}
+                                    required
+                                />
+                                Other
+                            </label>
+                        </div>
+                    </div>
+                    {/* Activity Level */}
+                    <div className="diet-test">
+                        <span className="dd-title">
+                            <strong>Activity Level*</strong>
+                        </span>
+                        <Select
+                            className="dropdown"
+                            options={activityLevelOptions}
+                            onChange={(selectedOption) => setActivityLevel(selectedOption.value)}
+                            required
+                        />
+                    </div>
+                </>
+            )}
 
                     <div className="diet-btn">
                         <SubmitButton/>{}
