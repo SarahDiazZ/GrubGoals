@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.GrubGoals.StoreLocatorController;
+//import com.GrubGoals.StoreLocatorController;
 import com.GrubGoals.dto.ItemSearchResponseDTO;
 import com.GrubGoals.exception.ResourceNotFoundException;
 import com.GrubGoals.service.ItemSearchService;

@@ -3,9 +3,12 @@ package com.GrubGoals.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.GrubGoals.URLCall;
 import com.GrubGoals.dto.ItemSearchDTO;
 
+@Service
 public class ItemSearchService {
     private final URLCall urlCall;
 

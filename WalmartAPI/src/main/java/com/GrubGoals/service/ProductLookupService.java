@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.GrubGoals.URLCall;
 import com.GrubGoals.dto.ProductLookupDTO;
 
+@Service
 public class ProductLookupService {
     private final URLCall urlCall;
 
