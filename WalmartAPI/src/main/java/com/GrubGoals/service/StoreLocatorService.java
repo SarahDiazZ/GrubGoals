@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.GrubGoals.URLCall;
 import com.GrubGoals.dto.StoreDTO;
 
+@Service
 public class StoreLocatorService {
     private final URLCall urlCall;
 

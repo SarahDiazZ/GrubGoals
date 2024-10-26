@@ -7,7 +7,9 @@ import java.net.URL;
 import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.stereotype.Service;
 
+@Service
 public class URLCall {
     public String callUrl(String url) {
         SignatureGenerator generator = new SignatureGenerator();
