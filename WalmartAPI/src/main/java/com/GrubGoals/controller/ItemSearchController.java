@@ -1,4 +1,4 @@
-package com.GrubGoals;
+package com.GrubGoals.controller;
 
 import java.util.List;
 

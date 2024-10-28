@@ -1,4 +1,4 @@
-package com.GrubGoals;
+package com.GrubGoals.controller;
 
 import com.GrubGoals.dto.StoreDTO;
 import com.GrubGoals.dto.StoreResponseDTO;
