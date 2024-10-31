@@ -43,7 +43,7 @@ export default function dietaryPreferences() {
         {value: "Corn", label: "Corn"},
     ];
 
-    const [dietPreferences, setDiets] = useState([]);
+    const [dietPreference, setDiets] = useState([]);
     const dietOptions = [
         {value: "No Diet", label: "No Diet"},
         {value: "Lacto Vegetarian", label: "Lacto Vegetarian"},
@@ -75,11 +75,11 @@ export default function dietaryPreferences() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        console.log("Diets selected:", dietPreferences)
-        console.log("allergies selected:", allergies)
-        console.log("intolerances selected:", intolerances)
+        console.log("Diets selected:", dietPreference);
+        console.log("allergies selected:", allergies);
+        console.log("intolerances selected:", intolerances);
 
-        if (dietPreferences.length == 0 || calorieIntake === "") {
+        if (dietPreference.length == 0 || calorieIntake === "") {
             alert('Please select a diet before proceeding.');
             return;
         }

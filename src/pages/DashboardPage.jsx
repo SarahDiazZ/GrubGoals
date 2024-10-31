@@ -190,7 +190,7 @@ export default function Dashboard() {
     // variables are empty if you navigate to this page 
     // from another button or directly using the a URL.
     const location = useLocation();
-    const { allergies = [], intolerances = [], diets = [] } = location.state || {};
+    const { allergies = [], intolerances = [], dietPreference = [] } = location.state || {};
 
     // Initial set of recipes generated, for new user
     // and/or new set of preferences
@@ -218,13 +218,9 @@ export default function Dashboard() {
                 intolerancesFormatted += ', ';
             }
         }
-        let dietsFormatted = '';
-        for (let i = 0; i < diets.length; i++) {
-            dietsFormatted += diets[i]['label'];
-            if (i < diets.length - 1) {
-                dietsFormatted += ', ';
-            }
-        }
+
+        // Only 1 Diet
+        let dietFormatted = '' + dietPreference;
 
         // Create a Map
         let argumentsMap = new Map();
@@ -234,16 +230,12 @@ export default function Dashboard() {
         // user preferences
         let excludeIngredients = allergiesFormatted.concat(intolerancesFormatted);
 
-        console.log(allergiesFormatted);
-        console.log(intolerancesFormatted);
-        console.log(dietsFormatted);
-
         // Adding key-value pairs to the Map
         argumentsMap.set('query', 'side salad');
         argumentsMap.set('includeIngredients', '');
         argumentsMap.set('excludeIngredients', excludeIngredients);
         argumentsMap.set('intolerances', intolerancesFormatted);
-        argumentsMap.set('diet', dietsFormatted);
+        argumentsMap.set('diet', dietFormatted);
         
         try {
             results = await searchRecipe(argumentsMap);
