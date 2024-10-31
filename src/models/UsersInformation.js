@@ -33,21 +33,6 @@ const userSchema = new mongoose.Schema({
                 dietPreferences: [String],
                 calorieIntake: [String],
         },
-        age: {
-                type: Number
-        },
-        weight: {
-                type: Number
-        },
-        height: {
-                type: Number
-        },
-        gender: {
-                type: String
-        },
-        activityLevel: {
-                type: String
-        },
 
         // this might be needed after when implementing the settings DB. I forgot tho
         // settings: {

@@ -97,9 +97,9 @@ app.post("/signup", async (req, res) => {
 });
 
 app.post("/dietpreferences", (req, res) => {
-        const { allergies, intolerances, dietPreferences, calorieIntake } = req.body;
+        const { allergies, intolerances, dietPreferences, calorieIntake, age, weight, height, gender, activityLevel } = req.body;
 
-        const newDietRestrictions = new DietaryRestrictions({ allergies, intolerances, dietPreferences, calorieIntake });
+        const newDietRestrictions = new DietaryRestrictions({ allergies, intolerances, dietPreferences, calorieIntake, age, weight, height, gender, activityLevel });
 
         newDietRestrictions.save()
                         .then((restrictions) => res.json(restrictions))

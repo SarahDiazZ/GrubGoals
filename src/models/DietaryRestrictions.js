@@ -26,6 +26,30 @@ const restrictionsSchema = new mongoose.Schema({
                         required: true
                 },
         ],
+        age: {
+                type: Number,
+                default: null
+        },
+        weight: {
+                type: Number,
+                default: null,
+                required: false
+        },
+        height: {
+                type: Number,
+                default: null,
+                required: false
+        },
+        gender: {
+                type: String,
+                default: null,
+                required: false
+        },
+        activityLevel: {
+                type: String,
+                default: null,
+                required: false
+        },
 });
 
 const DietaryRestrictions = mongoose.model("restrictions", restrictionsSchema);
