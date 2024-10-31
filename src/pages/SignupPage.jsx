@@ -20,19 +20,20 @@ export default function SignUpPage() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        axios.post("http://localhost:4000/signup", { firstName, lastName, userName, email, password, confirmedPassword })
-        .then(result => {console.log(result)
-        navigate("/dietpreferences")
+        axios.post("http://localhost:4000/signup", { 
+            user: { firstName, lastName, userName, email, password, confirmedPassword }
+
+        })
+        .then(response => {
+            console.log("Response from server:", response.data);
+            const userID = response.data.userID;
+            //navigate to dashboard with userID as a query parameter
+            navigate(`/dietpreferences?userID=${userID}`);
         })
         .catch(err => {
-             //check for specific error messages sent by the server
-            if (err.response && err.response.data && err.response.data.error) {
-                //show an alert for the specific error message
-                alert(err.response.data.error);
-            } 
-            else {
-                //general error alert
-                alert("An error occurred. Please try again.");
+            console.error("Error during signup:", err);
+            if (err.response) {
+                alert(err.response.data.message);
             }
         });
         console.log({ firstName, lastName, userName, email, password, confirmedPassword });
