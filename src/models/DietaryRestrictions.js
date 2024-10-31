@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const restrictionsSchema = new mongoose.Schema({
+        userID: String, //Links a diet document to an associated user
         allergies: [
                 {
                         type: String,
@@ -26,7 +27,31 @@ const restrictionsSchema = new mongoose.Schema({
                         required: true
                 },
         ],
+        age: {
+                type: Number,
+                default: null
+        },
+        weight: {
+                type: Number,
+                default: null,
+                required: false
+        },
+        height: {
+                type: Number,
+                default: null,
+                required: false
+        },
+        gender: {
+                type: String,
+                default: null,
+                required: false
+        },
+        activityLevel: {
+                type: String,
+                default: null,
+                required: false
+        },
 });
 
-const DietaryRestrictions = mongoose.model("restrictions", restrictionsSchema);
-export default DietaryRestrictions;
+const restrictions = mongoose.model("restrictions", restrictionsSchema);
+export default restrictions;

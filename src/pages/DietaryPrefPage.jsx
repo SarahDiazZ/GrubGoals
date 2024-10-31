@@ -89,12 +89,23 @@ export default function dietaryPreferences() {
             return;
         }
 
-        axios.post("http://localhost:4000/dietpreferences", { allergies, intolerances, dietPreference, calorieIntake, age, weight, height, gender, activityLevel })
-        .then(result => {console.log(result)
-        navigate("/dashboard", { state: {allergies, intolerances, dietPreference } });
+        axios.post("http://localhost:4000/dietpreferences", { 
+            restrictions: { allergies, intolerances, dietPreferences, calorieIntake, age, weight, height, gender, activityLevel }
         })
-        .catch(err => console.log(err))
-        console.log({ allergies, intolerances, dietPreference, calorieIntake });
+        .then(response => {
+            console.log("Response from server:", response.data);
+            if (response.status === 200) {
+                //navigate to the dashboard with userID as a query parameter
+                const userID = response.data.userID;
+                navigate(`/dashboard?userID=${userID}`);
+            }
+        })
+        .catch(err => {
+            console.error("Error during diet preferences submission:", err);
+            if (err.response) {
+                alert(err.response.data.message || "Error saving restrictions");
+            }
+        });
     };
 
     console.log("Current Calorie Intake:", calorieIntake);
