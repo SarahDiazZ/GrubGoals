@@ -2,7 +2,11 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const restrictionsSchema = new mongoose.Schema({
-        userID: String, //Links a diet document to an associated user
+        userID: { 
+                type: Schema.Types.ObjectId, 
+                ref: 'user' 
+        },
+
         allergies: [
                 {
                         type: String,

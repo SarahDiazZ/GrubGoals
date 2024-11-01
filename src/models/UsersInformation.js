@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import crypto from "crypto";
 import { type } from "os";
+import restrictions from "./DietaryRestrictions.js";
 // import { type } from "os";
 const Schema = mongoose.Schema;
 
@@ -27,7 +28,7 @@ const userSchema = new mongoose.Schema({
 
         dietaryPreferences: { 
                 type: Schema.Types.ObjectId, 
-                ref: 'restrictions'
+                ref: restrictions
         },
 
         // this might be needed after when implementing the settings DB. I forgot tho
