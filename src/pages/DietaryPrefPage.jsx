@@ -90,7 +90,7 @@ export default function dietaryPreferences() {
         }
 
         axios.post("http://localhost:4000/dietpreferences", { 
-            restrictions: { allergies, intolerances, dietPreferences, calorieIntake, age, weight, height, gender, activityLevel }
+            restrictions: { allergies, intolerances, dietPreference, calorieIntake, age, weight, height, gender, activityLevel }
         })
         .then(response => {
             console.log("Response from server:", response.data);

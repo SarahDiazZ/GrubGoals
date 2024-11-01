@@ -88,7 +88,7 @@ app.post("/signup", async (req, res) => {
                 return res.status(400).json({ error: "Password must be at least 8 characters long." });
         }
 
-        const newID = new mongoose.Types.ObjectId(); // KEEP THIS SETTING HERE. needed for global.userID
+        const newID = new mongoose.Types.ObjectId(); // KEEP THIS SETTING HERE. needed for global.userID //ok
         global.userID = newID
 
         const newUser = new user ({
