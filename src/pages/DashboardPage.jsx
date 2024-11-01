@@ -1,4 +1,4 @@
-import react from 'react';
+import React, {useState, useEffect} from 'react';
 import { useLocation } from 'react-router-dom';
 import '../css/dashboardPage.css';
 import 'animate.css'
@@ -9,7 +9,6 @@ import {searchRecipe} from '../SpoonacularAPI/recipes';
 
 // chart.js code here
 Chart.register(ArcElement, Tooltip, Legend, Title);
-Chart.defaults.plugins.tooltip.backgroundColor = 'rgb(0, 0, 156)';
 Chart.defaults.plugins.legend.position = 'bottom';
 Chart.defaults.plugins.legend.title.display = true;
 
@@ -31,11 +30,9 @@ const calories = {
             data: [1200, 100],
             backgroundColor: [
                 'rgb(255, 99, 132)',
-                'rgb(255, 255, 255'
+                'rgb(230, 230, 230)'
             ],
-            borderColor: ['#00000'], // Border for segments
-            borderWidth: 1,
-            hoverOffset: 4
+            hoverOffset: 20
         }
     //end of datasets
     ]
@@ -71,11 +68,9 @@ const fats = {
             data: [25, 45],
             backgroundColor: [
                 'rgb(221, 235, 145)',
-                'rgb(255, 255, 255'
+                'rgb(230, 230, 230)'
             ],
-            borderColor: ['#00000'], // Border for segments
-            borderWidth: 1,
-            hoverOffset: 4
+            hoverOffset: 25
         }
     //end of datasets
     ]
@@ -102,8 +97,8 @@ const fatsConfig = {
 // CARBS CHART
 const carbs = {
     labels: [
-      'Fats (general) Consumed',
-      'Fats (general) Remaining'
+      'Carbs Consumed',
+      'Carbs Remaining'
     ],
     datasets: [
         {
@@ -111,11 +106,9 @@ const carbs = {
             data: [900, 500],
             backgroundColor: [
                 'rgb(34, 230, 158)',
-                'rgb(255, 255, 255)'
+                'rgb(230, 230, 230)'
             ],
-            borderColor: ['#00000'], // Border for segments
-            borderWidth: 1,
-            hoverOffset: 4
+            hoverOffset: 20
         }
     //end of datasets
     ]
@@ -143,20 +136,18 @@ const carbsConfig = {
 // CHOLESTEROL CHART
 const cholesterol = {
     labels: [
-      'Fats (general) Consumed',
-      'Fats (general) Remaining'
+      'Cholesterol Consumed',
+      'Cholesterol Remaining'
     ],
     datasets: [
         {
-            label: 'Fats',
+            label: 'Cholesterol',
             data: [45, 13],
             backgroundColor: [
                 'rgb(196, 158, 18)',
-                'rgb(255, 255, 255)'
+                'rgb(230, 230, 230)'
             ],
-            borderColor: ['#00000'], // Border for segments
-            borderWidth: 1,
-            hoverOffset: 4
+            hoverOffset: 20
         }
     //end of datasets
     ]
@@ -190,7 +181,10 @@ export default function Dashboard() {
     // variables are empty if you navigate to this page 
     // from another button or directly using the a URL.
     const location = useLocation();
-    const { allergies = [], intolerances = [], diets = [] } = location.state || {};
+    const { allergies = [], intolerances = [], dietPreference = [] } = location.state || {};
+
+    // holds images from the api call
+    const [images, setImages] = useState([]);
 
     // Initial set of recipes generated, for new user
     // and/or new set of preferences
@@ -199,62 +193,63 @@ export default function Dashboard() {
 
     // Call the async function to fetch recipes
     let results;
-    const fetchRecipes = async () => {
+    useEffect(() => {
+        const fetchRecipes = async () => {
 
-        // Traverse variables from DietaryPrefPage form
-        // Guranteed that all of the fields contain
-        // at least one item
-        let allergiesFormatted = ''
-        for (let i = 0; i < allergies.length; i++) {
-            allergiesFormatted += allergies[i]['label'];
-            if (i < allergies.length - 1) {
-                allergiesFormatted += ', ';
+            // Traverse variables from DietaryPrefPage form
+            // Guranteed that all of the fields contain
+            // at least one item
+            let allergiesFormatted = ''
+            for (let i = 0; i < allergies.length; i++) {
+                allergiesFormatted += allergies[i]['label'];
+                if (i < allergies.length - 1) {
+                    allergiesFormatted += ', ';
+                }
             }
-        }
-        let intolerancesFormatted = '';
-        for (let i = 0; i < intolerances.length; i++) {
-            intolerancesFormatted += intolerances[i]['label'];
-            if (i < intolerances.length - 1) {
-                intolerancesFormatted += ', ';
+            let intolerancesFormatted = '';
+            for (let i = 0; i < intolerances.length; i++) {
+                intolerancesFormatted += intolerances[i]['label'];
+                if (i < intolerances.length - 1) {
+                    intolerancesFormatted += ', ';
+                }
             }
-        }
-        let dietsFormatted = '';
-        for (let i = 0; i < diets.length; i++) {
-            dietsFormatted += diets[i]['label'];
-            if (i < diets.length - 1) {
-                dietsFormatted += ', ';
+    
+            // Only 1 Diet
+            let dietFormatted = '' + dietPreference;
+    
+            // Create a Map
+            let argumentsMap = new Map();
+    
+            // Create comma separated list 
+            // TODO: Update to incorporate logged in
+            // user preferences
+            let excludeIngredients = allergiesFormatted.concat(intolerancesFormatted);
+    
+            // Adding key-value pairs to the Map
+            argumentsMap.set('query', 'side salad');
+            argumentsMap.set('includeIngredients', '');
+            argumentsMap.set('excludeIngredients', excludeIngredients);
+            argumentsMap.set('intolerances', intolerancesFormatted);
+            argumentsMap.set('diet', dietFormatted);
+            
+            try {
+                results = await searchRecipe(argumentsMap);
+                console.log(results);
+                
+                // store image (or multiple of them)
+                if (results.length > 0){
+                    const fetchedImages = results.map(result => result.image)
+                    setImages(fetchedImages)
+                }
+            }catch (error){
+                console.log(error);
             }
-        }
+        };
+    
+        fetchRecipes(); // Type Promise
+    });
 
-        // Create a Map
-        let argumentsMap = new Map();
-
-        // Create comma separated list 
-        // TODO: Update to incorporate logged in
-        // user preferences
-        let excludeIngredients = allergiesFormatted.concat(intolerancesFormatted);
-
-        console.log(allergiesFormatted);
-        console.log(intolerancesFormatted);
-        console.log(dietsFormatted);
-
-        // Adding key-value pairs to the Map
-        argumentsMap.set('query', 'side salad');
-        argumentsMap.set('includeIngredients', '');
-        argumentsMap.set('excludeIngredients', excludeIngredients);
-        argumentsMap.set('intolerances', intolerancesFormatted);
-        argumentsMap.set('diet', dietsFormatted);
-        
-        try {
-            results = await searchRecipe(argumentsMap);
-            console.log(results);
-            console.log(results[0]);
-        }catch (error){
-            console.log(error);
-        }
-    };
-
-    fetchRecipes(); // Type Promise
+    
 
     // return the actual page
     return (
@@ -272,7 +267,6 @@ export default function Dashboard() {
                     </div>
                     
                     <div className='data-container-carousel'>
-                        
                         <div className='data-item'>
                             <Doughnut data={calories} options={caloriesConfig.options} />
                         </div>
@@ -285,20 +279,29 @@ export default function Dashboard() {
                             <Doughnut data={cholesterol} options={cholesterolConfig.options} />
                         </div>
 
-                        <div className='data-item'>
-                            <Doughnut data={carbs} options={carbsConfig.options} />
-                        </div>
+                    </div> {/* end of donuts */}
+                    
+                    <div className='data-container-carousel'>
 
-                        <div className='data-item'>
-                            <Doughnut data={carbs} options={carbsConfig.options} />
-                        </div>
-
-                        <div className='data-item'>
-                            <Doughnut data={carbs} options={carbsConfig.options} />
-                        </div>
-
+                        {
+                            images.length > 0 ?
+                                (
+                                    images.map((images, index) => (
+                                        <><div className='data-item'>
+                                            <div className='recipe-card'>
+                                                <img key={index} src={images} alt={`Recipe ${index + 1}`} />
+                                                description here!
+                                            </div>
+                                        </div></>
+                                    ))
+                                ) : (
+                                    <div> No images available... </div>
+                                )
+                        }
+                        
+                        
                     </div>
-                </div>
+                </div> {/* end of right-overlay */}
                 
             </div>
 

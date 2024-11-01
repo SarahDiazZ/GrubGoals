@@ -25,28 +25,9 @@ const userSchema = new mongoose.Schema({
         hash: String,
         salt: String, //adds random data to pw
 
-        restrictions: [{ type: String }],
-
-        dietaryPreferences: {
-                allergies: [String],
-                intolerances: [String],
-                dietPreferences: [String],
-                calorieIntake: [String],
-        },
-        age: {
-                type: Number
-        },
-        weight: {
-                type: Number
-        },
-        height: {
-                type: Number
-        },
-        gender: {
-                type: String
-        },
-        activityLevel: {
-                type: String
+        dietaryPreferences: { 
+                type: Schema.Types.ObjectId, 
+                ref: 'restrictions'
         },
 
         // this might be needed after when implementing the settings DB. I forgot tho
@@ -79,5 +60,5 @@ userSchema.statics.listAllUsers = function () {
         return this.find({});
 };
 
-const userModel = mongoose.model('user', userSchema);
-export default userModel;
+const user = mongoose.model('user', userSchema);
+export default user;

@@ -7,7 +7,6 @@ import DashboardPage from './DashboardPage'
 import '../css/LoginPage.css'
 
 
-
 export default function LoginPage() {
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
@@ -15,20 +14,37 @@ export default function LoginPage() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        axios.post("http://localhost:4000/login", { userName, password })
-        .then(result => {
-            console.log(result)
-            if (result.data === "Success") {
-                navigate("/dashboard")
-            }
-            else {
-                navigate("/signup")
-                alert("You are not registered")
-
-            }
-       
+        axios.post("http://localhost:4000/login", { 
+            user: { userName, password } //helps us use req.body.user
+    })
+        .then(response => {
+            console.log(response)
+            if (response.data.success) {
+                const userID = response.data.userID;
+                navigate(`/dashboard?userID=${userID}`)
+            }    
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+            if (err.response) {
+                if (err.response.status === 404) {
+                    alert("Username not found. Please sign up.");
+                    navigate("/signup");
+                } //end inner if
+
+                else if (err.response.status === 401) {
+                    alert("Incorrect password. Please try again.");
+                } //end else if
+
+                else {
+                    alert("Server error. Please try again later.");
+                } //end inner else
+
+            } //end outer if 
+
+            else {
+                console.error(err);
+            } //end else
+        });
         console.log({ userName, password });
 
     } //end handleSubmit

@@ -43,7 +43,7 @@ export default function dietaryPreferences() {
         {value: "Corn", label: "Corn"},
     ];
 
-    const [dietPreferences, setDiets] = useState([]);
+    const [dietPreference, setDiets] = useState([]);
     const dietOptions = [
         {value: "No Diet", label: "No Diet"},
         {value: "Lacto Vegetarian", label: "Lacto Vegetarian"},
@@ -75,11 +75,11 @@ export default function dietaryPreferences() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        console.log("Diets selected:", dietPreferences)
-        console.log("allergies selected:", allergies)
-        console.log("intolerances selected:", intolerances)
+        console.log("Diets selected:", dietPreference);
+        console.log("allergies selected:", allergies);
+        console.log("intolerances selected:", intolerances);
 
-        if (dietPreferences.length == 0 || calorieIntake === "") {
+        if (dietPreference.length == 0 || calorieIntake === "") {
             alert('Please select a diet before proceeding.');
             return;
         }
@@ -89,12 +89,23 @@ export default function dietaryPreferences() {
             return;
         }
 
-        axios.post("http://localhost:4000/dietpreferences", { allergies, intolerances, dietPreferences, calorieIntake, age, weight, height, gender, activityLevel })
-        .then(result => {console.log(result)
-        navigate("/dashboard")
+        axios.post("http://localhost:4000/dietpreferences", { 
+            restrictions: { allergies, intolerances, dietPreference, calorieIntake, age, weight, height, gender, activityLevel }
         })
-        .catch(err => console.log(err))
-        console.log({ allergies, intolerances, dietPreferences, calorieIntake });
+        .then(response => {
+            console.log("Response from server:", response.data);
+            if (response.status === 200) {
+                //navigate to the dashboard with userID as a query parameter
+                const userID = response.data.userID;
+                navigate(`/dashboard?userID=${userID}`);
+            }
+        })
+        .catch(err => {
+            console.error("Error during diet preferences submission:", err);
+            if (err.response) {
+                alert(err.response.data.message || "Error saving restrictions");
+            }
+        });
     };
 
     console.log("Current Calorie Intake:", calorieIntake);
