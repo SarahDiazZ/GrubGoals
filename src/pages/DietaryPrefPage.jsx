@@ -90,13 +90,17 @@ export default function dietaryPreferences() {
         }
 
         axios.post("http://localhost:4000/dietpreferences", { 
-            restrictions: { allergies, intolerances, dietPreferences, calorieIntake, age, weight, height, gender, activityLevel }
+            restrictions: { allergies, intolerances, dietPreference, calorieIntake, age, weight, height, gender, activityLevel }
         })
         .then(response => {
             console.log("Response from server:", response.data);
             if (response.status === 200) {
+                //access targetCalories directly from response.data
+                const { targetCalories } = response.data;
+                alert(`Based on your inputs, your target calorie intake is: ${targetCalories}`);
+
                 //navigate to the dashboard with userID as a query parameter
-                const userID = response.data.userID;
+                const userID = response.data.updatedUser._id;
                 navigate(`/dashboard?userID=${userID}`);
             }
         })
