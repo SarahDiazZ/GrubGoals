@@ -108,17 +108,17 @@
     align-items: center;
 } 
 
-.input-box {
-    width: 200px;          /* Adjust the width of each dropdown */
+.diet-input-box {
+    width: 200px;         /* Adjust the width of each dropdown */
     padding: 10px;          /* Add padding for better appearance */
     font-family: 'Quicksand', sans-serif !important;  /* Font styling */
     font-size: 16px !important; 
     width: 100%;
-    padding: 1px;
+    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: white;
-}
+} 
 
 input[type="radio"]{
     margin: 10px 1px 0 17px;
