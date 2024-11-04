@@ -183,8 +183,10 @@ export default function Dashboard() {
     const location = useLocation();
     const { allergies = [], intolerances = [], dietPreference = [] } = location.state || {};
 
-    // holds images from the api call
-    const [images, setImages] = useState([]);
+    
+    const [images, setImages] = useState([]); // holds images from the api call
+    const [titles, setTitles] = useState([]); // holds titles
+    const [descriptions, setDescriptions] = useState([]); // holds descriptions
 
     // Initial set of recipes generated, for new user
     // and/or new set of preferences
@@ -232,14 +234,22 @@ export default function Dashboard() {
             argumentsMap.set('intolerances', intolerancesFormatted);
             argumentsMap.set('diet', dietFormatted);
             
+            // images & titles
             try {
                 results = await searchRecipe(argumentsMap);
                 console.log(results);
                 
                 // store image (or multiple of them)
                 if (results.length > 0){
+                    //console.log('-----> Image URL:', imageURL)
                     const fetchedImages = results.map(result => result.image)
+                    const fetchedTitles = results.map(result => result.title)
+                    const fetchedDescriptions = results.map(result => result.summary)
+
                     setImages(fetchedImages)
+                    setTitles(fetchedTitles)
+
+                    setDescriptions(fetchedDescriptions)
                 }
             }catch (error){
                 console.log(error);
@@ -287,10 +297,15 @@ export default function Dashboard() {
                             images.length > 0 ?
                                 (
                                     images.map((images, index) => (
-                                        <><div className='data-item'>
-                                            <div className='recipe-card'>
+                                        <><div className='data-item '>
+                                            <div className='recipe-card animate__animated animate__fadeInRightBig'>
                                                 <img key={index} src={images} alt={`Recipe ${index + 1}`} />
-                                                description here!
+                                                <div className='recipe-title'>{titles[index]}</div>
+                                                <div className='recipe-description'>
+                                                    {
+                                                        descriptions[index].substring(0, descriptions[index].indexOf('.') + 1).replace(/(<([^>]+)>)/ig, '')
+                                                    }
+                                                </div>
                                             </div>
                                         </div></>
                                     ))
