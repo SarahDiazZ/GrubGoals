@@ -188,7 +188,7 @@ export default function dietaryPreferences() {
                             <strong>Age*</strong>
                         </span>
                         <input
-                            className="input-box"
+                            className="diet-input-box"
                             type="number"
                             id="age"
                             value={age}
@@ -204,7 +204,7 @@ export default function dietaryPreferences() {
                             <strong>Weight* (lb)</strong>
                         </span>
                         <input
-                            className="input-box"
+                            className="diet-input-box"
                             type="number"
                             id="weight"
                             value={weight}
@@ -220,7 +220,7 @@ export default function dietaryPreferences() {
                             <strong>Height* (inches)</strong>
                         </span>
                         <input
-                            className="input-box"
+                            className="diet-input-box"
                             type="number"
                             id="height"
                             value={height}
