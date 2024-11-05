@@ -237,4 +237,4 @@ app.get('/user/:id', async (req, res) => {
             console.error("Error fetching user data:", err);
             res.status(500).json({ error: "Server error while fetching user data" });
         }
-    });
+});
