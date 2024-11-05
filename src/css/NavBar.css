@@ -1,6 +1,64 @@
-/* .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+nav {
+    overflow: auto;
+    width: 100px;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    height: 100%;
+    position: relative;
+}
 
-} */
+nav a {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+}
+
+/* Change link color on hover */
+nav a:hover {
+    background-color: rgb(96, 130, 117);
+    color: white;
+}
+
+/* Hamburger button styling */
+nav button {
+    display: contents;
+    top: 0;
+    left: 0;
+    position: absolute;
+    z-index: 1;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.Logo {
+    background-image: url('../images/hamburgerIcon.png');
+}
+
+/* Adjusts the size of the hamburger icon */
+.resize {
+    width: 35px;
+    height: 35px;
+    border-radius: 15%;
+}
+
+/* Adjust for smaller screens */
+@media (max-width: 768px) {
+    nav a {
+        display: none;
+    }
+
+    nav button {
+        display: block;
+    }
+
+    /* If menu is open, display links */
+    .hamburgerOpen a {
+        display: block;
+    }
+}

@@ -1,4 +1,4 @@
-import react from 'react';
+import React from 'react';
 import SignUpButton from '../components/SignUpButton';
 import LogInButton from '../components/LogInButton';
 import GualmartButton from '../components/GualmartButton';

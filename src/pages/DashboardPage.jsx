@@ -6,6 +6,8 @@ import {Chart, ArcElement, Tooltip, Legend, Title, plugins} from 'chart.js';
 import {Doughnut} from 'react-chartjs-2';
 import { all } from 'axios';
 import {searchRecipe} from '../SpoonacularAPI/recipes';
+// import Hamburger from '../components/Hamburger';
+import NavBar from '../components/NavBar';
 
 // chart.js code here
 Chart.register(ArcElement, Tooltip, Legend, Title);
@@ -255,9 +257,10 @@ export default function Dashboard() {
     return (
         <div className='main-container'>
             <div className='overlay-box animate__animated animate__fadeIn'>
-                <div className='inner-text'>
-                    Let's have a navbar here! <br/>or something, bc it's <br/> centered
-                </div>
+                {/* Hamborg menu */}
+                <NavBar />
+                {/* <div className='inner-text'>
+                </div> */}
 
                 {/* right-side box. this is on TOP of the overlay box */}
                 <div className='right-overlay animate__animated animate__fadeInRight'>
