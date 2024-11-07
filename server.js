@@ -148,10 +148,12 @@ app.post("/signup", async (req, res) => {
         }
 });
 
-app.get('/logout', (req, res) => {
-    console.log('Logged out successfully.');
-    res.redirect('/dashboard');
-});
+// i dont think we need this
+// app.get('/logout', (req, res) => {
+//     console.log('Logged out successfully.');
+//     res.redirect('/dashboard');
+// });
+    
 
 app.post("/dietpreferences", async (req, res) => {
         const {
