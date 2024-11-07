@@ -134,6 +134,11 @@ app.post("/signup", async (req, res) => {
             res.status(400).json({ message: "Failed to add new user" });
         }
 });
+
+app.get('/logout', (req, res) => {
+    console.log('Logged out successfully.');
+    res.redirect('/dashboard');
+});
     
 
 app.post('/dietpreferences', async (req, res) => {
