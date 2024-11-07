@@ -1,9 +1,19 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import logo from '../images/hamburgerIcon.png';
 import '../css/NavBar.css';
 
 export default function NavBar() {
+    const navigate = useNavigate();
     const [hamburgerOpen, setHamburgerOpen] = useState(false);
+
+    const handleLogout = (e) => {
+        e.preventDefault();
+        localStorage.removeItem('token');
+        sessionStorage.removeItem('user');
+
+        navigate('/', { state: { logoutMessage: "Logged out successfully" } });
+    }
     
     return(
         <nav className={hamburgerOpen ? 'hamburgerOpen' : ''}>
@@ -18,7 +28,7 @@ export default function NavBar() {
                     <a href='/'>Home</a>
                     <a href='/settings'>Settings</a>
                     <a href='/recipes'>Recipes</a>
-                    <a href='/logout'>Logout</a>
+                    <a href='/' onClick={handleLogout}>Logout</a>
                 </>
             )}
         </nav>
