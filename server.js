@@ -7,9 +7,7 @@ import { join } from "node:path";
 
 global.userID;
 
-// const spoonacularApiKey = import.meta.env.VITE_SPOONACULAR_API_KEY;
 // import { searchRecipeTest } from '../SpoonacularAPI/recipes';
-// import { all } from "axios";
 import user from "./src/models/UsersInformation.js";
 import restrictions from "./src/models/DietaryRestrictions.js";
 import FavoriteMeals from "./src/models/favoriteMeals.js";
