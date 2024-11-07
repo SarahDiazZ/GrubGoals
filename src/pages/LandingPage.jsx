@@ -12,7 +12,7 @@ function LandingPage() {
            <div className="title-container title-text animate__animated animate__fadeInDown">
                 Grub Goals <br/> 
                 <div className='sub-text animate__animated animate__fadeInDown animate__delay-1s' style={{fontStyle:'italic'}}>
-                    A smarter meal-planning for a smarter you!
+                Smart meal planning for a smarter you!
                 </div>
 
                 <div className='buttons animate__animated animate__fadeInDown animate__delay-2s'>
