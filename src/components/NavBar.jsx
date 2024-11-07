@@ -13,6 +13,7 @@ export default function NavBar() {
         sessionStorage.removeItem('user');
 
         navigate('/', { state: { logoutMessage: "Logged out successfully" } });
+        alert('Successfully logged out.')
     }
     
     return(
@@ -25,7 +26,6 @@ export default function NavBar() {
             {/* We'll conditionally render our links by hamburgerOpen */}
             {hamburgerOpen && (
                 <>
-                    <a href='/'>Home</a>
                     <a href='/settings'>Settings</a>
                     <a href='/recipes'>Recipes</a>
                     <a href='/' onClick={handleLogout}>Logout</a>
