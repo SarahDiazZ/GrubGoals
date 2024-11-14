@@ -1,303 +1,332 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Label } from "flowbite-react";
-import Select from 'react-select'
+import Select from "react-select";
 import SubmitButton from "../components/SubmitButton";
-import '../css/dietPage.css';
-import '../css/SubmitButton.css'
-
+import "../css/dietPage.css";
+import "../css/SubmitButton.css";
 
 export default function dietaryPreferences() {
-    const navigate = useNavigate();
-    const [age, setAge] = useState("");   //ensure age is initialized
-    const [weight, setWeight] = useState("");  //ensure weight is initialized
-    const [height, setHeight] = useState("");  //ensure height is initialized
-    const [gender, setGender] = useState("");
-    
-    const [allergies, setAllergies] = useState([]); //might need to change to React.useState([])
-    const allergyOptions = [
-        {value: "no allergies", label: "None"},
-        {value: "Egg", label: "Eggs"},
-        {value: "Peanut", label: "Peanuts"},
-        {value: "Grain", label: "Grains"},
-        {value: "Seafood", label: "Seafood/Fish"},
-        {value: "Sesame", label: "Seasame"},
-        {value: "Shellfish", label: "Shellfish"},
-        {value: "Soy", label: "Soy"},
-        {value: "Tree Nuts", label: "Tree Nuts"},
-        {value: "Wheat", label: "Wheat"},
-        {value: "Corn", label: "Corn"},
-    ];
+	const navigate = useNavigate();
+	const [age, setAge] = useState(""); //ensure age is initialized
+	const [weight, setWeight] = useState(""); //ensure weight is initialized
+	const [height, setHeight] = useState(""); //ensure height is initialized
+	const [gender, setGender] = useState("");
 
-    const [intolerances, setIntolerances] = useState([]);
-    const intoleranceOptions = [
-        {value: "no intolerances", label: "None"},
-        {value: "Dairy", label: "Dairy"},
-        {value: "Egg", label: "Eggs"},
-        {value: "Gluten", label: "Gluten"},
-        {value: "Grains", label: "Grains"},
-        {value: "Soy", label: "Soy"},
-        {value: "Wheat", label: "Wheat"},
-        {value: "Corn", label: "Corn"},
-    ];
+	const [allergies, setAllergies] = useState([]); //might need to change to React.useState([])
+	const allergyOptions = [
+		{ value: "no allergies", label: "None" },
+		{ value: "Egg", label: "Eggs" },
+		{ value: "Peanut", label: "Peanuts" },
+		{ value: "Grain", label: "Grains" },
+		{ value: "Seafood", label: "Seafood/Fish" },
+		{ value: "Sesame", label: "Seasame" },
+		{ value: "Shellfish", label: "Shellfish" },
+		{ value: "Soy", label: "Soy" },
+		{ value: "Tree Nuts", label: "Tree Nuts" },
+		{ value: "Wheat", label: "Wheat" },
+		{ value: "Corn", label: "Corn" },
+	];
 
-    const [dietPreference, setDiets] = useState([]);
-    const dietOptions = [
-        {value: "No Diet", label: "No Diet"},
-        {value: "Lacto Vegetarian", label: "Lacto Vegetarian"},
-        {value: "Ovo Vegetarian", label: "Ovo Vegetarian"},
-        {value: "Paleo", label: "Paleo"},
-        {value: "Primal", label: "Primal"},
-        {value: "Pescetarian", label: "Pescetarian"},
-        {value: "Vegan", label: "Vegan"},
-        {value: "Vegetarian", label: "Vegetarian"},
-        {value: "Ketogenic", label: "Ketogenic"},
-        {value: "Whole 30", label: "Whole 30"},
-    ];
+	const [intolerances, setIntolerances] = useState([]);
+	const intoleranceOptions = [
+		{ value: "no intolerances", label: "None" },
+		{ value: "Dairy", label: "Dairy" },
+		{ value: "Egg", label: "Eggs" },
+		{ value: "Gluten", label: "Gluten" },
+		{ value: "Grains", label: "Grains" },
+		{ value: "Soy", label: "Soy" },
+		{ value: "Wheat", label: "Wheat" },
+		{ value: "Corn", label: "Corn" },
+	];
 
-    const [calorieIntake, setIntake] = useState("");
-    const calorieIntakeOptions = [
-        {value: "Maintain Weight", label: "Maintain Weight"},
-        {value: "Calorie Deficit", label: "Calorie Deficit"},
-        {value: "Calorie Surplus", label: "Calorie Surplus"},
-    ];
+	const [dietPreference, setDiets] = useState([]);
+	const dietOptions = [
+		{ value: "No Diet", label: "No Diet" },
+		{ value: "Lacto Vegetarian", label: "Lacto Vegetarian" },
+		{ value: "Ovo Vegetarian", label: "Ovo Vegetarian" },
+		{ value: "Paleo", label: "Paleo" },
+		{ value: "Primal", label: "Primal" },
+		{ value: "Pescetarian", label: "Pescetarian" },
+		{ value: "Vegan", label: "Vegan" },
+		{ value: "Vegetarian", label: "Vegetarian" },
+		{ value: "Ketogenic", label: "Ketogenic" },
+		{ value: "Whole 30", label: "Whole 30" },
+	];
 
-    const [activityLevel, setActivityLevel] = useState("");
-    const activityLevelOptions = [
-        { value: "None", label: "None" },
-        { value: "Low", label: "Low" },
-        { value: "Moderate", label: "Moderate" },
-        { value: "High", label: "High" }
-    ];
+	const [calorieIntake, setIntake] = useState("");
+	const calorieIntakeOptions = [
+		{ value: "Maintain Weight", label: "Maintain Weight" },
+		{ value: "Calorie Deficit", label: "Calorie Deficit" },
+		{ value: "Calorie Surplus", label: "Calorie Surplus" },
+	];
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+	const [activityLevel, setActivityLevel] = useState("");
+	const activityLevelOptions = [
+		{ value: "None", label: "None" },
+		{ value: "Low", label: "Low" },
+		{ value: "Moderate", label: "Moderate" },
+		{ value: "High", label: "High" },
+	];
 
-        console.log("Diets selected:", dietPreference);
-        console.log("allergies selected:", allergies);
-        console.log("intolerances selected:", intolerances);
+	const handleSubmit = (e) => {
+		e.preventDefault();
 
-        if (dietPreference.length == 0 || calorieIntake === "") {
-            alert('Please select a diet before proceeding.');
-            return;
-        }
+		console.log("Diets selected:", dietPreference);
+		console.log("allergies selected:", allergies);
+		console.log("intolerances selected:", intolerances);
 
-        if (calorieIntake == "") {
-            alert('Please select your Calorie Intake before proceding.');
-            return;
-        }
+		if (dietPreference.length == 0 || calorieIntake === "") {
+			alert("Please select a diet before proceeding.");
+			return;
+		}
 
-        axios.post("http://localhost:4000/dietpreferences", { 
-            restrictions: { allergies, intolerances, dietPreference, calorieIntake, age, weight, height, gender, activityLevel }
-        })
-        .then(response => {
-            console.log("Response from server:", response.data);
-            if (response.status === 200) {
-                //access targetCalories directly from response.data
-                const { targetCalories } = response.data;
-                alert(`Based on your inputs, your target calorie intake is: ${targetCalories}`);
+		if (calorieIntake == "") {
+			alert("Please select your Calorie Intake before proceding.");
+			return;
+		}
 
-                //navigate to the dashboard with userID as a query parameter
-                const userID = response.data.updatedUser._id;
-                navigate(`/dashboard?userID=${userID}`);
-            }
-        })
-        .catch(err => {
-            console.error("Error during diet preferences submission:", err);
-            if (err.response) {
-                alert(err.response.data.message || "Error saving restrictions");
-            }
-        });
-    };
+		axios
+			.post("http://localhost:4000/dietpreferences", {
+				restrictions: {
+					allergies,
+					intolerances,
+					dietPreference,
+					calorieIntake,
+					age,
+					weight,
+					height,
+					gender,
+					activityLevel,
+				},
+			})
+			.then((response) => {
+				console.log("Response from server:", response.data);
+				if (response.status === 200) {
+					//access targetCalories directly from response.data
+					const { targetCalories } = response.data;
+					alert(
+						`Based on your inputs, your target calorie intake is: ${targetCalories}`
+					);
 
-    console.log("Current Calorie Intake:", calorieIntake);
+					//navigate to the dashboard with userID as a query parameter
+					const userID = response.data.updatedUser._id;
+					navigate(`/dashboard?userID=${userID}`);
+				}
+			})
+			.catch((err) => {
+				console.error("Error during diet preferences submission:", err);
+				if (err.response) {
+					alert(
+						err.response.data.message || "Error saving restrictions"
+					);
+				}
+			});
+	};
 
-    //return dropdown menu
-    return (
-        <div className="diet-container">
-        <div className="diet-form-wrapper">
-    
-        <style>
-            @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
-        </style>
+	console.log("Current Calorie Intake:", calorieIntake);
 
-        <div className="diet-title">
-            <h2><center>Enter Diet Preferences</center></h2>
-        </div>
+	//return dropdown menu
+	return (
+		<div className="diet-container">
+			<div className="diet-form-wrapper">
+				<style>
+					@import
+					url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+				</style>
 
-            <form onSubmit={handleSubmit}>
-            <div className="diet-test">
-                
-                <span className="dd-title">
-                    <strong>Allergies</strong>
-                </span>
-                    <Select
-                        isMulti
-                        className="dropdown"
-                        options={allergyOptions}
-                        onChange={(selectedOptions) => setAllergies(selectedOptions.map(option => option.value))}
-                    />
-            </div>
-                
-            <div className="diet-test">
-                <span className="dd-title">
-                    <strong>Intolerances</strong>
-                </span>                
-                <Select
-                    isMulti //enables multi-select
-                    className="dropdown"
-                    options={intoleranceOptions} //react-select will automatically create the options from this
-                    onChange={(selectedOptions) => setIntolerances(selectedOptions.map(option => option.value))}
-                >
-                </Select>
-            </div>
-                
-            <div className="diet-test">
-                <span className="dd-title">
-                    <strong>Diets*</strong>
-                </span>
-                <Select
-                    className="dropdown"
-                    options={dietOptions} //react-select will automatically create the options from this
-                    onChange={(selectedOption) => setDiets(selectedOption.value)}
-                >
-                </Select>
-            </div>
+				<div className="diet-title">
+					<h2>
+						<center>Enter Diet Preferences</center>
+					</h2>
+				</div>
 
+				<form onSubmit={handleSubmit}>
+					<div className="diet-test">
+						<span className="dd-title">
+							<strong>Allergies</strong>
+						</span>
+						<Select
+							isMulti
+							className="dropdown"
+							options={allergyOptions}
+							onChange={(selectedOptions) =>
+								setAllergies(
+									selectedOptions.map(
+										(option) => option.value
+									)
+								)
+							}
+						/>
+					</div>
 
+					<div className="diet-test">
+						<span className="dd-title">
+							<strong>Intolerances</strong>
+						</span>
+						<Select
+							isMulti //enables multi-select
+							className="dropdown"
+							options={intoleranceOptions} //react-select will automatically create the options from this
+							onChange={(selectedOptions) =>
+								setIntolerances(
+									selectedOptions.map(
+										(option) => option.value
+									)
+								)
+							}
+						></Select>
+					</div>
 
-            <div className="diet-test">
-                <span className="dd-title">
-                    <strong>Calorie Intake*</strong>
-                </span>
-                    <Select
-                         className="dropdown"
-                         options={calorieIntakeOptions} //react-select will automatically create the options from this
-                         onChange={(selectedOption) => setIntake(selectedOption.value)}
-                    >
-                    </Select>
-            </div>
+					<div className="diet-test">
+						<span className="dd-title">
+							<strong>Diets*</strong>
+						</span>
+						<Select
+							className="dropdown"
+							options={dietOptions} //react-select will automatically create the options from this
+							onChange={(selectedOption) =>
+								setDiets(selectedOption.value)
+							}
+						></Select>
+					</div>
 
-            {(calorieIntake === "Calorie Deficit" || calorieIntake === "Calorie Surplus") && (
-                <>
-                    {/* Age */}
-                    <div className="diet-test">
-                        <span className="dd-title">
-                            <strong>Age*</strong>
-                        </span>
-                        <input
-                            className="diet-input-box"
-                            type="number"
-                            id="age"
-                            value={age}
-                            onChange={(e) => setAge(e.target.value)}
-                            placeholder="Enter your age"
-                            required
-                        />
-                    </div>
+					<div className="diet-test">
+						<span className="dd-title">
+							<strong>Calorie Intake*</strong>
+						</span>
+						<Select
+							className="dropdown"
+							options={calorieIntakeOptions} //react-select will automatically create the options from this
+							onChange={(selectedOption) =>
+								setIntake(selectedOption.value)
+							}
+						></Select>
+					</div>
 
-                    {/* Weight */}
-                    <div className="diet-test">
-                        <span className="dd-title">
-                            <strong>Weight* (lb)</strong>
-                        </span>
-                        <input
-                            className="diet-input-box"
-                            type="number"
-                            id="weight"
-                            value={weight}
-                            onChange={(e) => setWeight(e.target.value)}
-                            placeholder="Enter your weight"
-                            required
-                        />
-                    </div>
+					{(calorieIntake === "Calorie Deficit" ||
+						calorieIntake === "Calorie Surplus") && (
+						<>
+							{/* Age */}
+							<div className="diet-test">
+								<span className="dd-title">
+									<strong>Age*</strong>
+								</span>
+								<input
+									className="diet-input-box"
+									type="number"
+									id="age"
+									value={age}
+									onChange={(e) => setAge(e.target.value)}
+									placeholder="Enter your age"
+									required
+								/>
+							</div>
 
-                    {/* Height */}
-                    <div className="diet-test">
-                        <span className="dd-title">
-                            <strong>Height* (inches)</strong>
-                        </span>
-                        <input
-                            className="diet-input-box"
-                            type="number"
-                            id="height"
-                            value={height}
-                            onChange={(e) => setHeight(e.target.value)}
-                            placeholder="Enter your height"
-                            required
-                        />
-                    </div>
+							{/* Weight */}
+							<div className="diet-test">
+								<span className="dd-title">
+									<strong>Weight* (lb)</strong>
+								</span>
+								<input
+									className="diet-input-box"
+									type="number"
+									id="weight"
+									value={weight}
+									onChange={(e) => setWeight(e.target.value)}
+									placeholder="Enter your weight"
+									required
+								/>
+							</div>
 
-                    {/* Gender */}
-                    <div className="diet-test">
-                        <span className="dd-title">
-                            <strong>Gender*</strong>
-                        </span>
-                        <div className="gender-options">
-                            <label>
-                                <input
-                                    type="radio"
-                                    name="gender"
-                                    value="Male"
-                                    onChange={() => setGender("Male")}
-                                    checked={gender === "Male"}
-                                    required
-                                />
-                                Male
-                            </label>
-                            <label>
-                                <input
-                                    type="radio"
-                                    name="gender"
-                                    value="Female"
-                                    onChange={() => setGender("Female")}
-                                    checked={gender === "Female"}
-                                    required
-                                />
-                                Female
-                            </label>
-                            <label>
-                                <input
-                                    type="radio"
-                                    name="gender"
-                                    value="Other"
-                                    onChange={() => setGender("Other")}
-                                    checked={gender === "Other"}
-                                    required
-                                />
-                                Other
-                            </label>
-                        </div>
-                    </div>
-                    {/* Activity Level */}
-                    <div className="diet-test">
-                        <span className="dd-title">
-                            <strong>Activity Level*</strong>
-                        </span>
-                        <Select
-                            className="dropdown"
-                            options={activityLevelOptions}
-                            onChange={(selectedOption) => setActivityLevel(selectedOption.value)}
-                            required
-                        />
-                    </div>
-                </>
-            )}
+							{/* Height */}
+							<div className="diet-test">
+								<span className="dd-title">
+									<strong>Height* (inches)</strong>
+								</span>
+								<input
+									className="diet-input-box"
+									type="number"
+									id="height"
+									value={height}
+									onChange={(e) => setHeight(e.target.value)}
+									placeholder="Enter your height"
+									required
+								/>
+							</div>
 
-                    <div className="diet-btn">
-                        <SubmitButton/>{}
-                    </div>
-                    
-                </form>
-        </div>
-        </div>
-        
-    ); //end return 
+							{/* Gender */}
+							<div className="diet-test">
+								<span className="dd-title">
+									<strong>Gender*</strong>
+								</span>
+								<div className="gender-options">
+									<label>
+										<input
+											type="radio"
+											name="gender"
+											value="Male"
+											onChange={() => setGender("Male")}
+											checked={gender === "Male"}
+											required
+										/>
+										Male
+									</label>
+									<label>
+										<input
+											type="radio"
+											name="gender"
+											value="Female"
+											onChange={() => setGender("Female")}
+											checked={gender === "Female"}
+											required
+										/>
+										Female
+									</label>
+									<label>
+										<input
+											type="radio"
+											name="gender"
+											value="Other"
+											onChange={() => setGender("Other")}
+											checked={gender === "Other"}
+											required
+										/>
+										Other
+									</label>
+								</div>
+							</div>
+							{/* Activity Level */}
+							<div className="diet-test">
+								<span className="dd-title">
+									<strong>Activity Level*</strong>
+								</span>
+								<Select
+									className="dropdown"
+									options={activityLevelOptions}
+									onChange={(selectedOption) =>
+										setActivityLevel(selectedOption.value)
+									}
+									required
+								/>
+							</div>
+						</>
+					)}
+
+					<div className="diet-btn">
+						<SubmitButton />
+						{}
+					</div>
+				</form>
+			</div>
+		</div>
+	); //end return
 } //end dietaryPreferences
 
-{/* <div className="dropdown">
+{
+	/* <div className="dropdown">
     <Multiselect 
         options={dietOptions}
         selectedValues={diets}
@@ -307,9 +336,11 @@ export default function dietaryPreferences() {
         showCheckbox={true}
         required
     />
-</div> */}
+</div> */
+}
 
-{/* <div className="dropdown" style={{ fontFamily: 'Quicksand, sans-serif' }}>
+{
+	/* <div className="dropdown" style={{ fontFamily: 'Quicksand, sans-serif' }}>
     <Multiselect style={{ fontFamily: 'Quicksand, sans-serif' }}
         options={intoleranceOptions}
         selectedValues={intolerances}
@@ -318,9 +349,11 @@ export default function dietaryPreferences() {
         displayValue="label"
         showCheckbox={true}
     />
-</div> */}
+</div> */
+}
 
-{/* <select
+{
+	/* <select
     className="dropdown"
     value={diets}
     onChange={(e) => setDiets(e.target.value)}
@@ -331,4 +364,5 @@ export default function dietaryPreferences() {
                 {option.label}
             </option>
         ))}
-    </select> */}
+    </select> */
+}
