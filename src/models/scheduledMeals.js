@@ -7,7 +7,7 @@ const scheduledMealsSchema = new mongoose.Schema({
                 ref: "user",
                 required: true,
         },
-
+        // maybe use spoonacular ID for this 
         mealID: [
                 {
                         type: Schema.Types.ObjectId,
@@ -15,6 +15,8 @@ const scheduledMealsSchema = new mongoose.Schema({
                         required: true,
                 },
         ],
+        // see react-big-calendar RAW data https://jquense.github.io/react-big-calendar/examples/index.html?path=/docs/additional-examples-layout--events-on-a-constrained-day-column
+        
         date: [
                 {
                         type: Date,

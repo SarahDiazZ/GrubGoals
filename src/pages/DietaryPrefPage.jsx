@@ -111,20 +111,18 @@ export default function dietaryPreferences() {
 						`Based on your inputs, your target calorie intake is: ${targetCalories}`
 					);
 
-					//navigate to the dashboard with userID as a query parameter
-					const userID = response.data.updatedUser._id;
-					navigate(`/dashboard?userID=${userID}`);
-				}
-			})
-			.catch((err) => {
-				console.error("Error during diet preferences submission:", err);
-				if (err.response) {
-					alert(
-						err.response.data.message || "Error saving restrictions"
-					);
-				}
-			});
-	};
+                //navigate to the dashboard with userID as a query parameter
+                const userID = response.data.updatedUser._id;
+                navigate(`/dashboard?userID=${userID}`, { state: {allergies, intolerances, dietPreference }} );
+            }
+        })
+        .catch(err => {
+            console.error("Error during diet preferences submission:", err);
+            if (err.response) {
+                alert(err.response.data.message || "Error saving restrictions");
+            }
+        });
+    };
 
 	console.log("Current Calorie Intake:", calorieIntake);
 
