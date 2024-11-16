@@ -297,8 +297,16 @@ export default function Dashboard() {
 								options={cholesterolConfig.options}
 							/>
 						</div>
-					</div>{" "}
-					{/* end of donuts */}
+                        <Calendar className="calendar-container"
+                            localizer={localizer}
+                            events={events}
+                            startAccessor="start"
+                            endAccessor="end"
+                            defaultView="agenda"  // Set the default view to agenda
+                        />
+					</div>{/* end of donuts */}
+                    
+
 					<div className="data-container-carousel">
 						{images.length > 0 ? (
 							images.map((images, index) => (
