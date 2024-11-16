@@ -9,6 +9,11 @@ import { searchRecipe } from "../SpoonacularAPI/recipes";
 // import Hamburger from '../components/Hamburger';
 import NavBar from "../components/NavBar";
 
+// react-big-calendar
+import {Calendar, momentLocalizer} from 'react-big-calendar';
+import moment from 'moment';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+
 // chart.js code here
 Chart.register(ArcElement, Tooltip, Legend, Title);
 Chart.defaults.plugins.legend.position = "bottom";
@@ -144,6 +149,26 @@ const cholesterolConfig = {
 	},
 };
 
+// set up for react-big-calendar
+// months are 1 off (ex. november != 11 -> == 10)
+const localizer = momentLocalizer(moment);
+const events = [
+    {
+        title: 'Example Meal',
+        start: new Date(),
+        end: new Date()
+    },
+    {
+        title: 'Another Example Meal',
+        start: new Date(2024, 10, 16, 2, 30),
+        end: new Date(2024, 10, 16, 2, 45)
+    },{
+        title: 'I should be asleep',
+        start: new Date(2024, 10, 16, 3, 30),
+        end: new Date(2024, 10, 16, 4, 45)
+    }
+]; 
+
 export default function Dashboard() {
 	// Spoonacular API Call using response data from DietaryPrefPage.jsx
 
@@ -162,7 +187,7 @@ export default function Dashboard() {
 	const [images, setImages] = useState([]); // holds images from the api call
 	const [titles, setTitles] = useState([]); // holds titles
 	const [descriptions, setDescriptions] = useState([]); // holds descriptions
-
+    
 	// Initial set of recipes generated, for new user
 	// and/or new set of preferences
 	// Update to take into account a user who is logged
@@ -306,7 +331,7 @@ export default function Dashboard() {
 								</>
 							))
 						) : (
-							<div> No images available... </div>
+							<div> Fetching data... </div>
 						)}
 					</div>
 				</div>{" "}
