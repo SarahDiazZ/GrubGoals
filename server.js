@@ -40,11 +40,12 @@ app.use(passport.session());
 async function main() {
 	try {
 		//connect to MongoDB
-		await mongoose.connect("mongodb://127.0.0.1:27017/grubgoals");
+		//await mongoose.connect("mongodb://127.0.0.1:27017/grubgoals");
+		await mongoose.connect("mongodb://mongodb:27017/grubgoals");
 		console.log("Mongoose connected!");
 
 		//start server after setting up routes
-		app.listen(PORT, () => {
+		app.listen('0.0.0.0', () => {
 			console.log(`Server is running on port ${PORT}!`);
 		});
 	} catch (err) {
