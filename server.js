@@ -31,7 +31,7 @@ app.use(
 	session({
 		secret: "cats",
 		resave: false,
-		saveUninitialized: true,
+		saveUninitialized: true
 	})
 );
 app.use(passport.initialize());
@@ -73,7 +73,7 @@ app.get(
 	"/google/callback",
 	passport.authenticate("google", {
 		successRedirect: "/protected",
-		failureRedirect: "/auth/failure",
+		failureRedirect: "/auth/failure"
 	})
 );
 
@@ -96,7 +96,7 @@ app.get("/protected", isLoggedIn, async (req, res) => {
 			firstName: names[0],
 			lastName: names[1],
 			userName: req.user.displayName,
-			email: email,
+			email: email
 		});
 
 		await newUser.save();
@@ -111,7 +111,7 @@ app.get("/protected", isLoggedIn, async (req, res) => {
 			weight: null,
 			height: null,
 			gender: null,
-			activityLevel: null,
+			activityLevel: null
 		});
 
 		await newRestrictions.save();
@@ -163,8 +163,27 @@ app.post("/signup", async (req, res) => {
 		userName,
 		email,
 		password,
-		confirmedPassword,
+		confirmedPassword
 	} = req.body.user;
+	const validEmailDomains = [
+		"gmail.com",
+		"yahoo.com",
+		"hotmail.com",
+		"aol.com",
+		"outlook.com",
+		"icloud.com",
+		"proton.com",
+		"mail.com",
+		"zoho.com"
+	];
+	const emailDomain = email.split("@")[1];
+
+	if (!validEmailDomains.includes(emailDomain)) {
+		return res.status(400).json({
+			error: "Invalid email domain. Please use a valid email domain."
+		});
+	}
+
 	const userEmailFound = await user.findOne({ email });
 
 	if (userEmailFound != null) {
@@ -177,13 +196,13 @@ app.post("/signup", async (req, res) => {
 
 	if (!passwordRegex.test(password)) {
 		return res.status(400).json({
-			error: "Password does not meet requirements.",
+			error: "Password does not meet requirements."
 		});
 	}
 
 	if (!passwordLength.test(password)) {
 		return res.status(400).json({
-			error: "Password must be at least 8 characters long.",
+			error: "Password must be at least 8 characters long."
 		});
 	}
 
@@ -197,7 +216,7 @@ app.post("/signup", async (req, res) => {
 		userName,
 		email,
 		password,
-		confirmedPassword,
+		confirmedPassword
 	});
 
 	newUser.setPass(password);
@@ -215,14 +234,14 @@ app.post("/signup", async (req, res) => {
 			weight: null,
 			height: null,
 			gender: null,
-			activityLevel: null,
+			activityLevel: null
 		});
 
 		await newRestrictions.save();
 
 		res.status(201).json({
 			message: "User registered successfully",
-			userID: newUser._id,
+			userID: newUser._id
 		});
 	} catch (err) {
 		console.error("Failed to add new user:", err);
@@ -246,7 +265,7 @@ app.post("/dietpreferences", async (req, res) => {
 		weight,
 		height,
 		gender,
-		activityLevel,
+		activityLevel
 	} = req.body.restrictions;
 	const userID = global.userID;
 
@@ -266,7 +285,7 @@ app.post("/dietpreferences", async (req, res) => {
 				None: 1.2,
 				Low: 1.375,
 				Moderate: 1.55,
-				High: 1.725,
+				High: 1.725
 			};
 			return bmr * (activityMultipliers[activityLevel] || 1.2);
 		} //end calculateTDEE
@@ -303,13 +322,13 @@ app.post("/dietpreferences", async (req, res) => {
 				activityLevel,
 				bmr,
 				tdee,
-				targetCalories,
+				targetCalories
 			},
 			{ new: true, upsert: true } //upsert option creates the document if it doesn’t exist
 		);
 
 		await user.findByIdAndUpdate(userID, {
-			dietaryPreferences: userRestrictions._id,
+			dietaryPreferences: userRestrictions._id
 		});
 
 		const updatedUser = await user.findById(userID);
@@ -318,12 +337,12 @@ app.post("/dietpreferences", async (req, res) => {
 		res.status(200).json({
 			message: "Restrictions saved successfully",
 			updatedUser,
-			targetCalories,
+			targetCalories
 		});
 	} catch (err) {
 		console.error("Error saving restrictions:", err);
 		res.status(500).json({
-			error: "Server error while saving restrictions",
+			error: "Server error while saving restrictions"
 		});
 	}
 });
@@ -348,7 +367,7 @@ app.get("/user/:id", async (req, res) => {
 	} catch (err) {
 		console.error("Error fetching user data:", err);
 		res.status(500).json({
-			error: "Server error while fetching user data",
+			error: "Server error while fetching user data"
 		});
 	}
 });
@@ -363,19 +382,19 @@ app.post("/favoriteMeals", async (req, res) => {
 		nutrition,
 		prepTime,
 		ingredients,
-		instructions,
+		instructions
 	});
 
 	try {
 		const savedMeal = await newFavoriteMeal.save();
 		res.status(201).json({
 			message: "Favorite meal added successfully",
-			savedMeal,
+			savedMeal
 		});
 	} catch (err) {
 		console.error("Failed to add new favorite meal:", err);
 		res.status(400).json({
-			message: "Failed to add new favorite meal",
+			message: "Failed to add new favorite meal"
 		});
 	}
 });
@@ -388,7 +407,7 @@ app.post("/mealPlansAndSchedule", async (req, res) => {
 		nutrition,
 		prepTime,
 		ingredients,
-		instructions,
+		instructions
 	} = req.body;
 
 	const newMealPlan = new MealPlans({
@@ -398,7 +417,7 @@ app.post("/mealPlansAndSchedule", async (req, res) => {
 		nutrition,
 		prepTime,
 		ingredients,
-		instructions,
+		instructions
 	});
 
 	try {
@@ -407,7 +426,7 @@ app.post("/mealPlansAndSchedule", async (req, res) => {
 		const newScheduledMeal = new ScheduledMeals({
 			userID,
 			mealID: savedMealPlan._id,
-			date,
+			date
 		});
 
 		const savedScheduledMeal = await newScheduledMeal.save();
@@ -415,12 +434,12 @@ app.post("/mealPlansAndSchedule", async (req, res) => {
 		res.status(201).json({
 			message: "Meal plan and scheduled meals added successfully",
 			savedMealPlan,
-			savedScheduledMeal,
+			savedScheduledMeal
 		});
 	} catch (err) {
 		console.error("Failed to add new meal plan:", err);
 		res.status(400).json({
-			message: "Failed to add new meal plan",
+			message: "Failed to add new meal plan"
 		});
 	}
 });
@@ -435,18 +454,18 @@ app.post("/scheduleMealFromFavoritedMeals", async (req, res) => {
 		const scheduledMeal = new ScheduledMeals({
 			userID: req.body.userID,
 			mealID: req.body.mealID,
-			date: req.body.date,
+			date: req.body.date
 		});
 
 		const newScheduledMeal = await scheduledMeal.save();
 		res.status(201).json({
 			message: "Scheduled meal added successfully",
-			newScheduledMeal,
+			newScheduledMeal
 		});
 	} catch (err) {
 		console.error("Failed to add new meal plan:", err);
 		res.status(400).json({
-			message: "Failed to add new meal plan",
+			message: "Failed to add new meal plan"
 		});
 	}
 });
