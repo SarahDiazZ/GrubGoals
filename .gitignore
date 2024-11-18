@@ -43,3 +43,5 @@ userInformation.java
 *.tmp
 *.swp
 *.swo
+*.pem
+
