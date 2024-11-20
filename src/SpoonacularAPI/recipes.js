@@ -41,10 +41,11 @@ export const searchRecipe = async(argumentMap) => {
           includeIngredients: includeIngredients,
           excludeIngredients: excludeIngredients,
           addRecipeInformation: 'true',
+          number: 50,
         },
     }
     );
-    return response.data.results;
+    return response.data;
   } catch (error) {
     console.error('Error:', error);
   }

@@ -194,7 +194,7 @@ export default function Dashboard() {
 	// in and their current preferences from mongoDB document
 
 	// Call the async function to fetch recipes
-	let results;
+	let response;
 	useEffect(() => {
 		const fetchRecipes = async () => {
 			// Traverse variables from DietaryPrefPage form
@@ -237,7 +237,11 @@ export default function Dashboard() {
 
 			// images & titles
 			try {
-				results = await searchRecipe(argumentsMap);
+                // Entire Reponse Object
+				response = await searchRecipe(argumentsMap);
+                var results = response.results
+                var totalResults = response.number;
+                console.log("totalResults: " + totalResults)
 				console.log(results);
 
 				// store image (or multiple of them)
