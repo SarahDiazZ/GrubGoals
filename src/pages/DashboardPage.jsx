@@ -238,7 +238,7 @@ export default function Dashboard() {
 			// images & titles
 			try {
                 // Entire Reponse Object
-				response = await searchRecipe(argumentsMap);
+				response = await searchRecipe(argumentsMap, 10); // show 10 recipes on dash
                 var results = response.results
                 var totalResults = response.number;
                 console.log("totalResults: " + totalResults)
@@ -264,7 +264,7 @@ export default function Dashboard() {
 		};
 
 		fetchRecipes(); // Type Promise
-	});
+	}, []);
 
 	// return the actual page
 	return (
