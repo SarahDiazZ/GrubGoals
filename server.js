@@ -41,17 +41,30 @@ async function main() {
 	try {
 		//connect to MongoDB
 		//await mongoose.connect("mongodb://127.0.0.1:27017/grubgoals");
-		await mongoose.connect("mongodb://mongodb:27017/grubgoals");
+		//await mongoose.connect("mongodb://mongodb:27017/grubgoals");
+		//await mongoose.connect("mongodb://ec2-3-15-33-163.us-east-2.compute.amazonaws.com:27017/grubgoals");
+		//await mongoose.connect("mongodb://127.0.0.1:27017/grubgoals", { serverSelectionTimeoutMS: 30000 });
+		await mongoose.connect('mongodb://127.0.0.1:27017/grubgoals')
+  .then(() => console.log('MongoDB connected!'))
+  .catch(err => console.error('MongoDB connection error:', err));
+
 		console.log("Mongoose connected!");
 
 		//start server after setting up routes
-		app.listen('0.0.0.0', () => {
+		server.listen(PORT, '0.0.0.0', () => {
 			console.log(`Server is running on port ${PORT}!`);
 		});
 	} catch (err) {
 		console.error("Error during server setup:", err); //catch connection errors
 	}
 }
+
+server.on("clientError", (err, socket) => {
+	if (err) {
+		console.error("Client error:", err);
+		socket.destroy();
+	}
+});
 
 //call main to initialize server and handle errors in main
 main();
