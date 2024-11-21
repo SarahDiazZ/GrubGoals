@@ -5,7 +5,8 @@ import LoginPage from './pages/LoginPage'
 import TestSpoonacularPage from './pages/TestSpoonacularPage'
 import DashboardPage from './pages/DashboardPage'
 import DietaryPrefPage from './pages/DietaryPrefPage'
-import GualmartPage from './pages/GualmartPage' // walmartAPI test page
+import GualmartPage from './pages/GualmartPage' 
+import RecipesPage from './pages/RecipesPage'
 import './App.css'
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -23,6 +24,7 @@ function App(){
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/dietpreferences" element={<DietaryPrefPage />} />
           <Route path="/gualmart" element={<GualmartPage />} />
+          <Route path="/recipes" element={<RecipesPage />} />
         </Routes>
       </div>
     </Router>
