@@ -7,6 +7,7 @@ import DashboardPage from './pages/DashboardPage'
 import DietaryPrefPage from './pages/DietaryPrefPage'
 import GualmartPage from './pages/GualmartPage' 
 import RecipesPage from './pages/RecipesPage'
+import DetailedViewPage from './pages/DetailedViewPage'
 import './App.css'
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -25,6 +26,7 @@ function App(){
           <Route path="/dietpreferences" element={<DietaryPrefPage />} />
           <Route path="/gualmart" element={<GualmartPage />} />
           <Route path="/recipes" element={<RecipesPage />} />
+          <Route path="/detailed" element={<DetailedViewPage />}/>
         </Routes>
       </div>
     </Router>

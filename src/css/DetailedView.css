@@ -1,0 +1,9 @@
+.recipe-information{
+    display: flex;
+    flex-direction: row;
+}
+
+img{
+    max-width: 400px;
+    max-height: 300px;
+}
