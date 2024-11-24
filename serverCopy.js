@@ -52,13 +52,6 @@ async function main() {
 	}
 }
 
-server.on("clientError", (err, socket) => {
-	if (err) {
-		console.error("Client error:", err);
-		socket.destroy();
-	}
-});
-
 //call main to initialize server and handle errors in main
 main();
 
