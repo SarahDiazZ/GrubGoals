@@ -45,3 +45,5 @@ userInformation.java
 *.swo
 *.pem
 
+*.class
+target/
