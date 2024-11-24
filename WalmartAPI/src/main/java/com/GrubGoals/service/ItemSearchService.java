@@ -17,7 +17,7 @@ public class ItemSearchService {
     }
 
     public List<ItemSearchDTO> searchItems(String query) {
-        String url = "https://www.walmart.com/search/api/preso?query=" + query;
+        String url = "https://developer.api.walmart.com/api-proxy/service/affil/product/v2/search?query=" + query;
         String response = urlCall.callUrl(url);
 
         List<ItemSearchDTO> items = new ArrayList<>();

@@ -2,33 +2,18 @@ package com.GrubGoals.dto;
 
 public class ItemSearchDTO {
     private String itemId;
-    private String offerType;
-    private double salePrice;
     private String name;
-    private String stock;
+    private int stock;
+    private double salePrice;
+    private String offerType;
 
+    // Getters and setters
     public String getItemId() {
         return itemId;
     }
 
     public void setItemId(String itemId) {
         this.itemId = itemId;
-    }
-
-    public String getOfferType() {
-        return offerType;
-    }
-
-    public void setOfferType(String offerType) {
-        this.offerType = offerType;
-    }
-
-    public double getSalePrice() {
-        return salePrice;
-    }
-
-    public void setSalePrice(double salePrice) {
-        this.salePrice = salePrice;
     }
 
     public String getName() {
@@ -39,12 +24,27 @@ public class ItemSearchDTO {
         this.name = name;
     }
 
-    public String getStock() {
+    public int getStock() {
         return stock;
     }
 
-    public void setStock(String stock) {
+    public void setStock(int stock) {
         this.stock = stock;
     }
-    
+
+    public double getSalePrice() {
+        return salePrice;
+    }
+
+    public void setSalePrice(double salePrice) {
+        this.salePrice = salePrice;
+    }
+
+    public String getOfferType() {
+        return offerType;
+    }
+
+    public void setOfferType(String offerType) {
+        this.offerType = offerType;
+    }
 }
