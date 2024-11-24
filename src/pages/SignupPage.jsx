@@ -21,7 +21,7 @@ export default function SignUpPage() {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		axios
-			.post("http://ec2-3-138-197-136.us-east-2.compute.amazonaws.com:4000/signup", {
+			.post("http://ec2-3-138-197-136.us-east-2.compute.amazonaws.com:5173/signup", {
 				user: {
 					firstName,
 					lastName,
