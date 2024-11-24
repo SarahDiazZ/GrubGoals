@@ -27,7 +27,7 @@ export default function dietaryPreferences() {
 		{ value: "Soy", label: "Soy" },
 		{ value: "Tree Nuts", label: "Tree Nuts" },
 		{ value: "Wheat", label: "Wheat" },
-		{ value: "Corn", label: "Corn" },
+		{ value: "Corn", label: "Corn" }
 	];
 
 	const [intolerances, setIntolerances] = useState([]);
@@ -39,7 +39,7 @@ export default function dietaryPreferences() {
 		{ value: "Grains", label: "Grains" },
 		{ value: "Soy", label: "Soy" },
 		{ value: "Wheat", label: "Wheat" },
-		{ value: "Corn", label: "Corn" },
+		{ value: "Corn", label: "Corn" }
 	];
 
 	const [dietPreference, setDiets] = useState([]);
@@ -53,14 +53,14 @@ export default function dietaryPreferences() {
 		{ value: "Vegan", label: "Vegan" },
 		{ value: "Vegetarian", label: "Vegetarian" },
 		{ value: "Ketogenic", label: "Ketogenic" },
-		{ value: "Whole 30", label: "Whole 30" },
+		{ value: "Whole 30", label: "Whole 30" }
 	];
 
 	const [calorieIntake, setIntake] = useState("");
 	const calorieIntakeOptions = [
 		{ value: "Maintain Weight", label: "Maintain Weight" },
 		{ value: "Calorie Deficit", label: "Calorie Deficit" },
-		{ value: "Calorie Surplus", label: "Calorie Surplus" },
+		{ value: "Calorie Surplus", label: "Calorie Surplus" }
 	];
 
 	const [activityLevel, setActivityLevel] = useState("");
@@ -68,7 +68,7 @@ export default function dietaryPreferences() {
 		{ value: "None", label: "None" },
 		{ value: "Low", label: "Low" },
 		{ value: "Moderate", label: "Moderate" },
-		{ value: "High", label: "High" },
+		{ value: "High", label: "High" }
 	];
 
 	const handleSubmit = (e) => {
@@ -89,19 +89,22 @@ export default function dietaryPreferences() {
 		}
 
 		axios
-			.post("http://ec2-3-138-197-136.us-east-2.compute.amazonaws.com:5173/signup", {
-				restrictions: {
-					allergies,
-					intolerances,
-					dietPreference,
-					calorieIntake,
-					age,
-					weight,
-					height,
-					gender,
-					activityLevel,
-				},
-			})
+			.post(
+				"http://ec2-3-138-197-136.us-east-2.compute.amazonaws.com:5173/signup",
+				{
+					restrictions: {
+						allergies,
+						intolerances,
+						dietPreference,
+						calorieIntake,
+						age,
+						weight,
+						height,
+						gender,
+						activityLevel
+					}
+				}
+			)
 			.then((response) => {
 				console.log("Response from server:", response.data);
 				if (response.status === 200) {
@@ -111,18 +114,22 @@ export default function dietaryPreferences() {
 						`Based on your inputs, your target calorie intake is: ${targetCalories}`
 					);
 
-                //navigate to the dashboard with userID as a query parameter
-                const userID = response.data.updatedUser._id;
-                navigate(`/dashboard?userID=${userID}`, { state: {allergies, intolerances, dietPreference }} );
-            }
-        })
-        .catch(err => {
-            console.error("Error during diet preferences submission:", err);
-            if (err.response) {
-                alert(err.response.data.message || "Error saving restrictions");
-            }
-        });
-    };
+					//navigate to the dashboard with userID as a query parameter
+					const userID = response.data.updatedUser._id;
+					navigate(`/dashboard?userID=${userID}`, {
+						state: { allergies, intolerances, dietPreference }
+					});
+				}
+			})
+			.catch((err) => {
+				console.error("Error during diet preferences submission:", err);
+				if (err.response) {
+					alert(
+						err.response.data.message || "Error saving restrictions"
+					);
+				}
+			});
+	};
 
 	console.log("Current Calorie Intake:", calorieIntake);
 

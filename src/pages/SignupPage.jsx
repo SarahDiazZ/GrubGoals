@@ -21,16 +21,19 @@ export default function SignUpPage() {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		axios
-			.post("http://ec2-3-138-197-136.us-east-2.compute.amazonaws.com:5173/signup", {
-				user: {
-					firstName,
-					lastName,
-					userName,
-					email,
-					password,
-					confirmedPassword
+			.post(
+				"http://ec2-3-12-104-199.us-east-2.compute.amazonaws.com:5173/signup",
+				{
+					user: {
+						firstName,
+						lastName,
+						userName,
+						email,
+						password,
+						confirmedPassword
+					}
 				}
-			})
+			)
 			.then((response) => {
 				console.log("Response from server:", response.data);
 				const userID = response.data.userID;
