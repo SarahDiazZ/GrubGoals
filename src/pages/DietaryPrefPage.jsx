@@ -90,7 +90,7 @@ export default function dietaryPreferences() {
 
 		axios
 			.post(
-				"http://ec2-3-138-197-136.us-east-2.compute.amazonaws.com:5173/signup",
+				"http://ec2-3-12-104-199.us-east-2.compute.amazonaws.com:4000/signup",
 				{
 					restrictions: {
 						allergies,
