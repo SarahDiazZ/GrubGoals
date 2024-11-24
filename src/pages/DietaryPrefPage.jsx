@@ -89,19 +89,22 @@ export default function dietaryPreferences() {
 		}
 
 		axios
-			.post("http://localhost:4000/dietpreferences", {
-				restrictions: {
-					allergies,
-					intolerances,
-					dietPreference,
-					calorieIntake,
-					age,
-					weight,
-					height,
-					gender,
-					activityLevel
+			.post(
+				"http://ec2-3-12-104-199.us-east-2.compute.amazonaws.com:4000/dietarypreferences",
+				{
+					restrictions: {
+						allergies,
+						intolerances,
+						dietPreference,
+						calorieIntake,
+						age,
+						weight,
+						height,
+						gender,
+						activityLevel
+					}
 				}
-			})
+			)
 			.then((response) => {
 				console.log("Response from server:", response.data);
 				if (response.status === 200) {
