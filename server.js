@@ -43,7 +43,7 @@ async function main() {
 		//await mongoose.connect("mongodb://127.0.0.1:27017/grubgoals");
 		//await mongoose.connect("mongodb://mongodb:27017/grubgoals");
 		await mongoose.connect(
-			"mongodb://ec2-3-15-33-163.us-east-2.compute.amazonaws.com:27017/grubgoals"
+			"mongodb://ec2-3-12-104-199.us-east-2.compute.amazonaws.com:27017/grubgoals"
 		);
 		console.log("Mongoose connected!");
 
