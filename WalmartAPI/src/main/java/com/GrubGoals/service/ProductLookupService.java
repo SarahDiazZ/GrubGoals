@@ -3,6 +3,8 @@ package com.GrubGoals.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import com.GrubGoals.URLCall;
@@ -21,8 +23,23 @@ public class ProductLookupService {
         String response = urlCall.callUrl(url);
 
         List<ProductLookupDTO> products = new ArrayList<>();
-        // Parse the response and populate the products list
-        System.out.println("Response: " + response);
+        try {
+            JSONObject jsonResponse = new JSONObject(response);
+            JSONArray itemsArray = jsonResponse.getJSONArray("items");
+
+            for (int i = 0; i < itemsArray.length(); i++) {
+                JSONObject itemObject = itemsArray.getJSONObject(i);
+                ProductLookupDTO product = new ProductLookupDTO();
+                product.setItemId(itemObject.getLong("itemId")); // Use getLong for itemId
+                product.setOfferType(itemObject.getString("offerType"));
+                product.setSalePrice(itemObject.getDouble("salePrice"));
+                product.setName(itemObject.getString("name"));
+                product.setStock(itemObject.getString("stock"));
+                products.add(product);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return products;
     }

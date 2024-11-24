@@ -3,7 +3,7 @@ package com.GrubGoals.dto;
 public class StoreDTO {
 
     private String zipCode;
-    private String storeId;
+    private int storeId;
     private String address;
     private String city;
     private String storeName;
@@ -17,11 +17,11 @@ public class StoreDTO {
         this.zipCode = zipCode;
     }
 
-    public String getStoreId() {
+    public int getStoreId() {
         return storeId;
     }
 
-    public void setStoreId(String storeId) {
+    public void setStoreId(int storeId) {
         this.storeId = storeId;
     }
 

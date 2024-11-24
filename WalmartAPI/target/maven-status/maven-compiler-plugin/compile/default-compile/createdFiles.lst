@@ -1,4 +1,5 @@
 com/GrubGoals/dto/ItemSearchDTO.class
+com/GrubGoals/GrubGoalsApplication.class
 com/GrubGoals/SignatureGenerator$ServiceKeyRep.class
 com/GrubGoals/URLCall.class
 com/GrubGoals/controller/ProductLookupController.class
