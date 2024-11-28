@@ -7,6 +7,11 @@ import { useLocation } from 'react-router-dom'
 
 import '../css/DetailedView.css'
 
+// a function to remove HTML tags from text
+function removeHTMLTags(text){
+    return text.replace(/(<([^>]+)>)/gi, "");
+}
+
 export default function DetailedPageView(){
     // get data from url
     const location = useLocation();
@@ -18,8 +23,8 @@ export default function DetailedPageView(){
     // data we need to show
     const [ingredients, setIngredients] = useState([]);
     const [image, setImage] = useState('');
-    let instructions;
-
+    const [summary, setSummary] = useState('');
+    const [instructions, setInstructions] = useState([]);
     useEffect(() => {
          // holds all the recipe information
         let response;
@@ -31,20 +36,20 @@ export default function DetailedPageView(){
 
                 // gathering information
                 setImage(response.image);
-
-                console.log("image link: ", response.image)
-                console.log("instructions: ", response.instructions)
+                setSummary(removeHTMLTags(response.summary));
+                setIngredients(response.extendedIngredients);
                 
-                for (let i = 0; i < response.extendedIngredients.length; i++){
-                    console.log(`Ingredient #${i}: `, response.extendedIngredients[i].name)
-                }
+                // check if instructions exists; if yes, set it
+                const steps = response.analyzedInstructions?.[0]?.steps || [];
+                setInstructions(steps);
+
             }catch (err){
                 console.log(err);
             }
         }
 
         fetchRecipeData(); // waits for this promise
-    }), [];
+    }, [recipeID]);
 
     // return the actual page here
     return (
@@ -61,14 +66,50 @@ export default function DetailedPageView(){
                         <br />
 					</div>
                     
-                    <div className='recipe-information'>
+                    <div className='recipe-information-pic-summary' id="summary">
                         <img
                             key={"recipeImage"}
                             src={image}
                             alt={`image of ${recipeTitle}`}
                         />
-
                         
+                        <div className='recipe-summary'>
+                            {summary} <br/> <br/> <b>Source:</b> Spoonacular
+                        </div>
+                        
+                    </div>
+
+                    <div className='ingredients-header' id="ingredients">
+                            To begin making {recipeTitle}, you'll need the following ingredients: <br/>
+                    </div>
+
+                    <div className='recipe-information-ingredients'>
+                        {/* list out each ingredient */}
+                        <ul>
+                            {
+                                ingredients.map((ingredient, index) => (
+                                    <li key={index}>
+                                        {ingredient.original}
+                                    </li>
+                                ))
+                            }
+                        </ul>
+                    </div>
+                    
+                    <div className='instructions-header' id="instructions">
+                        Follow these instructions for something tasty!
+                    </div>
+                    <div className='recipe-information-instructions'>
+                        {/* list out each instruction */}
+                        <ol type="1">
+                            {
+                                instructions.map((instructionStep, index) => (
+                                    <li key={index}>
+                                        {instructionStep.step}
+                                    </li>
+                                ))
+                            }
+                        </ol>
                     </div>
 				</div>{/* end of right-overlay */}
 			</div>

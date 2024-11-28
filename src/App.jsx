@@ -15,7 +15,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App(){
   return (
-    <Router>
+    // add future={{ v7_relativeSplatPath: true }} if routes start causing problems (react update)
+    <Router > 
       <div>
         <Routes>
           <Route path="/" element={<LandingPage />} />  
