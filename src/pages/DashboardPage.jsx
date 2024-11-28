@@ -170,13 +170,7 @@ const events = [
 ]; 
 
 export default function Dashboard() {
-	// Spoonacular API Call using response data from DietaryPrefPage.jsx
-
-	// Used to anchor the DietaryPrefPage
-	// This way, we don't have the handle the
-	// case where the allergies, intolerances, diets
-	// variables are empty if you navigate to this page
-	// from another button or directly using the a URL.
+	// spoonacular call - see dashboard.jsx for implementation
 	const location = useLocation();
 	const {
 		allergies = [],
@@ -187,7 +181,10 @@ export default function Dashboard() {
 	const [images, setImages] = useState([]); // holds images from the api call
 	const [titles, setTitles] = useState([]); // holds titles
 	const [descriptions, setDescriptions] = useState([]); // holds descriptions
-    
+	const [links, setLinks] = useState([]); //holds the url of each recipe
+	const [recipeIds, setRecipeID] = useState([]); //holds the id of each recipe
+
+    let recipeID;
 	// Initial set of recipes generated, for new user
 	// and/or new set of preferences
 	// Update to take into account a user who is logged
@@ -238,7 +235,7 @@ export default function Dashboard() {
 			// images & titles
 			try {
                 // Entire Reponse Object
-				response = await searchRecipe(argumentsMap, 10); // show 10 recipes on dash
+				response = await searchRecipe(argumentsMap, 50);
                 var results = response.results
                 var totalResults = response.number;
                 console.log("totalResults: " + totalResults)
@@ -249,14 +246,15 @@ export default function Dashboard() {
 					//console.log('-----> Image URL:', imageURL)
 					const fetchedImages = results.map((result) => result.image);
 					const fetchedTitles = results.map((result) => result.title);
-					const fetchedDescriptions = results.map(
-						(result) => result.summary
-					);
+					const fetchedDescriptions = results.map((result) => result.summary);
+					const fetchedLinks = results.map((result => result.spoonacularSourceUrl));
+					const fetchedIDs = results.map((result) => result.id)
 
 					setImages(fetchedImages);
 					setTitles(fetchedTitles);
-
+					setLinks(fetchedLinks);
 					setDescriptions(fetchedDescriptions);
+					setRecipeID(fetchedIDs);
 				}
 			} catch (error) {
 				console.log(error);
@@ -265,6 +263,13 @@ export default function Dashboard() {
 
 		fetchRecipes(); // Type Promise
 	}, []);
+
+	// create a function to go to the spoonacular page for the recipe
+	const recipeClicked = (page, id, recipeName) => {
+		console.log("Navigating to page", page);
+		window.open(`/detailed?id=${id}&name=${recipeName}`, "_blank");
+		recipeID = id;
+	}
 
 	// return the actual page
 	return (
@@ -310,36 +315,41 @@ export default function Dashboard() {
                         />
 					</div>{/* end of donuts */}
                     
-
+					<div>
+					Recipes
+					</div>
 					<div className="data-container-carousel">
+						
 						{images.length > 0 ? (
 							images.map((images, index) => (
 								<>
 									<div className="data-item ">
-										<div className="recipe-card animate__animated animate__fadeInRightBig">
-											<img
-												key={index}
-												src={images}
-												alt={`Recipe ${index + 1}`}
-											/>
-											<div className="recipe-title">
-												{titles[index]}
-											</div>
-											<div className="recipe-description">
-												{descriptions[index]
-													.substring(
-														0,
-														descriptions[
-															index
-														].indexOf(".") + 1
-													)
-													.replace(
-														/(<([^>]+)>)/gi,
-														""
-													)}
+											<div className="recipe-card animate__animated animate__fadeInRightBig" 
+												 onClick={() => recipeClicked(links[index], recipeIds[index], titles[index])}
+											>
+												<img
+													key={index}
+													src={images}
+													alt={`Recipe ${index + 1}`}
+												/>
+												<div className="recipe-title">
+													{titles[index]}
+												</div>
+												<div className="recipe-description">
+													{descriptions[index]
+														.substring(
+															0,
+															descriptions[
+																index
+															].indexOf(".") + 1
+														)
+														.replace(
+															/(<([^>]+)>)/gi,
+															""
+														)}
+												</div>
 											</div>
 										</div>
-									</div>
 								</>
 							))
 						) : (

@@ -19,7 +19,9 @@ export default function Recipes() {
 	const [titles, setTitles] = useState([]); // holds titles
 	const [descriptions, setDescriptions] = useState([]); // holds descriptions
 	const [links, setLinks] = useState([]); //holds the url of each recipe
-    
+	const [recipeIds, setRecipeID] = useState([]); //holds the id of each recipe
+
+    let recipeID;
 	// Initial set of recipes generated, for new user
 	// and/or new set of preferences
 	// Update to take into account a user who is logged
@@ -27,6 +29,7 @@ export default function Recipes() {
 
 	// Call the async function to fetch recipes
 	let response;
+
 	useEffect(() => {
 		const fetchRecipes = async () => {
 			// Traverse variables from DietaryPrefPage form
@@ -83,11 +86,13 @@ export default function Recipes() {
 					const fetchedTitles = results.map((result) => result.title);
 					const fetchedDescriptions = results.map((result) => result.summary);
 					const fetchedLinks = results.map((result => result.spoonacularSourceUrl));
+					const fetchedIDs = results.map((result) => result.id)
 
 					setImages(fetchedImages);
 					setTitles(fetchedTitles);
 					setLinks(fetchedLinks);
 					setDescriptions(fetchedDescriptions);
+					setRecipeID(fetchedIDs);
 				}
 			} catch (error) {
 				console.log(error);
@@ -98,9 +103,10 @@ export default function Recipes() {
 	}, []);
 
 	// create a function to go to the spoonacular page for the recipe
-	const recipeClicked = (page) => {
+	const recipeClicked = (page, id, recipeName) => {
 		console.log("Navigating to page", page);
-		window.open(page, "_blank");
+		window.open(`/detailed?id=${id}&name=${recipeName}`, "_blank");
+		recipeID = id;
 	}
 
 	// return actual page
@@ -123,7 +129,7 @@ export default function Recipes() {
 									<>
 										<div className="data-item ">
 											<div className="recipe-card animate__animated animate__fadeInRightBig" 
-												 onClick={() => recipeClicked(links[index])}
+												 onClick={() => recipeClicked(links[index], recipeIds[index], titles[index])}
 											>
 												<img
 													key={index}
