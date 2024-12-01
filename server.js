@@ -373,19 +373,27 @@ app.get("/user/:id", async (req, res) => {
 });
 
 app.post("/favoriteMeals", async (req, res) => {
-	const { userID, mealName, nutrition, prepTime, ingredients, instructions } =
-		req.body;
+	const { userID, mealName, nutrition, prepTime, ingredients, instructions } = req.body;
 
-	const newFavoriteMeal = new FavoriteMeals({
-		userID,
-		mealName,
-		nutrition,
-		prepTime,
-		ingredients,
-		instructions
-	});
 
 	try {
+		// first check if the meal we're about to add already exists
+		const existingMeal = await FavoriteMeals.findOne({userID, mealName});
+		if (existingMeal){
+			return res.status(409).json({
+				message: "This recipe/meal is already in favorites"
+			});
+		}
+
+		const newFavoriteMeal = new FavoriteMeals({
+			userID,
+			mealName,
+			nutrition,
+			prepTime,
+			ingredients,
+			instructions
+		});
+
 		const savedMeal = await newFavoriteMeal.save();
 		res.status(201).json({
 			message: "Favorite meal added successfully",
