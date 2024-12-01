@@ -6,8 +6,10 @@ import { Chart, ArcElement, Tooltip, Legend, Title, plugins } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import { all } from "axios";
 import { searchRecipe } from "../SpoonacularAPI/recipes";
-// import Hamburger from '../components/Hamburger';
-import NavBar from "../components/NavBar";
+import NavBar from "../components/NavBar"; // import Hamburger from '../components/Hamburger';
+
+// store userID
+let userID;
 
 // react-big-calendar
 import {Calendar, momentLocalizer} from 'react-big-calendar';
@@ -178,6 +180,10 @@ export default function Dashboard() {
 		dietPreference = [],
 	} = location.state || {};
 
+
+	const urlParams = new URLSearchParams(location.search);
+	userID = urlParams.get('userID');
+
 	const [images, setImages] = useState([]); // holds images from the api call
 	const [titles, setTitles] = useState([]); // holds titles
 	const [descriptions, setDescriptions] = useState([]); // holds descriptions
@@ -267,7 +273,8 @@ export default function Dashboard() {
 	// create a function to go to the spoonacular page for the recipe
 	const recipeClicked = (page, id, recipeName) => {
 		console.log("Navigating to page", page);
-		window.open(`/detailed?id=${id}&name=${recipeName}`, "_blank");
+		window.open(`/detailed?id=${id}&name=${recipeName}&userID=${userID}`, "_blank");
+		
 		recipeID = id;
 	}
 
