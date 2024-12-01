@@ -5,10 +5,14 @@ import { searchRecipe } from "../SpoonacularAPI/recipes"
 import { useLocation, useNavigate } from 'react-router-dom'
 import '../css/RecipesPage.css'
 
+// userID
+let userID;
+
 export default function Recipes() {
 
 	// spoonacular call - see dashboard.jsx for implementation
 	const location = useLocation();
+	const urlParams = new URLSearchParams(location.search);
 	const {
 		allergies = [],
 		intolerances = [],
@@ -20,6 +24,7 @@ export default function Recipes() {
 	const [descriptions, setDescriptions] = useState([]); // holds descriptions
 	const [links, setLinks] = useState([]); //holds the url of each recipe
 	const [recipeIds, setRecipeID] = useState([]); //holds the id of each recipe
+	userID = urlParams.get('userID');
 
     let recipeID;
 	// Initial set of recipes generated, for new user
@@ -105,7 +110,7 @@ export default function Recipes() {
 	// create a function to go to the spoonacular page for the recipe
 	const recipeClicked = (page, id, recipeName) => {
 		console.log("Navigating to page", page);
-		window.open(`/detailed?id=${id}&name=${recipeName}`, "_blank");
+		window.open(`/detailed?id=${id}&name=${recipeName}&userID=${userID}`, "_blank");
 		recipeID = id;
 	}
 
