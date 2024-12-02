@@ -9,6 +9,7 @@ import GualmartPage from './pages/GualmartPage' // walmartAPI test page
 import './App.css'
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import SettingsPage from './pages/SettingsPage'
 
 
 function App(){
@@ -23,6 +24,7 @@ function App(){
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/dietpreferences" element={<DietaryPrefPage />} />
           <Route path="/gualmart" element={<GualmartPage />} />
+          <Route path="/settings" element={<SettingsPage />} /> 
         </Routes>
       </div>
     </Router>
