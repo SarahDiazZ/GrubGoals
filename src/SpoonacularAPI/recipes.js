@@ -1,7 +1,7 @@
 import axios from 'axios';
 const spoonacularApiKey = import.meta.env.VITE_SPOONACULAR_API_KEY;
 
-export const searchRecipe = async(argumentMap) => {
+export const searchRecipe = async(argumentMap, numberOfRecipes) => {
 
   // Obtain Map Information 
 
@@ -41,10 +41,30 @@ export const searchRecipe = async(argumentMap) => {
           includeIngredients: includeIngredients,
           excludeIngredients: excludeIngredients,
           addRecipeInformation: 'true',
+          number: numberOfRecipes,
         },
     }
     );
-    return response.data.results;
+    return response.data;
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+export const getRecipeInformation = async(recipeID, includeRecipeInformation) => {
+  try {
+    const url = `https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/${recipeID}/information`;
+    const response = await axios.get(url, {
+      headers: {
+          'x-rapidapi-key': spoonacularApiKey,
+          'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
+      },
+      params: {
+          includeNutrition: includeRecipeInformation,
+        },
+    }
+    );
+    return response.data;
   } catch (error) {
     console.error('Error:', error);
   }

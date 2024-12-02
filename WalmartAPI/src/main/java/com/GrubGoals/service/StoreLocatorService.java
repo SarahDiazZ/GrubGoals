@@ -17,7 +17,7 @@ public class StoreLocatorService {
     }
 
     public List<StoreDTO> findStores(String zipCode) {
-        String url = "https://www.walmart.com/store/finder/electrode/api/stores?singleLineAddr=" + zipCode;
+        String url = "https://developer.api.walmart.com/api-proxy/service/affil/product/v2/stores?zip=" + zipCode;
         String response = urlCall.callUrl(url);
 
         List<StoreDTO> stores = new ArrayList<>();

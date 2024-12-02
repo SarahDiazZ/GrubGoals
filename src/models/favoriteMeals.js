@@ -22,7 +22,7 @@ const favoriteMealsSchema = new mongoose.Schema({
                                 type: Number,
                                 required: true,
                         },
-                        protein: {
+                        cholesterol: {
                                 type: Number,
                                 required: true,
                         },
