@@ -6,15 +6,23 @@ nav {
     list-style-type: none;
     height: 100%;
     position: relative;
+    display: flex; /* Use flexbox for alignment */
+    flex-direction: column; /* Stack links vertically */
+    align-items: stretch; /* Ensure links stretch to the same width */
 }
 
 nav a {
+    display: flex; /* Flexbox inside each link for better alignment */
+    justify-content: center; /* Center text horizontally */
+    align-items: center; /* Center text vertically */
     float: left;
     display: block;
     color: white;
     text-align: center;
     padding: 14px 20px;
     text-decoration: none;
+    border-bottom: 1px solid #cccccc; /* Add a line between buttons */
+    border-radius: 0 0 10px 10px; /* Curve the bottom corners */
 }
 
 /* Change link color on hover */
