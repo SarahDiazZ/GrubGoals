@@ -1,4 +1,4 @@
-import react from 'react'
+import React from 'react'
 import '../css/gualmart.css'
 import 'animate.css'
 

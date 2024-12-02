@@ -5,6 +5,7 @@ import GualmartButton from "../components/GualmartButton";
 import GoogleButton from "../components/GoogleButton";
 import "../css/landingPage.css";
 import "animate.css";
+
 function LandingPage() {
 	return (
 		<div className="container ">
