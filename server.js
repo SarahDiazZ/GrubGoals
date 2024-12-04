@@ -477,3 +477,44 @@ app.post("/scheduleMealFromFavoritedMeals", async (req, res) => {
 		});
 	}
 });
+
+// schedule meal from recipes page and such
+app.post("/scheduleMeal", async (req, res) => {
+	const {userID, mealName, date, startTime, endTime} = req.body;
+
+	try{
+		console.log("Incoming data:", req.body)
+
+		// validation things
+		if (!userID || !mealName || !date || !startTime || !endTime){
+			return res.status(400).json({error: "Missing required fields"});
+		}
+
+		// check if this meal is already scheduled
+		const existingMeal = await ScheduledMeals.findOne({userID, mealName, date, startTime, endTime});
+		if (existingMeal){
+			return res.status(409).json({error: "This meal has already been scheduled"}); 
+		}
+
+
+		const newScheduledMeal = new ScheduledMeals({
+			userID,
+			mealName,
+			date,
+			startTime,
+			endTime
+		});
+
+		console.log("data after manipulation: ", newScheduledMeal)
+		const scheduledMeal = await newScheduledMeal.save();
+		
+		res.status(201).json({
+			message: "Successfully scheduled meal",
+			scheduledMeal
+		});
+
+	}catch(err){
+		console.error("Error scheduling meal...", err);
+		res.status(400).json({error: "Failed to schedule meal"})
+	}
+})
