@@ -1,0 +1,57 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* NavBar container */
+.settings-navbar {
+    width: 17%;
+    height: 95vh;
+    background-color: #636d79;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    /* box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); */
+    color: white;
+  }
+  
+  /* List styling */
+  .settings-navbar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .settings-navbar li {
+    padding: 10px 15px;
+    background-color: transparent;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.2s ease;
+    border-bottom: 1px solid #cccccc; /* Add a line between buttons */
+  }
+  
+  /* Highlight active section */
+  .settings-navbar li.active {
+    background-color: #007bff;
+    color: #ffffff;
+  }
+  
+  .settings-navbar li:hover {
+    background-color: rgb(96, 130, 117);
+    color: #ffffff;
+  }
+  
+  /* Main Content */
+  .settings-content {
+    width: 80%;
+    margin-left: 20%;
+    padding: 20px;
+    background-color: #ffffff;
+    min-height: 100vh;
+  }
