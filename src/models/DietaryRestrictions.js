@@ -22,13 +22,13 @@ const restrictionsSchema = new mongoose.Schema({
         dietPreferences: [
                 {
                         type: String,
-                        required: true, //If no dietPref, then user must select "No Diet"
+                        required: false,
                 },
         ],
         calorieIntake: [
                 {
                         type: String,
-                        required: true,
+                        required: false,
                 },
         ],
         age: {
