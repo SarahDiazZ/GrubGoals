@@ -16,6 +16,7 @@ import restrictions from "./src/models/DietaryRestrictions.js";
 import FavoriteMeals from "./src/models/favoriteMeals.js";
 import ScheduledMeals from "./src/models/scheduledMeals.js";
 import MealPlans from "./src/models/mealPlans.js";
+// import user from "./src/models/UsersInformation.js";
 
 const PORT = process.env.PORT || 4000;
 const app = express();
@@ -55,7 +56,7 @@ async function main() {
 //call main to initialize server and handle errors in main
 main();
 
-//Google OAth 2.0
+//Google OAuth 2.0
 function isLoggedIn(req, res, next) {
 	req.user ? next() : res.sendStatus(401);
 }
@@ -476,6 +477,189 @@ app.post("/scheduleMealFromFavoritedMeals", async (req, res) => {
 			message: "Failed to add new meal plan"
 		});
 	}
+});
+
+
+// Update account settings
+app.put("/settings/account", async (req, res) => {
+    const { userId, username, email } = req.body;
+
+    if (!userId || !username) {
+        return res.status(400).json({ error: "User ID and username are required." });
+    }
+
+    try {
+        // Ensure the username is unique
+        const existingUser = await user.findOne({ userName: username });
+        if (existingUser && existingUser._id.toString() !== userId) {
+            return res.status(409).json({ error: "Username is already taken." });
+        }
+
+        const updatedUser = await user.findByIdAndUpdate(
+            userId,
+            { userName: username, email }, // Update username and email
+            { new: true } // Return the updated document
+        );
+
+        if (!updatedUser) {
+            return res.status(404).json({ error: "User not found." });
+        }
+
+        res.status(200).json({
+            message: "Account settings updated successfully.",
+            updatedUser,
+        });
+    } catch (err) {
+        console.error("Error updating account settings:", err);
+        res.status(500).json({ error: "Failed to update account settings." });
+    }
+});
+
+app.put("/settings/password", async (req, res) => {
+    const { userId, currentPassword, newPassword } = req.body;
+
+    if (!userId || !currentPassword || !newPassword) {
+        return res.status(400).json({ error: "All fields are required." });
+    }
+
+    try {
+        const foundUser = await user.findById(userId);
+        if (!foundUser) {
+            return res.status(404).json({ error: "User not found." });
+        }
+
+        // Verify current password
+        if (!foundUser.validPass(currentPassword)) {
+            return res.status(401).json({ error: "Incorrect current password." });
+        }
+
+        // Validate new password
+        if (!passwordRegex.test(newPassword)) {
+            return res.status(400).json({
+                error: "New password does not meet security requirements.",
+            });
+        }
+
+        // Update with new password
+        foundUser.setPass(newPassword);
+        await foundUser.save();
+
+        res.status(200).json({ message: "Password updated successfully." });
+    } catch (err) {
+        console.error("Error updating password:", err);
+        res.status(500).json({ error: "Failed to update password." });
+    }
+});
+
+app.put("/settings/diet", async (req, res) => {
+    const { userId, dietPreferences, allergies, intolerances } = req.body;
+
+    try {
+        const restriction = await restrictions.findOne({ userID: userId });
+
+        if (!restriction) {
+            return res.status(404).json({ message: "User restrictions not found." });
+        }
+
+        // Only update the fields that are provided
+        if (dietPreferences) {
+            restriction.dietPreferences = dietPreferences;
+        }
+        if (allergies) {
+            restriction.allergies = allergies;
+        }
+        if (intolerances) {
+            restriction.intolerances = intolerances;
+        }
+
+        // Save the updated document
+        await restriction.save();
+
+        res.status(200).json({ message: "Dietary preferences updated successfully." });
+    } catch (err) {
+        console.error("Error updating dietary preferences:", err);
+        res.status(500).json({ message: "Failed to update dietary preferences." });
+    }
+});
+
+
+app.put("/settings/calorieintake", async (req, res) => {
+    const { userId, weight, height, age, gender, activityLevel, calorieIntake } = req.body;
+
+    try {
+        // Validate inputs
+        // if (!userId || !weight || !height || !age || !gender || !activityLevel || !calorieIntake) {
+        //     return res.status(400).json({ message: "All fields are required." });
+        // }
+
+		function calculateBMR(weight, height, age, gender) {
+			if (gender === "Male") {
+				return 88.362 + 13.397 * weight + 4.799 * height - 5.677 * age;
+			} else {
+				return 447.593 + 9.247 * weight + 3.098 * height - 4.33 * age;
+			}
+		} //end calculateBMR
+
+		function calculateTDEE(bmr, activityLevel) {
+			const activityMultipliers = {
+				None: 1.2,
+				Low: 1.375,
+				Moderate: 1.55,
+				High: 1.725
+			};
+			return bmr * (activityMultipliers[activityLevel] || 1.2);
+		} //end calculateTDEE
+
+		function adjustCalories(tdee, goal) {
+			if (goal === "Calorie Deficit") {
+				return tdee - 500; //500 calorie deficit
+			} else if (goal === "Calorie Surplus") {
+				return tdee + 250; //250-alorie surplus
+			}
+			return tdee; //maintenance
+		} //end adjustCalories
+
+        // Convert weight and height
+        const weightInKg = weight * 0.453592;
+        const heightInCm = height * 2.54;
+
+        // Perform calculations
+        const bmr = calculateBMR(weightInKg, heightInCm, age, gender);
+        const tdee = calculateTDEE(bmr, activityLevel);
+        const targetCalories = adjustCalories(tdee, calorieIntake).toFixed(2);
+
+        // Find and update user's restriction document
+        const restriction = await restrictions.findOne({ userID: userId });
+
+        if (!restriction) {
+            return res.status(404).json({ message: "User restrictions not found." });
+        }
+
+
+		restriction.weight = weight;
+		restriction.height = height;
+		restriction.age = age;
+		restriction.gender = gender;
+		restriction.activityLevel = activityLevel;
+		restriction.calorieIntake = calorieIntake;
+        restriction.bmr = bmr;
+        restriction.tdee = tdee;
+        restriction.targetCalories = targetCalories;
+
+
+        // Save updated restriction
+        await restriction.save();
+
+        res.status(200).json({
+            message: "Dietary preferences updated successfully.",
+            bmr,
+            tdee,
+            targetCalories,
+        });
+    } catch (error) {
+        console.error("Error updating dietary preferences:", error);
+        res.status(500).json({ message: "Failed to update dietary preferences." });
+    }
 });
 
 // schedule meal from recipes page and such

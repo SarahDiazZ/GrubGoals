@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../css/SettingsNavBar.css';
 
 export default function SettingsNavBar({activeSection, onSelectSection}) {
-    const sections = ["Account", "Dietary Preferences", "Activity Settings", "Display Preferences"];
+    const [isDarkMode, setIsDarkMode] = useState(false);
+    const sections = ["Account", "Dietary Preferences", "Calorie Intake", "Dark Mode"];
+
+    const toggleDarkMode= () => {
+        setIsDarkMode(!isDarkMode);
+    };
 
     return (
-        <nav className="settings-navbar">
+        <nav className={`settings-navbar ${isDarkMode ? 'dark': ''}`}>
             <ul>
                 {sections.map((section) => (
                     <li
@@ -17,6 +22,11 @@ export default function SettingsNavBar({activeSection, onSelectSection}) {
                     </li>
                 ))}
             </ul>
+
+            {/* Dark Mode Toggle */}
+            <button className="dark-mode-toggle" onClick={toggleDarkMode}>
+                {isDarkMode ? 'Light Mode' : 'Dark Mode'}
+            </button>
         </nav>
     );
 } //end function

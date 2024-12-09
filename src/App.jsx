@@ -30,6 +30,9 @@ function App(){
           <Route path="/settings" element={<SettingsPage />} /> 
           <Route path="/recipes" element={<RecipesPage />} />
           <Route path="/detailed" element={<DetailedViewPage />}/>
+          {/* <Route path="/settings/account" element={<SettingsPage />} /> 
+          <Route path="/settings/diet" element={<SettingsPage />} /> 
+          <Route path="/settings/activity" element={<SettingsPage />} />  */}
         </Routes>
       </div>
     </Router>
