@@ -38,7 +38,7 @@
   
   /* Highlight active section */
   .settings-navbar li.active {
-    background-color: #007bff;
+    background-color: rgb(96, 130, 117);
     color: #ffffff;
   }
   
@@ -55,3 +55,26 @@
     background-color: #ffffff;
     min-height: 100vh;
   }
+
+/* Dark Mode styles */
+.settings-navbar.dark {
+  background-color: #242526;
+  color: white;
+}
+
+.dark-mode-toggle {
+  background: none;
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+.dark-mode-toggle:hover {
+  background-color: #f0f0f0;
+}
+
+/* Optional: Active link styles */
+.settings-navbar li.active {
+  text-decoration: underline;
+}
