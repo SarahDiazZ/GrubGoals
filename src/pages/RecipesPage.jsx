@@ -3,12 +3,14 @@ import NavBar from '../components/NavBar'
 import { all } from 'axios'
 import { searchRecipe } from "../SpoonacularAPI/recipes"
 import { useLocation, useNavigate } from 'react-router-dom'
+import { useDarkMode } from '../context/DarkModeContext'
 import '../css/RecipesPage.css'
 
 // userID
 let userID;
 
 export default function Recipes() {
+	const { isDarkMode } = useDarkMode();
 
 	// spoonacular call - see dashboard.jsx for implementation
 	const location = useLocation();
@@ -116,7 +118,7 @@ export default function Recipes() {
 
 	// return actual page
     return (
-		<div className="main-container">
+		<div className={`main-container ${isDarkMode ? 'dark' : ''}`}>
 			<div className="overlay-box animate__animated animate__fadeIn">
 				{/* Hamborg menu */}
 				<NavBar />
