@@ -1,13 +1,8 @@
 import React, { useState } from 'react';
 import '../css/SettingsNavBar.css';
 
-export default function SettingsNavBar({activeSection, onSelectSection}) {
-    const [isDarkMode, setIsDarkMode] = useState(false);
-    const sections = ["Account", "Dietary Preferences", "Calorie Intake", "Dark Mode"];
-
-    const toggleDarkMode= () => {
-        setIsDarkMode(!isDarkMode);
-    };
+export default function SettingsNavBar({activeSection, onSelectSection, isDarkMode, toggleDarkMode}) {
+    const sections = ["Account", "Dietary Preferences", "Calorie Intake", "Toggle Dark Mode"];
 
     return (
         <nav className={`settings-navbar ${isDarkMode ? 'dark': ''}`}>
@@ -16,17 +11,22 @@ export default function SettingsNavBar({activeSection, onSelectSection}) {
                     <li
                         key={section}
                         className={activeSection === section ? "active" : ""}
-                        onClick={() => onSelectSection(section)}
+                        onClick={() => {
+                            if (section === "Toggle Dark Mode") {
+                                toggleDarkMode(); // Toggle dark mode when clicking "Dark Mode"
+                            } else {
+                                onSelectSection(section); // Handle other sections
+                            }
+                        }}
                     >
-                        {section}
+                        {section === "Toggle Dark Mode" ? (
+                            isDarkMode ? "Toggle Light Mode" : "Toggle Dark Mode"
+                        ) : (
+                            section
+                        )}
                     </li>
                 ))}
             </ul>
-
-            {/* Dark Mode Toggle */}
-            <button className="dark-mode-toggle" onClick={toggleDarkMode}>
-                {isDarkMode ? 'Light Mode' : 'Dark Mode'}
-            </button>
         </nav>
     );
 } //end function

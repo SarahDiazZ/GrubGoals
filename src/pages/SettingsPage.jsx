@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { useLocation } from "react-router-dom";
+import { useDarkMode } from '../context/DarkModeContext';
 import SettingsNavBar from "../components/SettingsNavBar";
 import Select from "react-select";
 import '../css/SettingsPage.css'
@@ -8,11 +9,8 @@ import 'animate.css'
 
 
 export default function SettingsPage() {
-    const [isDarkMode, setIsDarkMode] = useState(false); // Track dark mode state
+    const { isDarkMode, toggleDarkMode } = useDarkMode();
 
-    const toggleDarkMode = () => {
-        setIsDarkMode(!isDarkMode); // Toggle the dark mode state
-    };
     const location = useLocation(); // Access the location object
     const queryParams = new URLSearchParams(location.search); // Parse query params
     const userId = queryParams.get("userID"); // Get the userID from the query string
@@ -208,11 +206,13 @@ export default function SettingsPage() {
 
     return (
         <div className={`settings-page ${isDarkMode ? 'dark' : ''}`}>
-            <div className="settings-main-container">
+            <div className={`settings-main-container ${isDarkMode ? 'dark' : ''}`}>
                 <div className='settings-overlay-box animate__animated animate__fadeIn'>
                     <SettingsNavBar 
                         activeSection={activeSection}
                         onSelectSection={setActiveSection}
+                        isDarkMode={isDarkMode} 
+                        toggleDarkMode={toggleDarkMode}
                     />
                     <div className='right-overlay animate__animated animate__fadeInRight'>
                         <div className="settings-text">
@@ -295,7 +295,8 @@ export default function SettingsPage() {
                                     <form onSubmit={handleDietSave}>
                                         <label htmlFor="diet">Diet Type</label>
                                         <Select
-                                            className="dropdown"
+                                            className={isDarkMode ? "dropdown-dark" : "dropdown-light"}
+                                            classNamePrefix="dropdown"
                                             options={dietOptions} //react-select will automatically create the options from this
                                             onChange={(selectedOption) =>
                                                 setDiet(selectedOption.value)
@@ -304,7 +305,8 @@ export default function SettingsPage() {
                                         <label htmlFor="allergies">Allergies</label>
                                         <Select
                                             isMulti
-                                            className="dropdown"
+                                            className={isDarkMode ? "dropdown-dark" : "dropdown-light"}
+                                            classNamePrefix="dropdown"
                                             options={allergyOptions}
                                             onChange={(selectedOptions) =>
                                                 setAllergies(
@@ -317,7 +319,8 @@ export default function SettingsPage() {
                                         <label htmlFor="intolerances">Intolerances</label>
                                         <Select
                                             isMulti //enables multi-select
-                                            className="dropdown"
+                                            className={isDarkMode ? "dropdown-dark" : "dropdown-light"}
+                                            classNamePrefix="dropdown"
                                             options={intoleranceOptions} //react-select will automatically create the options from this
                                             onChange={(selectedOptions) =>
                                                 setIntolerances(
@@ -340,7 +343,8 @@ export default function SettingsPage() {
                                     <form onSubmit={handleCalorieSave}>
                                         <label htmlFor="activity">Select Calorie Intake</label>
                                         <Select
-                                            className="dropdown"
+                                            className={isDarkMode ? "dropdown-dark" : "dropdown-light"}
+                                            classNamePrefix="dropdown"
                                             options={calorieIntakeOptions} //react-select will automatically create the options from this
                                             onChange={(selectedOption) =>
                                             setIntake(selectedOption.value)
@@ -444,7 +448,8 @@ export default function SettingsPage() {
                                                         <strong>Activity Level*</strong>
                                                     </span>
                                                     <Select
-                                                        className="dropdown"
+                                                        className={isDarkMode ? "dropdown-dark" : "dropdown-light"}
+                                                        classNamePrefix="dropdown"
                                                         options={activityLevelOptions}
                                                         onChange={(selectedOption) =>
                                                             setActivityLevel(selectedOption.value)

@@ -14,6 +14,7 @@
     padding: 20px;
     /* box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); */
     color: white;
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition */
   }
   
   /* List styling */
@@ -58,7 +59,7 @@
 
 /* Dark Mode styles */
 .settings-navbar.dark {
-  background-color: #242526;
+  background-color: #333;
   color: white;
 }
 

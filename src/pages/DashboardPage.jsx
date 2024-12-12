@@ -6,6 +6,7 @@ import { Chart, ArcElement, Tooltip, Legend, Title, plugins } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import { all } from "axios";
 import { searchRecipe } from "../SpoonacularAPI/recipes";
+import { useDarkMode } from "../context/DarkModeContext";
 import NavBar from "../components/NavBar"; // import Hamburger from '../components/Hamburger';
 
 // store userID
@@ -172,6 +173,8 @@ const events = [
 ]; 
 
 export default function Dashboard() {
+	const { isDarkMode } = useDarkMode();
+	
 	// spoonacular call - see dashboard.jsx for implementation
 	const location = useLocation();
 	const {
@@ -280,7 +283,7 @@ export default function Dashboard() {
 
 	// return the actual page
 	return (
-		<div className="main-container">
+		<div className={`main-container ${isDarkMode ? 'dark' : ''}`}>
 			<div className="overlay-box animate__animated animate__fadeIn">
 				{/* Hamborg menu */}
 				<NavBar />

@@ -100,3 +100,24 @@
     box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.2);
     border-radius: 2px;
 }
+
+/* START OF DARK MODE STYLING */
+.main-container.dark {
+    background: linear-gradient(to right, #1e1e1e, #121212);
+    color: #ffffff; /* Default text color for dark mode */
+  }
+  
+  .main-container.dark .overlay-box {
+    background-color: #333333;
+    color: #ffffff;
+  }
+  
+  .main-container.dark .right-overlay {
+    background-color: #242424;
+    color: #ffffff;
+  }
+
+  .main-container.dark .inner-text {
+    color: white; /* White text for dark mode */
+  }
+  
