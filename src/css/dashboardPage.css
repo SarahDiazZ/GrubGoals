@@ -122,6 +122,34 @@
   font-family: 'quicksand';
 }
 
+/* START OF DARK MODE STYLING */
+.main-container.dark {
+  background: linear-gradient(to right, #1e1e1e, #121212);
+  color: #ffffff; /* Default text color for dark mode */
+}
+
+.main-container.dark .overlay-box {
+  background-color: #333333;
+  color: #ffffff;
+}
+
+.main-container.dark .right-overlay {
+  background-color: #242424;
+  color: #ffffff;
+}
+
+.main-container.dark .inner-text {
+  color: white; /* White text for dark mode */
+}
+
+.main-container.dark .overlay-box .inner-text {
+  color: white;
+}
+
+.main-container.dark .right-overlay .inner-text {
+  color: white;
+}
+
 /* 
     Taken from https://www.cssportal.com/css-scrollbar-generator/ 
 */
