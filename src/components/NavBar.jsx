@@ -34,6 +34,7 @@ export default function NavBar() {
                     <a classname='animate__animated animate__bounceIn' href={`/dashboard?userID=${userID}`}>Dashboard</a>
                     <a className='animate__animated animate__bounceIn' href={`/settings?userID=${userID}`}>Settings</a>
                     <a className='animate__animated animate__bounceIn' href={`/recipes?userID=${userID}`} >Recipes</a>
+                    <a className='animate__animated animate__bounceIn' href={`/favorites?userID=${userID}`}>Favorites</a>
                     <a className='animate__animated animate__bounceIn' href='/' onClick={handleLogout}>Logout</a>
                 </>
             )}

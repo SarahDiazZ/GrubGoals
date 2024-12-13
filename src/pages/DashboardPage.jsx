@@ -192,6 +192,7 @@ export default function Dashboard() {
 	const [descriptions, setDescriptions] = useState([]); // holds descriptions
 	const [links, setLinks] = useState([]); //holds the url of each recipe
 	const [recipeIds, setRecipeID] = useState([]); //holds the id of each recipe
+	const [events, setEvents] = useState([]); //holds calendar data
 
     let recipeID;
 	// Initial set of recipes generated, for new user
@@ -273,10 +274,40 @@ export default function Dashboard() {
 		fetchRecipes(); // Type Promise
 	}, []);
 
+	// fetching scheduled meals
+	useEffect(() => {
+		const fetchScheduledMeals = async () => {
+			try {
+				const response = await fetch(`http://localhost:4000/getScheduledMeals/?userID=${userID}`)
+				
+				if (response.ok){
+					const data = await response.json();
+
+					// format the data for big calendar
+					const formattedEvents = data.map((meal) => ({
+						id: meal._id,
+						title: meal.mealName,
+						start: new Date(`${meal.date}T${meal.startTime}`),
+						end: new Date(`${meal.date}T${meal.endTime}`)
+					}))
+
+					setEvents(formattedEvents);
+					console.log(formattedEvents)
+					console.log("Meal fetching should have finished...");
+				}else{
+					console.error("Failed to fetch meals");
+				}
+			}catch(err){
+				console.error("Error: ", err)
+			}
+		}
+		fetchScheduledMeals();
+	}, [userID]);
+
 	// create a function to go to the spoonacular page for the recipe
 	const recipeClicked = (page, id, recipeName) => {
 		console.log("Navigating to page", page);
-		window.open(`/detailed?id=${id}&name=${recipeName}&userID=${userID}`, "_blank");
+		window.open(`/detailed?id=${id}&name=${recipeName}&userID=${userID}`, "_self");
 		
 		recipeID = id;
 	}
