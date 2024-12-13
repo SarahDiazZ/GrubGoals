@@ -22,6 +22,19 @@ Chart.register(ArcElement, Tooltip, Legend, Title);
 Chart.defaults.plugins.legend.position = "bottom";
 Chart.defaults.plugins.legend.title.display = true;
 
+const darkModeChartOptions = {
+	cutout: "65%",
+	plugins: {
+	  title: {
+		display: true,
+		color: "#ffffff", // White text for titles
+	  },
+	  legend: {
+		display: false,
+	  },
+	},
+  };
+
 // CALORIES CHART
 // NOTE: when doing chart values CALUCLATE the values first.
 // as seen in `data` [currentValue, remainingValue] is the usage.
@@ -46,10 +59,13 @@ const caloriesConfig = {
 	type: "doughnut",
 	calories,
 	options: {
+		...darkModeChartOptions,
 		cutout: "65%",
 		plugins: {
+			...darkModeChartOptions.plugins,
 			title: {
 				display: true,
+				...darkModeChartOptions.plugins.title,
 				text: "Calories",
 			},
 			legend: {
@@ -77,9 +93,12 @@ const fatsConfig = {
 	type: "doughnut",
 	calories,
 	options: {
+		...darkModeChartOptions,
 		cutout: "65%",
 		plugins: {
+			...darkModeChartOptions.plugins,
 			title: {
+				...darkModeChartOptions.plugins.title,
 				display: true,
 				text: "Fats",
 			},
@@ -108,9 +127,12 @@ const carbsConfig = {
 	type: "doughnut",
 	calories,
 	options: {
+		...darkModeChartOptions,
 		cutout: "65%",
 		plugins: {
+			...darkModeChartOptions.plugins,
 			title: {
+				...darkModeChartOptions.plugins.title,
 				display: true,
 				text: "Carbohydrates",
 			},
@@ -139,9 +161,12 @@ const cholesterolConfig = {
 	type: "doughnut",
 	calories,
 	options: {
+		...darkModeChartOptions,
 		cutout: "65%",
 		plugins: {
+			...darkModeChartOptions.plugins,
 			title: {
+				...darkModeChartOptions.plugins.title,
 				display: true,
 				text: "Cholesterol",
 			},
@@ -347,7 +372,7 @@ export default function Dashboard() {
 								options={cholesterolConfig.options}
 							/>
 						</div>
-                        <Calendar className="calendar-container"
+                        <Calendar className={`calendar-container ${isDarkMode ? 'dark' : ''}`}
                             localizer={localizer}
                             events={events}
                             startAccessor="start"
