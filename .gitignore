@@ -47,3 +47,6 @@ userInformation.java
 
 *.class
 target/
+*.gradle
+*.bin
+*.lock

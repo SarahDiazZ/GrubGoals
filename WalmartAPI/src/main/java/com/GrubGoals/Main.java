@@ -15,6 +15,9 @@ public class Main {
         List<ItemSearchDTO> items = service.searchItems("bluey");
         // Print the items or perform further operations
         System.out.println(items);
+        for (ItemSearchDTO item : items) {
+            System.out.println(item);
+        }
 
         // Test StoreLocatorService
         StoreLocatorService storeLocatorService = new StoreLocatorService(urlCall);

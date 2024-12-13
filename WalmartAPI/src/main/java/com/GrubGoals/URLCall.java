@@ -69,6 +69,8 @@ public class URLCall {
                     }
 
                     apiResponse = jsonObject.toString(4);
+                    return apiResponse;
+                    
                 } else {
                     apiResponse = "Unexpected response format";
                 }

@@ -22,7 +22,7 @@ export default function SignUpPage() {
 		e.preventDefault();
 		axios
 			.post(
-				"http://ec2-3-12-104-199.us-east-2.compute.amazonaws.com:4000/signup",
+				"http://ec2-18-118-156-98.us-east-2.compute.amazonaws.com:4000/signup",
 				{
 					user: {
 						firstName,

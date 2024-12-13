@@ -256,12 +256,6 @@ app.post("/signup", async (req, res) => {
 	}
 });
 
-// i dont think we need this
-// app.get('/logout', (req, res) => {
-//     console.log('Logged out successfully.');
-//     res.redirect('/dashboard');
-// });
-
 app.post("/dietpreferences", async (req, res) => {
 	const {
 		allergies,
