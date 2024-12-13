@@ -666,7 +666,7 @@ app.put("/settings/calorieintake", async (req, res) => {
 
 // schedule meal from recipes page and such
 app.post("/scheduleMeal", async (req, res) => {
-	const {userID, mealName, date, startTime, endTime} = req.body;
+	const {userID, mealName, date, startTime, endTime, nutrition} = req.body;
 
 	try{
 		console.log("Incoming data:", req.body)
@@ -688,10 +688,10 @@ app.post("/scheduleMeal", async (req, res) => {
 			mealName,
 			date,
 			startTime,
-			endTime
+			endTime,
+			nutrition
 		});
 
-		console.log("data after manipulation: ", newScheduledMeal)
 		const scheduledMeal = await newScheduledMeal.save();
 		
 		res.status(201).json({
@@ -709,7 +709,7 @@ app.post("/scheduleMeal", async (req, res) => {
 // needed to fetch from the DB
 app.get("/getScheduledMeals", async (req, res) =>{
 	const {userID} = req.query
-	console.log("SERVER: found userID... ", userID)
+	console.log("SERVER (fetching scheduled meals): found userID... ", userID)
 
 	try{
 		// attempt to fetch the meals
@@ -727,7 +727,7 @@ app.get("/getScheduledMeals", async (req, res) =>{
 // get method for fetching favorited meals
 app.get("/getFavorites", async (req, res) => {
 	const {userID} = req.query;
-	console.log("SERVER: found userID... ", userID);
+	console.log("SERVER (fetching favorites): found userID... ", userID);
 
 	try{
 		console.log("SERVER: attempting to fetch favorited meals for: ", userID);
@@ -738,5 +738,21 @@ app.get("/getFavorites", async (req, res) => {
 	}catch(err){
 		console.error("SERVER.JS: Error fetching favorited meals... ", err);
 		res.status(500).json({error: "Server failed to fetch favorited meals..."})
+	}
+})
+
+// get method to get user's recommended (calulated) calorie intake
+app.get("/getIntakeData", async (req, res) => {
+	const {userID} = req.query;
+	console.log("SERVER (fetching intake data): found userID... ", userID)
+
+	try{
+		console.log("SERVER: attempting to fetch intake data for: ", userID)
+		const intake = await restrictions.findOne({userID});
+
+		res.status(200).json(intake)
+	}catch(err){
+		console.error("SERVER.JS: Error fetching intake data... ", err);
+		res.status(500).json({error: "Server failed to fetch intake data"})
 	}
 })

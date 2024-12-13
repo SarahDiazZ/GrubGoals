@@ -15,9 +15,11 @@ export const searchRecipe = async(argumentMap, numberOfRecipes) => {
   var diet = argumentMap.get('diet'); // Comma separated List
   var addRecipeInformation = argumentMap.get('addRecipeInformation'); // True or False
 
+  
   if(intolerances == undefined){
     intolerances = '';
-  }
+  } 
+  //intolerances ??= ''; //IF SHIT BREAKS UNCOMMENT - EM TOLD ME TO DO THIS
 
   if(includeIngredients == undefined){
     includeIngredients = '';
