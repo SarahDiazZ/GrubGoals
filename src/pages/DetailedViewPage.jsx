@@ -61,6 +61,8 @@ export default function DetailedPageView(){
     const markFavorite = async () => {
         const favoriteMeal = {
             userID: userID,
+            mealID: recipeID,
+            mealImage: savedResponse.image || "image not found",
             mealName: recipeTitle,
             nutrition: {
                 calories: savedResponse.nutrition.nutrients[0].amount || 0,
@@ -118,7 +120,13 @@ export default function DetailedPageView(){
             mealName: recipeTitle,
             date: scheduleDate, // TODO: change
             startTime: scheduleTime,
-            endTime: updatedEndTime
+            endTime: updatedEndTime,
+            nutrition: {
+                calories: savedResponse.nutrition.nutrients[0].amount || 0,
+                cholesterol: savedResponse.nutrition.nutrients[6].amount || 0,
+                carbohydrates: savedResponse.nutrition.nutrients[3].amount || 0,
+                fat: savedResponse.nutrition.nutrients[1].amount || 0
+            },
         }
         console.log(mealToSchedule);
 

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../css/SettingsNavBar.css';
 
 export default function SettingsNavBar({activeSection, onSelectSection, isDarkMode, toggleDarkMode}) {
-    const sections = ["Account", "Dietary Preferences", "Calorie Intake", "Toggle Dark Mode"];
+    const sections = ["Account", "Dietary Preferences", "Calorie Intake", "Toggle Dark Mode", "Dashboard"];
+    const navigate = useNavigate();
 
     return (
         <nav className={`settings-navbar ${isDarkMode ? 'dark': ''}`}>
@@ -14,7 +16,10 @@ export default function SettingsNavBar({activeSection, onSelectSection, isDarkMo
                         onClick={() => {
                             if (section === "Toggle Dark Mode") {
                                 toggleDarkMode(); // Toggle dark mode when clicking "Dark Mode"
-                            } else {
+                            } else if (section === "Dashboard") {
+                                navigate('/dashboard'); // Redirect to the dashboard
+                            } 
+                            else {
                                 onSelectSection(section); // Handle other sections
                             }
                         }}

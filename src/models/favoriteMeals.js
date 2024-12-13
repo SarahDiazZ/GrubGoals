@@ -8,14 +8,25 @@ const favoriteMealsSchema = new mongoose.Schema({
                 required: true,
         },
 
-        mealName: [
+        mealID: 
                 {
                         type: String,
                         required: true,
                 },
-        ],
 
-        nutrition: [
+        mealImage: 
+                {
+                        type: String,
+                        required: true,
+                },
+                
+        mealName:
+                {
+                        type: String,
+                        required: true,
+                },
+
+        nutrition:
                 {
                         _id: false,
                         calories: {
@@ -35,21 +46,18 @@ const favoriteMealsSchema = new mongoose.Schema({
                                 required: true,
                         },
                 },
-        ],
 
-        prepTime: [
+        prepTime: 
                 {
                         type: Number,
                         required: true,
                 },
-        ],
 
-        ingredients: [
+        ingredients: 
                 {
                         type: [String],
                         required: true,
                 },
-        ],
 
         instructions: [
                 {

@@ -374,12 +374,12 @@ app.get("/user/:id", async (req, res) => {
 });
 
 app.post("/favoriteMeals", async (req, res) => {
-	const { userID, mealName, nutrition, prepTime, ingredients, instructions } = req.body;
+	const { userID, mealID, mealImage, mealName, nutrition, prepTime, ingredients, instructions } = req.body;
 
 
 	try {
 		// first check if the meal we're about to add already exists
-		const existingMeal = await FavoriteMeals.findOne({userID, mealName});
+		const existingMeal = await FavoriteMeals.findOne({userID, mealID});
 		if (existingMeal){
 			return res.status(409).json({
 				message: "This recipe/meal is already in favorites"
@@ -388,6 +388,8 @@ app.post("/favoriteMeals", async (req, res) => {
 
 		const newFavoriteMeal = new FavoriteMeals({
 			userID,
+			mealID,
+			mealImage,
 			mealName,
 			nutrition,
 			prepTime,
@@ -664,7 +666,7 @@ app.put("/settings/calorieintake", async (req, res) => {
 
 // schedule meal from recipes page and such
 app.post("/scheduleMeal", async (req, res) => {
-	const {userID, mealName, date, startTime, endTime} = req.body;
+	const {userID, mealName, date, startTime, endTime, nutrition} = req.body;
 
 	try{
 		console.log("Incoming data:", req.body)
@@ -686,10 +688,10 @@ app.post("/scheduleMeal", async (req, res) => {
 			mealName,
 			date,
 			startTime,
-			endTime
+			endTime,
+			nutrition
 		});
 
-		console.log("data after manipulation: ", newScheduledMeal)
 		const scheduledMeal = await newScheduledMeal.save();
 		
 		res.status(201).json({
@@ -700,5 +702,57 @@ app.post("/scheduleMeal", async (req, res) => {
 	}catch(err){
 		console.error("Error scheduling meal...", err);
 		res.status(400).json({error: "Failed to schedule meal"})
+	}
+})
+
+// get method for scheduled meals
+// needed to fetch from the DB
+app.get("/getScheduledMeals", async (req, res) =>{
+	const {userID} = req.query
+	console.log("SERVER (fetching scheduled meals): found userID... ", userID)
+
+	try{
+		// attempt to fetch the meals
+		console.log("SERVER: attempting to fetch meals for: ", userID)
+		const meals = await ScheduledMeals.find({userID});
+		//console.log("SERVER: fetched meals -> " + meals)
+
+		res.status(200).json(meals);
+	}catch(err){
+		console.error("SERVER.JS: Error fetching scheduled meals... ", err);
+		res.status(500).json({error: "Server failed to fetch scheduled meals..."})
+	}
+})
+
+// get method for fetching favorited meals
+app.get("/getFavorites", async (req, res) => {
+	const {userID} = req.query;
+	console.log("SERVER (fetching favorites): found userID... ", userID);
+
+	try{
+		console.log("SERVER: attempting to fetch favorited meals for: ", userID);
+		const meals = await FavoriteMeals.find({userID});
+		//console.log("SERVER: fetched favorite meals -> " + meals);
+
+		res.status(200).json(meals)
+	}catch(err){
+		console.error("SERVER.JS: Error fetching favorited meals... ", err);
+		res.status(500).json({error: "Server failed to fetch favorited meals..."})
+	}
+})
+
+// get method to get user's recommended (calulated) calorie intake
+app.get("/getIntakeData", async (req, res) => {
+	const {userID} = req.query;
+	console.log("SERVER (fetching intake data): found userID... ", userID)
+
+	try{
+		console.log("SERVER: attempting to fetch intake data for: ", userID)
+		const intake = await restrictions.findOne({userID});
+
+		res.status(200).json(intake)
+	}catch(err){
+		console.error("SERVER.JS: Error fetching intake data... ", err);
+		res.status(500).json({error: "Server failed to fetch intake data"})
 	}
 })

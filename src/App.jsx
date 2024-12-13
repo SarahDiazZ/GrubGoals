@@ -8,6 +8,7 @@ import DietaryPrefPage from './pages/DietaryPrefPage'
 import GualmartPage from './pages/GualmartPage' 
 import RecipesPage from './pages/RecipesPage'
 import DetailedViewPage from './pages/DetailedViewPage'
+import FavoritesPage from './pages/FavoritesPage'
 import { DarkModeProvider } from './context/DarkModeContext'; // Import the provider
 import './App.css'
 
@@ -32,6 +33,7 @@ function App(){
             <Route path="/settings" element={<SettingsPage />} /> 
             <Route path="/recipes" element={<RecipesPage />} />
             <Route path="/detailed" element={<DetailedViewPage />}/>
+            <Route path="/favorites" element={<FavoritesPage />} />
             {/* <Route path="/settings/account" element={<SettingsPage />} /> 
             <Route path="/settings/diet" element={<SettingsPage />} /> 
             <Route path="/settings/activity" element={<SettingsPage />} />  */}
