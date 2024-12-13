@@ -2,6 +2,9 @@ package com.GrubGoals.dto;
 
 import java.util.List;
 
+/**
+ * Setters and Getters for assigning the data in a return 
+ */
 public class ItemSearchResponseDTO {
     private List<ItemSearchDTO> items;
 
