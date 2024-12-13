@@ -1,5 +1,9 @@
 package com.GrubGoals.dto;
 
+
+/**
+ * Setters and Getters for specific data in Item Search
+ */
 public class ItemSearchDTO {
     private String itemId;
     private String offerType;

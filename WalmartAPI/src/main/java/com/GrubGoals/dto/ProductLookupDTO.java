@@ -1,5 +1,9 @@
 package com.GrubGoals.dto;
 
+
+/**
+ * Setters and Getters for specific data in Product Lookup from Walmart's Open API
+ */
 public class ProductLookupDTO {
     private String itemId;
     private String offerType;

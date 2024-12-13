@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 import com.GrubGoals.URLCall;
 import com.GrubGoals.dto.ItemSearchDTO;
 
+
+/**
+ * Specific link that is being used by the Walmart API and the query needed
+ */
 @Service
 public class ItemSearchService {
     private final URLCall urlCall;
@@ -21,7 +25,6 @@ public class ItemSearchService {
         String response = urlCall.callUrl(url);
 
         List<ItemSearchDTO> items = new ArrayList<>();
-        // Parse the response and populate the items list
         System.out.println("Response: " + response);
 
         return items;
