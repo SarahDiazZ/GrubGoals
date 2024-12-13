@@ -61,6 +61,8 @@ export default function DetailedPageView(){
     const markFavorite = async () => {
         const favoriteMeal = {
             userID: userID,
+            mealID: recipeID,
+            mealImage: savedResponse.image || "image not found",
             mealName: recipeTitle,
             nutrition: {
                 calories: savedResponse.nutrition.nutrients[0].amount || 0,

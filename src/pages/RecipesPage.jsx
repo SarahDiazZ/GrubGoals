@@ -112,7 +112,7 @@ export default function Recipes() {
 	// create a function to go to the spoonacular page for the recipe
 	const recipeClicked = (page, id, recipeName) => {
 		console.log("Navigating to page", page);
-		window.open(`/detailed?id=${id}&name=${recipeName}&userID=${userID}`, "_blank");
+		window.open(`/detailed?id=${id}&name=${recipeName}&userID=${userID}`, "_self");
 		recipeID = id;
 	}
 
