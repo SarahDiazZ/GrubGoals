@@ -13,7 +13,7 @@ passport.use(
 			clientID: googleClientID,
 			clientSecret: googleClientSecret,
 			callbackURL:
-				"ec2-18-118-156-98.us-east-2.compute.amazonaws.com:5173/google/callback",
+				"http://ec2-18-118-156-98.us-east-2.compute.amazonaws.com:5173/google/callback",
 			passReqToCallback: true
 		},
 		function (request, accessToken, refreshToken, profile, done) {
