@@ -29,6 +29,26 @@ const scheduledMealsSchema = new mongoose.Schema({
                 type: String,
                 required: true,
         },
+        nutrition:
+                {
+                        _id: false,
+                        calories: {
+                                type: Number,
+                                required: true,
+                        },
+                        cholesterol: {
+                                type: Number,
+                                required: true,
+                        },
+                        carbohydrates: {
+                                type: Number,
+                                required: true,
+                        },
+                        fat: {
+                                type: Number,
+                                required: true,
+                        },
+        },
 });
 
 const ScheduledMeals = mongoose.model("ScheduledMeals", scheduledMealsSchema);

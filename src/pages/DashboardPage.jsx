@@ -219,11 +219,46 @@ export default function Dashboard() {
 	const [recipeIds, setRecipeID] = useState([]); //holds the id of each recipe
 	const [events, setEvents] = useState([]); //holds calendar data
 
+	// holds chart data - 
+	const [calorieData, setCalorieData] = useState([0, 2000]) // [consumed, remaining]
+	const [fatsData, setFatsData] = useState([0, 78]);
+	const [cholesterolData, setCholesterolData] = useState([0, 300]) // TODO: notify in mg
+	const [carbsData, setCarbsData] = useState([0, 325])
+	let dailyCalorieIntake;
+
     let recipeID;
 	// Initial set of recipes generated, for new user
 	// and/or new set of preferences
 	// Update to take into account a user who is logged
 	// in and their current preferences from mongoDB document
+
+		// fetching calorie intake data
+		useEffect(() => {
+	
+			// try to fetch intake data for calories
+			const intakeData = async () =>{
+				try{
+					const response = await fetch(`http://localhost:4000/getIntakeData/?userID=${userID}`);
+	
+					if (response.ok){
+						const data = await response.json();
+						dailyCalorieIntake = data.targetCalories || 1350;
+	
+						if(dailyCalorieIntake < 1000){
+							dailyCalorieIntake = 2000; // default - don't let no one starve out here
+						}
+	
+						console.log("Target Calories: ", dailyCalorieIntake)
+					}else{
+						console.error("Error fetching intake data...")
+					}
+				}catch(err){
+					console.error("Error... ", err);
+				}
+	
+			}
+			intakeData();
+		}, [userID])
 
 	// Call the async function to fetch recipes
 	let response;
@@ -319,6 +354,29 @@ export default function Dashboard() {
 					setEvents(formattedEvents);
 					console.log(formattedEvents)
 					console.log("Meal fetching should have finished...");
+
+					// getting data from calendar for the charts
+					const today = new Date().toISOString().slice(0, 10);
+					let totalCalories = 0,
+						totalFats = 0,
+						totalCholesterol = 0,
+						totalCarbs = 0;
+
+					data.forEach((meal) => {
+						if(meal.date === today){
+							totalCalories += meal.nutrition.calories || 0
+							totalFats += meal.nutrition.fat || 0
+							totalCholesterol += meal.nutrition.cholesterol || 0
+							totalCarbs += meal.nutrition.carbohydrates || 0
+						}
+					});
+					console.log("Details: ", totalCalories, totalFats, totalCholesterol, totalCarbs)
+					// using the values, update the chart
+					setCalorieData([totalCalories, Math.max(dailyCalorieIntake - totalCalories, 0)]);
+					setFatsData([totalFats, Math.max(70 - totalFats, 0)])
+					setCholesterolData([totalCholesterol, Math.max(300 - totalCholesterol, 0)])
+					setCarbsData([totalCarbs, Math.max(325 - totalCarbs), 0])
+
 				}else{
 					console.error("Failed to fetch meals");
 				}
@@ -329,6 +387,8 @@ export default function Dashboard() {
 		fetchScheduledMeals();
 	}, [userID]);
 
+
+	
 	// create a function to go to the spoonacular page for the recipe
 	const recipeClicked = (page, id, recipeName) => {
 		console.log("Navigating to page", page);
@@ -354,25 +414,76 @@ export default function Dashboard() {
 					<div className="data-container-carousel">
 						<div className="data-item">
 							<Doughnut
-								data={calories}
+								data={{
+									labels: ["Calories Consumed", "Calories Remaining"],
+									datasets: [
+										{
+											label: "Calories",
+											data: calorieData,
+											backgroundColor: ["rgb(255, 99, 132)", "rgb(230, 230, 230)"],
+											hoverOffset: 20,
+										},
+									],
+								}}
 								options={caloriesConfig.options}
 							/>
 						</div>
 
 						<div className="data-item">
 							<Doughnut
-								data={fats}
+								data={{
+									labels: ["Fats Consumed", "Fats Remaining"],
+									datasets: [
+										{
+											label: "Fats",
+											data: fatsData,
+											backgroundColor: ["rgb(221, 235, 145)", "rgb(230, 230, 230)"],
+											hoverOffset: 20,
+										},
+									],
+								}}
 								options={fatsConfig.options}
 							/>
 						</div>
 
 						<div className="data-item">
 							<Doughnut
-								data={cholesterol}
+								data={{
+									labels: ["Cholesterol Consumed", "Cholesterol Remaining"],
+									datasets: [
+										{
+											label: "Cholesterol",
+											data: cholesterolData,
+											backgroundColor: ["rgb(196, 158, 18)", "rgb(230, 230, 230)"],
+											hoverOffset: 20,
+										},
+									],
+								}}
 								options={cholesterolConfig.options}
 							/>
 						</div>
+
+
+						<div className="data-item">
+							<Doughnut
+								data={{
+									labels: ["Carbohydrates Consumed", "Carbohydrates Remaining"],
+									datasets: [
+										{
+											label: "Carbohydrates",
+											data: carbsData,
+											backgroundColor: ["rgb(34, 230, 158)", "rgb(230, 230, 230)"],
+											hoverOffset: 20,
+										},
+									],
+								}}
+								options={carbsConfig.options}
+							/>
+						</div>
+
+
                         <Calendar className={`calendar-container ${isDarkMode ? 'dark' : ''}`}
+
                             localizer={localizer}
                             events={events}
                             startAccessor="start"

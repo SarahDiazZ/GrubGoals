@@ -91,7 +91,7 @@ export default function FavoritesPage(){
                                 </>
                             ))
                         ) : (
-                            <div> An error has occured... </div>
+                            <div> It's empty in here... (click 'mark as favorite' to add recipes in here!) </div>
                         )}
                     </div>
                 </div>
