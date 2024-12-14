@@ -106,5 +106,41 @@
     padding: 5vh;
 }
 
+.developers .dev-header{
+    display: flex;
+    flex-direction: row;
+}
 
+.profile-forward{
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    margin: 2rem;
+
+    img{
+       border-radius: 24px; 
+    }
+}
+
+.profile-reverse{
+    display: flex;
+    flex-direction: row-reverse;
+    align-content: center;
+    margin: 2rem;
+
+    img{
+       border-radius: 24px; 
+    }
+}
+
+.profile-text .dev-title{
+    margin-left: 2rem;
+    margin-top: 8px;
+}
+
+.profile-detail{
+    margin-left: 2.5rem;
+    margin-top: 1.5rem;
+    font-size: 20px; 
+}
 
