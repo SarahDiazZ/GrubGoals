@@ -9,6 +9,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
+
+/**
+ * What will allow us to specifically call the WalmartAPI and the specific services we would like to use
+ */
 @Service
 public class URLCall {
     public String callUrl(String url) {

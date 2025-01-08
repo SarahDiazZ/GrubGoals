@@ -2,10 +2,13 @@ package com.GrubGoals.dto;
 
 import java.util.List;
 
+
+/**
+ * The response data that we get from StoreDTO
+ */
 public class StoreResponseDTO {
     private List<StoreDTO> stores;
 
-    // Getters and Setters
     public List<StoreDTO> getStores() {
         return stores;
     }

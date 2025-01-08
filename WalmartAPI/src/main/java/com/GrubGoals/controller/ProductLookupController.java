@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+
+/**
+ * The link that will be fowarded to when searching for a product using a zip code
+ */
 @RestController
 public class ProductLookupController {
     private final ProductLookupService productLookupService;

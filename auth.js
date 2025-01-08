@@ -7,13 +7,16 @@ dotenv.config();
 const googleClientID = process.env.GOOGLE_CLIENT_ID;
 const googleClientSecret = process.env.GOOGLE_CLIENT_SECRET;
 
+/**
+ * The foward link that will be used when signing in with Google
+ */
 passport.use(
 	new GoogleStragety(
 		{
 			clientID: googleClientID,
 			clientSecret: googleClientSecret,
 			callbackURL: "http://localhost:5173/google/callback",
-			passReqToCallback: true,
+			passReqToCallback: true
 		},
 		function (request, accessToken, refreshToken, profile, done) {
 			return done(null, profile);

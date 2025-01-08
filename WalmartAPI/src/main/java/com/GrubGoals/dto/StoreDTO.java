@@ -1,5 +1,9 @@
 package com.GrubGoals.dto;
 
+
+/**
+ * Setters and Getters for specific data in Store data
+ */
 public class StoreDTO {
 
     private String zipCode;
