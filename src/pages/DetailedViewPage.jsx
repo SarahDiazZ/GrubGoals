@@ -4,6 +4,8 @@ import { all } from 'axios'
 import { searchRecipe } from "../SpoonacularAPI/recipes"
 import { getRecipeInformation } from '../SpoonacularAPI/recipes'
 import { useLocation } from 'react-router-dom'
+import { useDarkMode } from '../context/DarkModeContext'
+
 
 import '../css/DetailedView.css'
 
@@ -13,6 +15,8 @@ function removeHTMLTags(text){
 }
 
 export default function DetailedPageView(){
+    const { isDarkMode } = useDarkMode();
+
     // get data from url
     const location = useLocation();
     const urlParams = new URLSearchParams(location.search);
@@ -153,7 +157,7 @@ export default function DetailedPageView(){
 
     // return the actual page here
     return (
-		<div className="main-container">
+		<div className={`main-container ${isDarkMode ? 'dark' : ''}`}>
 			<div className="overlay-box animate__animated animate__fadeIn">
 				{/* Hamborg menu */}
 				<NavBar />
